@@ -112,24 +112,30 @@ Describe meetings (and other events) you are planning to have.
   
 #### Q9: How will you organize your team?
 
-List/describe the artifacts you will produce to organize your team. (We strongly recommend that you use standard collaboration tools like Linear.app, Jira, Slack, Discord, GitHub.)       
+We use the tools provided by our partner, Savi Finance, plus one of our own:
+ * **Jira (Savi Finance):** our task board. Every piece of work is a ticket with one owner.
+ * **Confluence (Savi Finance):** documentation, such as the architecture doc and end-to-end user flow our partner asked for.
+ * **Slack (Savi Finance):** questions and day-to-day communication with our partner.
+ * **Discord (team only):** a separate server for the 7 of us for everything within the team.
+ * **GitHub:** code, pull requests, and meeting minutes under `deliverables/team/minutes/`.
 
- * Artifacts can be To-Do lists, Task boards, schedule(s), meeting minutes, etc.
- * We want to understand:
-   * How do you keep track of what needs to get done? (You must grant your TA and partner access to systems you use to manage work)
-   * **How do you prioritize tasks?**
-   * How do tasks get assigned to team members?
-   * How do you determine the status of work from inception to completion?
+Our partner works in Jira, Confluence and Slack directly, and can see our code and minutes on GitHub.
+
+**Prioritization:** by what the MVP needs first and by our partner's delivery plan (one-off splits first, then the full group feature with invites, transactions and owed/owing), with our partner confirming priorities.
+
+**Assignment:** at our weekly team meeting we split the work by the roles in Q7. Each ticket has one owner, and people can pick up tickets in their own area as they free up.
+
+**Status:** tickets move through To Do, In Progress, In Review (open pull request), and Done (pull request merged). The board is the source of truth for who is working on what.
 
 #### Q10: What are the rules regarding how your team works?
 
 **Communications:**
- * What is the expected frequency? What methods/channels will be used? 
- * If you have a partner project, what is your process for communicating with your partner? Who is responsible?
- 
+ * Team: Discord for daily communication. We check it every day and reply within a day.
+ * Partner: Slack for questions, and a weekly 20-minute meeting on Wednesdays at 6:00pm for harder problems and technical blockers. Our partner liaison (Q7) is responsible for communicating with the partner and passing updates to the team.
+
 **Collaboration:**
- * How are people held accountable for attending meetings, completing action items? What is your process?
- * How will you address the issue if one person doesn't contribute or is not responsive?
+ * Attendance and action items: if someone can't attend a meeting, they tell the team in Discord beforehand and catch up from the minutes. Action items are written in the minutes or as Jira tickets with an owner, and we review them at the start of the next meeting.
+ * If someone isn't contributing or responding: first a direct message to check in and offer help, then raise it with the whole team, and if it still isn't resolved, bring it to our TA.
 
 ## Organisation Details
 
@@ -163,3 +169,4 @@ List/describe the artifacts you will produce to organize your team. (We strongly
   * Adding more details for an user story might make it less abstract.
   * Adding an extra user story might increase the project complexity, making it less simple.
 * It's ok if you are unable to find mitigation strategies for all the risks right now.
+
