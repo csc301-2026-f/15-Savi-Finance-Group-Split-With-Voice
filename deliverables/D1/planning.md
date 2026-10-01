@@ -72,7 +72,7 @@ Briefly describe which option you have agreed to.
 
 #### Q6: Have you met with your team?
 
-Most members of our team have already been friends since first year and other members are friends of friends so this isn't our first time meeting each other. UofT CS is a pretty close knit community! Our first team-building meeting together was on Friday, Oct 2st online where we did some ice breakers as well as dicussed the architecture and technical design of the project.
+Several members of our team have known one another since our first year, while others joined through mutual friends. Our first team-building meeting was held online on Friday, October 2nd where did some icebreakers in addition to discussing the project's architecture and technical design.
 
 <!-- Image of screenshot of meeting -->
 
@@ -113,8 +113,8 @@ We use the tools provided by our partner, Savi Finance, as well as one of our ow
  * **Jira (Savi Finance):** our task board. Every piece of work is a ticket with one owner.
  * **Confluence (Savi Finance):** documentation, such as the architecture, technical designs and end-to-end user flows.
  * **Slack (Savi Finance):** questions and day-to-day communication with our partner.
- * **GitHub:** code, pull requests, docs, and meeting minutes under `/minutes`.
- * **Discord (team only):** a separate server to communicate amongst the team.
+ * **GitHub:** code, pull requests, documentation, and meeting minutes under `/minutes`.
+ * **Discord (team only):** a separate server for communication within the team.
 
 Our partner works in Jira, Confluence and Slack directly, and can see our code and notes on GitHub.
 
@@ -127,12 +127,12 @@ Our partner works in Jira, Confluence and Slack directly, and can see our code a
 #### Q10: What are the rules regarding how your team works?
 
 **Communications:**
- * Team: Discord for day-to-day communication. Everyone checks it daily and replies within a day. When a deadline is approaching, we reply within the hour.
- * Partner: Slack for questions, and a weekly 20-minute meeting on Wednesdays at 6:00pm for harder problems and technical blockers. Our partner liaison is responsible for communicating with the partner and passing updates to the team.
+ * Team: Discord for day-to-day communication. Everyone checks it daily and responds within one day. When a deadline is approaching, we respond within an hour.
+ * Partner: Slack for questions and a weekly 20-minute meeting on Wednesdays at 6:00pm for more complex questions and technical blockers. Our partner liaison is responsible for communicating with the partner and passing updates to the team.
 
 **Collaboration:**
- * Attendance and action items: If a member cannot attend a meeting, they notify the team in Discord beforehand and review the meeting notes afterward. Action items are recorded in `/minutes` or as Jira tickets with an owner, and we review them at the start of the next meeting.
- * Non-contribution or non-response: We escalate in steps. First, a direct ping in the group channel. If there is no response, a direct message to check in and offer help. If it is still unresolved, a message to the whole team, and finally we bring it to our TA.
+ * Attendance and action items: If a member cannot attend a meeting, they notify the team via Discord beforehand and review the meeting notes afterward. Action items are recorded in `/minutes` or as Jira tickets with an owner, and we review them at the start of the next meeting.
+ * Non-contribution or non-response: We escalate in steps. First, a direct ping in the group channel. If there is no response, a direct message to check in and offer help. If the issue remains unresolved, a message to the whole team, and finally we bring it to our TA.
 
 ## Organisation Details
 
