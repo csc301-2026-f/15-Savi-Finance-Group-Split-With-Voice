@@ -72,6 +72,8 @@ Briefly describe which option you have agreed to.
 
 #### Q6: Have you met with your team?
 
+Most members of our team have already been friends since first year and other members are friends of friends so this isn't our first time meeting each other. UofT CS is a pretty close knit community! Our first meeting together was on Thursday, Oct 1st at Robarts and …
+
 Do a team-building activity in-person or online. This can be playing an online game, meeting for bubble tea, lunch, or any other activity you all enjoy.
 * Get to know each other on a more personal level.
 * Provide a few sentences on what you did and share a picture or other evidence of your team building activity.
@@ -79,6 +81,11 @@ Do a team-building activity in-person or online. This can be playing an online g
 
 
 #### Q7: What are the roles & responsibilities on the team?
+
+partner is Sumedh
+mobile is Praneeth, Pranay
+backend is David, Shaun
+AI/LLM Integration is sumedh, Sambhav, Shahmeer
 
 Describe the different roles on the team and the responsibilities associated with each role (e.g., frontend, database). 
  * Roles should reflect the structure of your team and be appropriate for your project. One person may have multiple roles.  
@@ -92,6 +99,8 @@ List each team member and:
 
 
 #### Q8: How will you work as a team?
+
+required weekly meetings on tuesday 5:30pm
 
 Describe meetings (and other events) you are planning to have. 
  * When and where? Recurring or ad hoc? In-person or online?
