@@ -1,9 +1,9 @@
-Savi Finance — Stakeholder Information
+Savi Finance - Stakeholder Information
 
-Partner organization: [TODO]
+Partner organization: Savi Finance
 
 Partner contacts
-- [TODO: name] | [TODO: title] | [TODO: email] | [TODO: primary or secondary contact]
+- Ralph | [TODO: title] | ralphpalxyz@gmail.com | primary contact (organizes the recurring partner meeting)
 
 Teaching assistant
-- [TODO: name] | [TODO: email]
+- Rayan El Ghazzi | rayan.el.ghazzi@mail.utoronto.ca
