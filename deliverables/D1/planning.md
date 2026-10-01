@@ -130,12 +130,12 @@ Our partner works in Jira, Confluence and Slack directly, and can see our code a
 #### Q10: What are the rules regarding how your team works?
 
 **Communications:**
- * Team: Discord for daily communication. We check it every day and reply within a day.
+ * Team: Discord for day-to-day communication. Everyone checks it daily and replies within a day. When a deadline is approaching, we reply within the hour.
  * Partner: Slack for questions, and a weekly 20-minute meeting on Wednesdays at 6:00pm for harder problems and technical blockers. Our partner liaison (Q7) is responsible for communicating with the partner and passing updates to the team.
 
 **Collaboration:**
- * Attendance and action items: if someone can't attend a meeting, they tell the team in Discord beforehand and catch up from the minutes. Action items are written in the minutes or as Jira tickets with an owner, and we review them at the start of the next meeting.
- * If someone isn't contributing or responding: first a direct message to check in and offer help, then raise it with the whole team, and if it still isn't resolved, bring it to our TA.
+ * Attendance and action items: if a member cannot attend a meeting, they notify the team in Discord beforehand and review the minutes afterward. Action items are recorded in the minutes or as Jira tickets with an owner, and we review them at the start of the next meeting.
+ * Non-contribution or non-response: we escalate in steps. First, a direct ping in the group channel. If there is no response, a direct message to check in and offer help. If it is still unresolved, a message to the whole team, and finally we bring it to our TA.
 
 ## Organisation Details
 
@@ -169,4 +169,3 @@ Our partner works in Jira, Confluence and Slack directly, and can see our code a
   * Adding more details for an user story might make it less abstract.
   * Adding an extra user story might increase the project complexity, making it less simple.
 * It's ok if you are unable to find mitigation strategies for all the risks right now.
-
