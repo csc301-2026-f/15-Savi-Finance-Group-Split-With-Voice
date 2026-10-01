@@ -72,13 +72,11 @@ Briefly describe which option you have agreed to.
 
 #### Q6: Have you met with your team?
 
-Most members of our team have already been friends since first year and other members are friends of friends so this isn't our first time meeting each other. UofT CS is a pretty close knit community! Our first meeting together was on Thursday, Oct 1st at Robarts and …
+Most members of our team have already been friends since first year and other members are friends of friends so this isn't our first time meeting each other. UofT CS is a pretty close knit community! Our first team-building meeting together was on Friday, Oct 2st online where we did some ice breakers as well as dicussed the architecture and technical design of the project.
 
-Do a team-building activity in-person or online. This can be playing an online game, meeting for bubble tea, lunch, or any other activity you all enjoy.
-* Get to know each other on a more personal level.
-* Provide a few sentences on what you did and share a picture or other evidence of your team building activity.
-* Share at least three fun facts from members of you team (total not 3 for each member).
+<!-- Image of screenshot of meeting -->
 
+[TODO: Share at least three fun facts from members of you team (total not 3 for each member)]
 
 #### Q7: What are the roles & responsibilities on the team?
 
@@ -97,7 +95,6 @@ List each team member and:
  * A description of their role(s) and responsibilities including the components they'll work on and non-software related work
  * Why did you choose them to take that role? Specify if they are interested in learning that part, experienced in it, or any other reasons. Do no make things up. This part is not graded but may be reviewed later.
 
-
 #### Q8: How will you work as a team?
 
 required weekly meetings on tuesday 5:30pm
@@ -112,30 +109,30 @@ Describe meetings (and other events) you are planning to have.
   
 #### Q9: How will you organize your team?
 
-We use the tools provided by our partner, Savi Finance, plus one of our own:
+We use the tools provided by our partner, Savi Finance, as well as one of our own:
  * **Jira (Savi Finance):** our task board. Every piece of work is a ticket with one owner.
- * **Confluence (Savi Finance):** documentation, such as the architecture doc and end-to-end user flow our partner asked for.
+ * **Confluence (Savi Finance):** documentation, such as the architecture, technical designs and end-to-end user flows.
  * **Slack (Savi Finance):** questions and day-to-day communication with our partner.
- * **Discord (team only):** a separate server for the 7 of us for everything within the team.
- * **GitHub:** code, pull requests, and meeting minutes under `deliverables/team/minutes/`.
+ * **GitHub:** code, pull requests, docs, and meeting minutes under `/minutes`.
+ * **Discord (team only):** a separate server to communicate amongst the team.
 
-Our partner works in Jira, Confluence and Slack directly, and can see our code and minutes on GitHub.
+Our partner works in Jira, Confluence and Slack directly, and can see our code and notes on GitHub.
 
-**Prioritization:** by what the MVP needs first and by our partner's delivery plan (one-off splits first, then the full group feature with invites, transactions and owed/owing), with our partner confirming priorities.
+**Prioritization:** We prioritize work required for the MVP according to our partner's delivery plan.
 
-**Assignment:** at our weekly team meeting we split the work by the roles in Q7. Each ticket has one owner, and people can pick up tickets in their own area as they free up.
+**Assignment:** During our weekly team meeting, we assign tickets to team members based on their role and responsibilities. Each ticket has one owner. As team members complete their assigned work, they may take on unassigned tickets within their area of responsibility.
 
-**Status:** tickets move through To Do, In Progress, In Review (open pull request), and Done (pull request merged). The board is the source of truth for who is working on what.
+**Status:** Tickets move through the following stages: To Do, In Progress, In Review, and Done. The Jira board is the source of truth for ticket ownership and progress.
 
 #### Q10: What are the rules regarding how your team works?
 
 **Communications:**
  * Team: Discord for day-to-day communication. Everyone checks it daily and replies within a day. When a deadline is approaching, we reply within the hour.
- * Partner: Slack for questions, and a weekly 20-minute meeting on Wednesdays at 6:00pm for harder problems and technical blockers. Our partner liaison (Q7) is responsible for communicating with the partner and passing updates to the team.
+ * Partner: Slack for questions, and a weekly 20-minute meeting on Wednesdays at 6:00pm for harder problems and technical blockers. Our partner liaison is responsible for communicating with the partner and passing updates to the team.
 
 **Collaboration:**
- * Attendance and action items: if a member cannot attend a meeting, they notify the team in Discord beforehand and review the minutes afterward. Action items are recorded in the minutes or as Jira tickets with an owner, and we review them at the start of the next meeting.
- * Non-contribution or non-response: we escalate in steps. First, a direct ping in the group channel. If there is no response, a direct message to check in and offer help. If it is still unresolved, a message to the whole team, and finally we bring it to our TA.
+ * Attendance and action items: If a member cannot attend a meeting, they notify the team in Discord beforehand and review the meeting notes afterward. Action items are recorded in `/minutes` or as Jira tickets with an owner, and we review them at the start of the next meeting.
+ * Non-contribution or non-response: We escalate in steps. First, a direct ping in the group channel. If there is no response, a direct message to check in and offer help. If it is still unresolved, a message to the whole team, and finally we bring it to our TA.
 
 ## Organisation Details
 
