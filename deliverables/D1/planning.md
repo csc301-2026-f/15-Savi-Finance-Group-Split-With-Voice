@@ -38,10 +38,74 @@
 
 #### Q4: What are the user stories that make up the Minumum Viable Product (MVP)?
 
- * At least 5 user stories concerning the main features of the application - note that this can broken down further
- * You must follow proper user story format (as taught in lecture) ```As a <user of the app>, I want to <do something in the app> in order to <accomplish some goal>```
- * User stories must contain acceptance criteria. Examples of user stories with different formats can be found here: https://www.justinmind.com/blog/user-story-examples/. **It is important that you provide a link to an artifact containing your user stories**.
- * If you have a partner, these must be reviewed and accepted by them. You need to include the evidence of partner approval (e.g., screenshot from email) or at least communication to the partner (e.g., email you sent)
+Full user stories and acceptance criteria are also in [user-stories.md](./user-stories.md). Related work is tracked in Savi's Jira under [WI-200](https://savifinance.atlassian.net/browse/WI-200).
+
+**1. One-off Split**
+
+As a Savi user who paid for a shared expense, I want to split one transaction with one or more people without creating a group, in order to track who owes me without entering the expense again in Splitwise or a spreadsheet.
+
+Acceptance criteria:
+ * The user can open any transaction, tap "Split," and choose one or more people.
+ * The split is even by default, and the user can switch to dollar amounts or percentages.
+ * If the splits don't add up to the transaction total (more than $1 off), an error is shown.
+ * The user's budget counts only their share, e.g. $25 of a $100 dinner split four ways.
+ * Each person's balance with the user updates right away.
+
+**2. Group split**
+
+As a roommate who shares rent and utilities, I want to create a group and split transactions inside it, in order to manage shared costs that repeat in one place.
+
+Acceptance criteria:
+ * The user can create a group with a unique name and invite people by email or invite link.
+ * Invitees get a notification they can accept or reject. They show as "pending" until they accept.
+ * Any member can add a transaction to the group. It's split evenly across members by default, and amounts can be adjusted.
+ * The group page shows each person's net balance and a history of all changes.
+
+**3. Owed/Owing widget**
+
+As a Savi user, I want to see my Total Owed and Total Owing on my home screen, in order to know where I stand with friends at a glance.
+
+Acceptance criteria:
+ * The home screen shows Total Owed to me and Total I Owe, across all one-off and group splits.
+ * Tapping a total shows a breakdown by person and by group.
+ * Either person can mark a balance as resolved, and can undo it.
+ * Resolved balances drop out of the totals but stay in the history.
+
+**4. Receipt Split**
+
+As a user who paid for a group meal, I want to split the bill from a photo of the receipt and assign items to each person, in order to split the bill fairly when people order different things.
+
+Acceptance criteria:
+ * The user can take or upload a photo of a receipt, and it's broken into line items plus tax and tip.
+ * The user can fix any items that were read incorrectly.
+ * Each item can be assigned to one or more people. Shared items are split evenly.
+ * Tax and tip are split based on what each person ordered.
+ * The user sees what each person owes before confirming.
+
+**5. Voice follow-up**
+
+As a user who is owed money, I want to have Savi's voice agent call friends who haven't paid after they've ignored their reminders, in order to get paid back without having an awkward conversation.
+
+Acceptance criteria:
+ * Voice follow-up is off by default, and the user turns it on per split or group.
+ * A call only goes out after push/email reminders go unanswered for a set time.
+ * The agent says it's automated and who it's calling for.
+ * The agent handles "I already paid," "I'll pay on [date]," "I dispute this," and "don't call me again."
+ * Anyone who says "don't call me" is never called again.
+ * The call result is shown on the balance. A balance is never marked paid unless the user confirms it.
+
+**6. Customize the voice agent**
+
+As a user who is owed money, I want to control how the voice agent follows up, in order to make the calls fit my relationship with the person.
+
+Acceptance criteria:
+ * The user can set the agent's tone (e.g. friendly or firm), when calls start, and the maximum number of attempts.
+ * Settings can be applied to a single split or to a whole group.
+ * The user can see a log of past calls and how each one ended (promised a date, disputed, paid, opted out).
+
+User stories sent to Ralph Maamari (Founder, Savi Finance) for review on October 2, 2026:
+
+![Slack message to Ralph with user stories](images/q4-ralph-user-stories.png)
 
 #### Q5: Have you decided on how you will build it? Share what you know now or tell us the options you are considering.
 
@@ -152,18 +216,21 @@ Our partner works in Jira, Confluence and Slack directly, and can see our code a
 ## Potential Risks
 
 #### Q13. What are some potential risks to your project?
-* Now that you have defined your project, what risks can you identify that might impact it?
-* Some examples of risks at this planning stage could include:
-  * Uncertainties regarding a specific feature
-  * Misaligned expectations or conflicts
-  * Lack of clarity in execution or decision-making
-  * Limited access to data, systems, or other dependencies
-  * User stories that are too abstract or too simple
-* For each risk, provide a brief bullet point and then explain the risk in detail. 
+
+1. **Tight timeline while still onboarding.**
+
+Savi expects one-off splits in production within about two weeks, at least three production pushes this term, and an approved technical design in Confluence before any major feature is built. We are still setting up the repo and learning the codebase, so the first push leaves little room for error, and a late first push would delay every later release.
+
+2. **Some parts of the project are not clearly defined yet.**
+
+The split and group features are well defined by Savi's existing Jira tickets and Confluence specs. Other parts are less clear: what MCP control should do and who it is for, which voice agent settings users should be able to change, and whether non-Savi users can be split with directly. Stories written before these are settled may be too abstract or may not match what Savi exactly wants.
+
+3. **Mistakes reach real users.**
+
+Our code merges into Savi's production app. A bug in the budget math or in balances would show real users wrong information about their finances.
 
 #### Q14. What are some potential mitigation strategies for the risks you identified?
-* Examples of mitigation strategies:
-  * More communication with the partner might help with improving clarity.
-  * Adding more details for an user story might make it less abstract.
-  * Adding an extra user story might increase the project complexity, making it less simple.
-* It's ok if you are unable to find mitigation strategies for all the risks right now.
+
+1. Keep the first push limited to one-off splits. Write its technical design first and get Ralph's sign-off early. Break work into small PRs (under 300 lines, per Savi's guidelines).
+2. Keep a running list of open questions and bring the most important ones to each meeting. Write stories for the first two pushes in full now, and add or refine later stories as they get clarified.
+3. Write unit tests for split amounts and budget math. Test only with test accounts in Savi's developer environment. Walk through the full user journey before each push.
