@@ -72,11 +72,14 @@ Briefly describe which option you have agreed to.
 
 #### Q6: Have you met with your team?
 
-Several members of our team have known one another since our first year, while others joined through mutual friends. Our first team-building meeting was held online on Friday, October 2nd where did some icebreakers in addition to discussing the project's architecture and technical design.
+Several members of our team have known one another since our first year, while others joined through mutual friends. Our first team-building meeting was held online on Friday, October 2nd where did some puzzle games together in addition to discussing the project's architecture and technical design.
 
-<!-- Image of screenshot of meeting -->
+![Team meeting screenshot](images/q6-team-meeting.png)
 
-[TODO: Share at least three fun facts from members of you team (total not 3 for each member)]
+Team Fun Facts:
+ * David and Shahmeer originally met while working as interns at Shopify this summer in Toronto
+ * [TODO]
+ * [TODO]
 
 #### Q7: What are the roles & responsibilities on the team?
 
@@ -97,15 +100,10 @@ List each team member and:
 
 #### Q8: How will you work as a team?
 
-required weekly meetings on tuesday 5:30pm
-
-Describe meetings (and other events) you are planning to have. 
- * When and where? Recurring or ad hoc? In-person or online?
- * What's the purpose of each meeting?
- * Other events could be coding sessions, code reviews, quick weekly sync meeting online, etc.
- * You should have 2 meetings with your project partner (if you have one) before D1 is due. Describe them here:
-   * You must keep track of meeting minutes and add them to your repo under "deliverables/minutes" folder
-   * You must have a regular meeting schedule established for the rest of the term.  
+ * **Weekly team meeting:** We meet online every Tuesday at 5:30pm to review Jira progress, assign or rebalance work, discuss technical decisions, and identify blockers. We may schedule additional online working sessions or move the meeting when a deadline requires it.
+ * **Weekly partner meeting:** We meet with Ralph from Savi Finance online every Wednesday from 6:00pm to 6:20pm to discuss product direction and technical blockers, ask partner-specific questions, and receive feedback on our progress. Before D1, we met with Ralph on September 23 and September 30; the minutes are recorded in `/minutes`.
+ * **Weekly TA meeting:** We meet with our TA online every Thursday from 7:00pm to 7:30pm to clarify course deliverable expectations, receive feedback on our process, and raise issues that cannot be resolved internally.
+ * **Day-to-day collaboration:** We coordinate in Discord, track work in Jira, and use GitHub pull requests for code review. Each pull request is reviewed by at least one teammate before it is merged. We record meeting decisions and action items in the meeting minutes or the relevant Jira ticket.
   
 #### Q9: How will you organize your team?
 
