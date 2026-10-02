@@ -72,13 +72,24 @@ Briefly describe which option you have agreed to.
 
 #### Q6: Have you met with your team?
 
-Do a team-building activity in-person or online. This can be playing an online game, meeting for bubble tea, lunch, or any other activity you all enjoy.
-* Get to know each other on a more personal level.
-* Provide a few sentences on what you did and share a picture or other evidence of your team building activity.
-* Share at least three fun facts from members of you team (total not 3 for each member).
+Several members of our team have known one another since our first year, while others joined through mutual friends. Our first team-building meeting was held online on Friday, October 2nd where did some puzzle games together in addition to discussing the project's architecture and technical design.
 
+![Team meeting screenshot](images/q6-team-meeting.png)
+
+Team Fun Facts:
+ * David and Shahmeer originally met while working as interns at Shopify this summer in Toronto.
+ * Pranay and Sambhav have been to 5+ concerts this summer together.
+ * We all LOVE cats except Pranay who is scared of them.
 
 #### Q7: What are the roles & responsibilities on the team?
+
+partner liaison is Sumedh
+
+mobile is Praneeth, Pranay
+
+backend is David, Shaun
+
+AI/LLM Integration is sumedh, Sambhav, Shahmeer
 
 Describe the different roles on the team and the responsibilities associated with each role (e.g., frontend, database). 
  * Roles should reflect the structure of your team and be appropriate for your project. One person may have multiple roles.  
@@ -90,37 +101,39 @@ List each team member and:
  * A description of their role(s) and responsibilities including the components they'll work on and non-software related work
  * Why did you choose them to take that role? Specify if they are interested in learning that part, experienced in it, or any other reasons. Do no make things up. This part is not graded but may be reviewed later.
 
-
 #### Q8: How will you work as a team?
 
-Describe meetings (and other events) you are planning to have. 
- * When and where? Recurring or ad hoc? In-person or online?
- * What's the purpose of each meeting?
- * Other events could be coding sessions, code reviews, quick weekly sync meeting online, etc.
- * You should have 2 meetings with your project partner (if you have one) before D1 is due. Describe them here:
-   * You must keep track of meeting minutes and add them to your repo under "deliverables/minutes" folder
-   * You must have a regular meeting schedule established for the rest of the term.  
+ * **Weekly team meeting:** We meet online every Tuesday at 5:30pm to review Jira progress, assign or rebalance work, discuss technical decisions, and identify blockers. We may schedule additional online working sessions or move the meeting when a deadline requires it.
+ * **Weekly partner meeting:** We meet with Ralph from Savi Finance online every Wednesday from 6:00pm to 6:20pm to discuss product direction and technical blockers, ask partner-specific questions, and receive feedback on our progress. Before D1, we met with Ralph on September 23 and September 30; the minutes are recorded in `/minutes`.
+ * **Weekly TA meeting:** We meet with our TA online every Thursday from 7:00pm to 7:30pm to clarify course deliverable expectations, receive feedback on our process, and raise issues that cannot be resolved internally.
+ * **Day-to-day collaboration:** We coordinate in Discord, track work in Jira, and use GitHub pull requests for code review. Each pull request is reviewed by at least one teammate before it is merged. We record meeting decisions and action items in the meeting minutes or the relevant Jira ticket.
   
 #### Q9: How will you organize your team?
 
-List/describe the artifacts you will produce to organize your team. (We strongly recommend that you use standard collaboration tools like Linear.app, Jira, Slack, Discord, GitHub.)       
+We use the tools provided by our partner, Savi Finance, as well as one of our own:
+ * **Jira (Savi Finance):** our task board. Every piece of work is a ticket with one owner.
+ * **Confluence (Savi Finance):** documentation, such as the architecture, technical designs and end-to-end user flows.
+ * **Slack (Savi Finance):** questions and day-to-day communication with our partner.
+ * **GitHub:** code, pull requests, documentation, and meeting minutes under `/minutes`.
+ * **Discord (team only):** a separate server for communication within the team.
 
- * Artifacts can be To-Do lists, Task boards, schedule(s), meeting minutes, etc.
- * We want to understand:
-   * How do you keep track of what needs to get done? (You must grant your TA and partner access to systems you use to manage work)
-   * **How do you prioritize tasks?**
-   * How do tasks get assigned to team members?
-   * How do you determine the status of work from inception to completion?
+Our partner works in Jira, Confluence and Slack directly, and can see our code and notes on GitHub.
+
+**Prioritization:** We prioritize work required for the MVP according to our partner's delivery plan.
+
+**Assignment:** During our weekly team meeting, we assign tickets to team members based on their role and responsibilities. Each ticket has one owner. As team members complete their assigned work, they may take on unassigned tickets within their area of responsibility.
+
+**Status:** Tickets move through the following stages: To Do, In Progress, In Review, and Done. The Jira board is the source of truth for ticket ownership and progress.
 
 #### Q10: What are the rules regarding how your team works?
 
 **Communications:**
- * What is the expected frequency? What methods/channels will be used? 
- * If you have a partner project, what is your process for communicating with your partner? Who is responsible?
- 
+ * Team: Discord for day-to-day communication. Everyone checks it daily and responds within one day. When a deadline is approaching, we respond within an hour.
+ * Partner: Slack for questions and a weekly 20-minute meeting on Wednesdays at 6:00pm for more complex questions and technical blockers. Our partner liaison is responsible for communicating with the partner and passing updates to the team.
+
 **Collaboration:**
- * How are people held accountable for attending meetings, completing action items? What is your process?
- * How will you address the issue if one person doesn't contribute or is not responsive?
+ * Attendance and action items: If a member cannot attend a meeting, they notify the team via Discord beforehand and review the meeting notes afterward. Action items are recorded in `/minutes` or as Jira tickets with an owner, and we review them at the start of the next meeting.
+ * Non-contribution or non-response: We escalate in steps. First, a direct ping in the group channel. If there is no response, a direct message to check in and offer help. If the issue remains unresolved, a message to the whole team, and finally we bring it to our TA.
 
 ## Organisation Details
 
