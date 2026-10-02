@@ -79,7 +79,7 @@ Several members of our team have known one another since our first year, while o
 Team Fun Facts:
  * David and Shahmeer originally met while working as interns at Shopify this summer in Toronto.
  * Pranay and Sambhav have been to 5+ concerts this summer together.
- * [TODO]
+ * We all LOVE cats except Pranay who is scared of them.
 
 #### Q7: What are the roles & responsibilities on the team?
 
