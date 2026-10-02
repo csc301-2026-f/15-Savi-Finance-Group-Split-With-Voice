@@ -77,15 +77,18 @@ Several members of our team have known one another since our first year, while o
 ![Team meeting screenshot](images/q6-team-meeting.png)
 
 Team Fun Facts:
- * David and Shahmeer originally met while working as interns at Shopify this summer in Toronto
- * [TODO]
+ * David and Shahmeer originally met while working as interns at Shopify this summer in Toronto.
+ * Pranay and Sambhav have been to 5+ concerts this summer together.
  * [TODO]
 
 #### Q7: What are the roles & responsibilities on the team?
 
-partner is Sumedh
+partner liaison is Sumedh
+
 mobile is Praneeth, Pranay
+
 backend is David, Shaun
+
 AI/LLM Integration is sumedh, Sambhav, Shahmeer
 
 Describe the different roles on the team and the responsibilities associated with each role (e.g., frontend, database). 
