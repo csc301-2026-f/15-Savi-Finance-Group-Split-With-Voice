@@ -193,16 +193,6 @@ Our roles follow Savi Finance's mobile, backend, and voice/AI development areas.
 
 * **Sumedh Gadepalli:** Serves as the dedicated contact with Ralph. Responsibilities include collecting questions, preparing meeting topics, relaying decisions and follow-ups to the team. Sumedh has already coordinated the team's introduction and interests with Ralph by email.
 
-Describe the different roles on the team and the responsibilities associated with each role (e.g., frontend, database). 
- * Roles should reflect the structure of your team and be appropriate for your project. One person may have multiple roles.  
- * Add role(s) to your Team-[Team_Number]-[Team_Name].csv file on the main folder.
- * At least one person must be identified as the dedicated partner liaison. They need to have great organization and communication skills.
- * Everyone must contribute to code. Students who don't contribute to code enough will receive a lower mark at the end of the term.
-
-List each team member and:
- * A description of their role(s) and responsibilities including the components they'll work on and non-software related work
- * Why did you choose them to take that role? Specify if they are interested in learning that part, experienced in it, or any other reasons. Do no make things up. This part is not graded but may be reviewed later.
-
 #### Q8: How will you work as a team?
 
  * **Weekly team meeting:** We meet online every Tuesday at 5:30pm to review Jira progress, assign or rebalance work, discuss technical decisions, and identify blockers. We may schedule additional online working sessions or move the meeting when a deadline requires it.
