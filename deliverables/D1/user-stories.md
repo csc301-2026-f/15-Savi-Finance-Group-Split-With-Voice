@@ -28,6 +28,7 @@ As a roommate who shares rent and utilities, I want to create a group and split 
 - Invitees get a notification they can accept or reject. They show as "pending" until they accept.
 - Any member can add a transaction to the group. It's split evenly across members by default, and amounts can be adjusted.
 - The group page shows each person's net balance and a history of all changes.
+- Savi remembers the split percentages used for each type of item in the group (e.g. rent, utilities, groceries) and suggests them the next time that type of item is split. The user can change them before confirming.
 
 ## 3. Owed/Owing Widget
 
@@ -42,13 +43,14 @@ As a Savi user, I want to see my Total Owed and Total Owing on my home screen, i
 
 ## 4. Receipt Split
 
-As a user who paid for a group meal, I want to split the bill from a photo of the receipt and assign items to each person, in order to split the bill fairly when people order different things.
+As a user who paid for a group meal, I want to split the bill from a photo of the receipt and assign items to each person using my voice, in order to split the bill fairly when people order different things.
 
 **Acceptance criteria:**
 
 - The user can take or upload a photo of a receipt, and it's broken into line items plus tax and tip.
 - The user can fix any items that were read incorrectly.
 - Each item can be assigned to one or more people. Shared items are split evenly.
+- The user can assign items by speaking, e.g. "Sam had the burger, Alex and I shared the nachos," and the assignments appear on screen to confirm or fix.
 - Tax and tip are split based on what each person ordered.
 - The user sees what each person owes before confirming.
 
@@ -63,7 +65,8 @@ As a user who is owed money, I want to have Savi's voice agent call friends who 
 - The agent says it's automated and who it's calling for.
 - The agent handles "I already paid," "I'll pay on [date]," "I dispute this," and "don't call me again."
 - Anyone who says "don't call me" is never called again.
-- The call result is shown on the balance. A balance is never marked paid unless the user confirms it.
+- The person being called can pay the balance during the call through Stripe. A successful payment marks the balance as paid automatically.
+- The call result is shown on the balance. Apart from payments made through Stripe on the call, a balance is never marked paid unless the user confirms it.
 
 ## 6. Customize the Voice Agent
 

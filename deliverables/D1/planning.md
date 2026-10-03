@@ -60,6 +60,7 @@ Acceptance criteria:
  * Invitees get a notification they can accept or reject. They show as "pending" until they accept.
  * Any member can add a transaction to the group. It's split evenly across members by default, and amounts can be adjusted.
  * The group page shows each person's net balance and a history of all changes.
+ * Savi remembers the split percentages used for each type of item in the group (e.g. rent, utilities, groceries) and suggests them the next time that type of item is split. The user can change them before confirming.
 
 **3. Owed/Owing widget**
 
@@ -73,12 +74,13 @@ Acceptance criteria:
 
 **4. Receipt Split**
 
-As a user who paid for a group meal, I want to split the bill from a photo of the receipt and assign items to each person, in order to split the bill fairly when people order different things.
+As a user who paid for a group meal, I want to split the bill from a photo of the receipt and assign items to each person using my voice, in order to split the bill fairly when people order different things.
 
 Acceptance criteria:
  * The user can take or upload a photo of a receipt, and it's broken into line items plus tax and tip.
  * The user can fix any items that were read incorrectly.
  * Each item can be assigned to one or more people. Shared items are split evenly.
+ * The user can assign items by speaking, e.g. "Sam had the burger, Alex and I shared the nachos," and the assignments appear on screen to confirm or fix.
  * Tax and tip are split based on what each person ordered.
  * The user sees what each person owes before confirming.
 
@@ -92,7 +94,8 @@ Acceptance criteria:
  * The agent says it's automated and who it's calling for.
  * The agent handles "I already paid," "I'll pay on [date]," "I dispute this," and "don't call me again."
  * Anyone who says "don't call me" is never called again.
- * The call result is shown on the balance. A balance is never marked paid unless the user confirms it.
+ * The person being called can pay the balance during the call through Stripe. A successful payment marks the balance as paid automatically.
+ * The call result is shown on the balance. Apart from payments made through Stripe on the call, a balance is never marked paid unless the user confirms it.
 
 **6. Customize the voice agent**
 
@@ -108,6 +111,8 @@ User stories sent to Ralph Maamari (Founder, Savi Finance) for review on October
 <p align="center">
   <img src="images/q4-ralph-user-stories.png" alt="Slack message to Ralph with user stories" width="80%">
 </p>
+
+Ralph reviewed the stories the same day and approved them with three changes, which are included above: voice input for receipt splits, paying through Stripe during a voice follow-up call, and remembering split percentages by item type in groups.
 
 #### Q5: Have you decided on how you will build it? Share what you know now or tell us the options you are considering.
 
