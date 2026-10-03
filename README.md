@@ -22,7 +22,7 @@ This project is a proposed application for recording and splitting shared group 
 
 ## Task Management
 
-The team will use **[TODO: task-management tool and link]**.
+The team will use **Jira for ticketing and task distribution and Slack for asynchronous communication**. We have been granted access to Savi Finance's internal platforms, and will use those for the duration of the project. 
 
 ## Access and Use
 
@@ -34,12 +34,33 @@ The implementation stack and setup instructions are still being decided. **[TODO
 
 ## External Dependencies
 
-**[TODO: list dependencies, APIs, and third-party services after they are selected]**.
+Our Group Split feature will depend on Savi's existing application stack, internal APIs, and third-party services.
+
+### Application and Framework Dependencies
+- **React Native** — used to build the Savi mobile application.
+- **Expo / EAS** — used for local mobile development and mobile builds/deployment.
+- **Go + Bazel** — used for Savi's backend services and build system.
+- **MongoDB** — Savi's primary database.
+
+### Internal APIs and Services
+- **`sf1/api`** — Savi's main backend API, which the mobile application uses to communicate with backend functionality.
+- **Existing transaction and receipt services** — may be used when creating splits from existing Savi transactions or receipt data.
+- **Existing voice-agent / MCP infrastructure** — may be used for voice-based follow-ups and interactions if this portion of the project is implemented.
+
+### Third-Party Services and APIs
+- **Plaid** — Savi's existing banking data provider and may be relevant for transaction-based splitting.
+- **OpenAI** — used by Savi for AI-powered functionality and may support voice/AI features.
+- **AWS services** — Savi uses AWS services such as S3 for storage and infrastructure.
+- **GitHub Actions** — used as part of Savi's CI/CD process.
+
+The exact APIs and third-party services required specifically by Group Split have not yet been finalized and will be confirmed during technical design and implementation.
 
 ## GitHub Workflow
 
-The team will use feature branches and pull requests. **[TODO: add branch naming, review, merge, and deployment conventions]**.
+The team will use feature branches and pull requests. **Regarding naming, review, merge and naming conventions, we will exclusively follow Savi Finance's established practices as we are directly working on the company's monorepo**.
 
 ## License
 
-**[TODO: add the agreed license and confidentiality arrangement]**.
+Our contributions will follow Savi Finance's existing licensing and confidentiality requirements, since we are developing directly within their privately-owned codebase. We will not apply a separate open-source license unless the partner requests.
+
+The code is intended for use within Savi's product and will not be publicly redistributed without permission.
