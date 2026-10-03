@@ -114,6 +114,10 @@ User stories sent to Ralph Maamari (Founder, Savi Finance) for review on October
 
 Ralph reviewed the stories the same day and approved them with three changes, which are included above: voice input for receipt splits, paying through Stripe during a voice follow-up call, and remembering split percentages by item type in groups.
 
+<p align="center">
+  <img src="images/q4-ralph-feedback.png" alt="Ralph's approval and feedback on the user stories" width="80%">
+</p>
+
 #### Q5: Have you decided on how you will build it? Share what you know now or tell us the options you are considering.
 
 We haven't finalized every implementation detail yet, but we'll be building within Savi's existing monorepo and architecture.
