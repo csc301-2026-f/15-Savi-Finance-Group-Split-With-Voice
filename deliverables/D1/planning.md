@@ -105,7 +105,9 @@ Acceptance criteria:
 
 User stories sent to Ralph Maamari (Founder, Savi Finance) for review on October 2, 2026:
 
-![Slack message to Ralph with user stories](images/q4-ralph-user-stories.png)
+<p align="center">
+  <img src="images/q4-ralph-user-stories.png" alt="Slack message to Ralph with user stories" width="80%">
+</p>
 
 #### Q5: Have you decided on how you will build it? Share what you know now or tell us the options you are considering.
 
@@ -115,8 +117,10 @@ The Savi mobile application is built in TypeScript using React Native and Expo. 
 
 Our current plan is to add the Group Split UI to the existing mobile app and connect it to new or existing backend API functionality for creating groups, splitting expenses, and tracking balances. This feature will also integrate with existing Savi systems like transaction data, receipt-related functionality, and potentially the existing voice-agent service for voice interactions (if time permits).
 
-Below is a high level architecture diagram:
-![Architecture diagram](images/q5-arch-diagram.png)
+Below is the high level architecture diagram our group agreed upon:
+<p align="center">
+  <img src="images/q5-arch-diagram.png" alt="Architecture diagram" width="60%">
+</p>
 
 For deployment, we are expected to push to prod at least 3 times throughout the semester. Our deployments will follow Savi's existing infrastructure and CI/CD process, which uses GitHub Actions and deployment scripts within the monorepo. Mobile builds are managed with Expo/EAS, and backend services are deployed through Savi's existing infrastructure. A lot of these tools and technologies are foreign to us, so we'll make sure to research them thoroughly before pushing/deploying our code.
 
@@ -147,7 +151,9 @@ Our agreement is a mix of a few of the options. Each one of us is only allowed t
 
 Several members of our team have known one another since our first year at UofT, while others became acquianted through mutual friends. Our first team-building meeting was held online, where we bonded by playing some NYT and puzzle games together, in addition to discussing the project's architecture and technical design.
 
-![Team meeting screenshot](images/q6-team-meeting.png)
+<p align="center">
+  <img src="images/q6-team-meeting.png" alt="Team meeting screenshot" width="80%">
+</p>
 
 Team Fun Facts:
  * David and Shahmeer originally met while working as interns at Shopify this summer in Toronto.
