@@ -115,6 +115,18 @@ User stories sent to Ralph Maamari (Founder, Savi Finance) for review on October
  * Describe the architecture - what are the high level components or patterns you will use? Diagrams are useful here. 
  * Will you be using third party applications or APIs? If so, what are they?
 
+ We haven't finalized every implementation detail yet, but we'll be building within Savi's existing monorepo and architecture.
+
+ The Savi mobile application is built in TypeScript using React Native and Expo. Backend services are primarily written in Go and built with Bazel, with `sf1/api` serving as the main JSON-RPC API used by their mobile app. MongoDB is Savi's primary database.
+
+ Our current plan is to add the Group Split UI to the existing mobile app and connect it to new or existing backend API functionality for creating groups, splitting expenses, and tracking balances. This feature will also integrate with existing Savi systems like transaction data, receipt-related functionality, and potentially the existing voice-agent service for voice interactions (if time permits).
+
+ ![Below is a high level architecture diagram](images/q4-ralph-user-stories.png)
+
+ For deployment, we are expected to push to prod at least 3 times throughout the semester. Our deployments will follow Savi's existing infrastructure and CI/CD process, which uses GitHub Actions and deployment scripts within the monorepo. Mobile builds are managed with Expo/EAS, and backend services are deployed through Savi's existing infrastructure. A lot of these tools and technologies are foreign to us, so we'll make sure to research them thoroughly before pushing/deploying our code.
+
+ As for Savi's third party apps and APIs, we've learned that their existing integrations include Plaid for banking data, OpenAI for AI-powered features, and AWS for services such as S3. The exact APIs and services needed for our feature will be finalized soon during technical design.
+
 ----
 ## Intellectual Property Confidentiality Agreement 
 > Note this section is **not marked** but must be completed briefly if you have a partner. If you have any questions, please ask on Piazza.
@@ -136,13 +148,13 @@ Briefly describe which option you have agreed to.
 
 #### Q6: Have you met with your team?
 
-Several members of our team have known one another since our first year, while others joined through mutual friends. Our first team-building meeting was held online on Friday, October 2nd where did some puzzle games together in addition to discussing the project's architecture and technical design.
+Several members of our team have known one another since our first year at UofT, while others became acquianted through mutual friends. Our first team-building meeting was held online, where we bonded by playing some NYT and puzzle games together, in addition to discussing the project's architecture and technical design.
 
 ![Team meeting screenshot](images/q6-team-meeting.png)
 
 Team Fun Facts:
  * David and Shahmeer originally met while working as interns at Shopify this summer in Toronto.
- * Pranay and Sambhav have been to 5+ concerts this summer together.
+ * Many of us enjoy going to concerts, especially Pranay and Sambhav, who have been to 5+ concerts this summer together.
  * We all LOVE cats except Pranay who is scared of them.
 
 #### Q7: What are the roles & responsibilities on the team?
@@ -206,12 +218,28 @@ Our partner works in Jira, Confluence and Slack directly, and can see our code a
 * Examples include product development that includes developing new features, or quality assurance that includes developing features that test the product reliability, or software maintenance that includes fixing crucial bugs in the product.
 * Provide examples of why you think you fit this role.
 
+Our team will primarily act as a small product development team within Savi Finance’s broader product and engineering organization. Savi already has employees working across different areas of software engineering (like product, design, mobile, web dev, security), while our CSC301 team has been given focused ownership for a new feature area.
+
+Therefore, our role is mainly new feature development. We are responsible for designing and implementing the group split and follow-up features within Savi’s existing app and codebase, while working relatively independently on daily development. Ralph Maamari (CEO/founder) is our main partner contact, and has communicated that he will provide product direction, technical guidance, and support when we encounter larger design/engineering blockers.
+
+We will also work within Savi’s existing processes. Slack will be used for most communication, and also as a way to communicate with other Savi team members (for example, we’ve been told to contact CTO Jun for complex technical questions). We’ve been added to Savi’s Jira and Confluence, and those will be used for project tracking and communication. Finally, GitHub is for code implementation and PR review. Our changes are intended to be merged into the production codebase rather than delivered only as a separate prototype (see answer to next question). 
+
+Overall, we fit into Savi as a temporary engineering squad focused on one feature. We will develop our assigned functionality, while their existing feature continues to develop the surrounding product.
+
 #### Q12. How does your project fit within the overall product from the partner?
 * Look at the big picture of the product and think about how your project fits into this product.
 * Is your project the first step towards building this product? Is it the first prototype? Are you developing the frontend of a product whose backend is developed by the partner? Are you building the release pipelines for a product that is developed by the partner? Are you building a core feature set and take full ownership of these features?
 * You should also provide details of who else is contributing to what parts of the product, if you have this information. This is more important if the project that you will be working on has strong coupling with parts that will be contributed to by members other than your team (e.g., from a partner).
 * You can be creative for these questions and even use a graphical or pictorial representation to demonstrate the fit.
 * Briefly specify what your partner considers a success for this project. Do they want you to build specific features? Publish a usable product? Just a prototype? Be as specific as you can be at this point.
+
+Savi Finance is an already existing personal finance application, founded in 2022 and with 1.7k+ monthly users. This means that our project is adding our features directly into the existing product. Rather than building a standalone prototype, our team will take ownership of the Group Split feature from design through implementation and production deployment.
+
+There is also some starter code in the repository from previous sprints. Our team can reuse, modify, or discard that code as needed, so we’re building on prior work if useful while still having full ownership of the feature’s final design and implementation.
+
+Our feature will support one-off splits, group splits from receipts or existing transactions, tracking who owes/is owed money, and later voice/MCP interactions around these workflows.
+
+Savi’s goal for us is for the product to result in usable production functionality. At least three production pushes are expected during the term, with the first focused on one-off splitting and later releases expanding into the broader group-splitting experience.
 
 ## Potential Risks
 
