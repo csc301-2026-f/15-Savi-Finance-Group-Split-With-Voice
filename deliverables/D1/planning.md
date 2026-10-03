@@ -116,7 +116,7 @@ The Savi mobile application is built in TypeScript using React Native and Expo. 
 Our current plan is to add the Group Split UI to the existing mobile app and connect it to new or existing backend API functionality for creating groups, splitting expenses, and tracking balances. This feature will also integrate with existing Savi systems like transaction data, receipt-related functionality, and potentially the existing voice-agent service for voice interactions (if time permits).
 
 Below is a high level architecture diagram:
-![Architecture diagram](images/q6-team-meeting.png)
+![Architecture diagram](images/q5-arch-diagram.png)
 
 For deployment, we are expected to push to prod at least 3 times throughout the semester. Our deployments will follow Savi's existing infrastructure and CI/CD process, which uses GitHub Actions and deployment scripts within the monorepo. Mobile builds are managed with Expo/EAS, and backend services are deployed through Savi's existing infrastructure. A lot of these tools and technologies are foreign to us, so we'll make sure to research them thoroughly before pushing/deploying our code.
 
@@ -136,6 +136,8 @@ As for Savi's third party apps and APIs, we've learned that their existing integ
 **Your partner cannot ask you to sign any legal agreements or documents pertaining to non-disclosure, confidentiality, IP ownership, etc.**
 
 Briefly describe which option you have agreed to.
+
+Our agreement is a mix of a few of the options. Each one of us is only allowed to show the code that we have personally contributed to the codebase to external sources (like interviews, etc.). We are allowed to take videos, screenshots, demos of the final product to add to our portfolio and show to external sources.
 
 ----
 
