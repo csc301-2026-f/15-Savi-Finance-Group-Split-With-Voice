@@ -38,11 +38,11 @@
 
 #### Q4: What are the user stories that make up the Minumum Viable Product (MVP)?
 
-Full user stories and acceptance criteria are also in [user-stories.md](./user-stories.md). Related work is tracked in Savi's Jira under [WI-200](https://savifinance.atlassian.net/browse/WI-200).
+Full user stories and acceptance criteria are also in [user-stories.md](./user-stories.md). Related work is tracked in Savi Finance's Jira under [WI-200](https://savifinance.atlassian.net/browse/WI-200).
 
 **1. One-off Split**
 
-As a Savi user who paid for a shared expense, I want to split one transaction with one or more people without creating a group, in order to track who owes me without entering the expense again in Splitwise or a spreadsheet.
+As a Savi Finance user who paid for a shared expense, I want to split one transaction with one or more people without creating a group, in order to track who owes me without entering the expense again in Splitwise or a spreadsheet.
 
 Acceptance criteria:
  * The user can open any transaction, tap "Split," and choose one or more people.
@@ -60,11 +60,11 @@ Acceptance criteria:
  * Invitees get a notification they can accept or reject. They show as "pending" until they accept.
  * Any member can add a transaction to the group. It's split evenly across members by default, and amounts can be adjusted.
  * The group page shows each person's net balance and a history of all changes.
- * Savi remembers the split percentages used for each type of item in the group (e.g. rent, utilities, groceries) and suggests them the next time that type of item is split. The user can change them before confirming.
+ * Savi Finance remembers the split percentages used for each type of item in the group (e.g. rent, utilities, groceries) and suggests them the next time that type of item is split. The user can change them before confirming.
 
 **3. Owed/Owing widget**
 
-As a Savi user, I want to see my Total Owed and Total Owing on my home screen, in order to know where I stand with friends at a glance.
+As a Savi Finance user, I want to see my Total Owed and Total Owing on my home screen, in order to know where I stand with friends at a glance.
 
 Acceptance criteria:
  * The home screen shows Total Owed to me and Total I Owe, across all one-off and group splits.
@@ -86,7 +86,7 @@ Acceptance criteria:
 
 **5. Voice follow-up**
 
-As a user who is owed money, I want to have Savi's voice agent call friends who haven't paid after they've ignored their reminders, in order to get paid back without having an awkward conversation.
+As a user who is owed money, I want to have Savi Finance's voice agent call friends who haven't paid after they've ignored their reminders, in order to get paid back without having an awkward conversation.
 
 Acceptance criteria:
  * Voice follow-up is off by default, and the user turns it on per split or group.
@@ -120,20 +120,20 @@ Ralph reviewed the stories the same day and approved them with three changes, wh
 
 #### Q5: Have you decided on how you will build it? Share what you know now or tell us the options you are considering.
 
-We haven't finalized every implementation detail yet, but we'll be building within Savi's existing monorepo and architecture.
+We haven't finalized every implementation detail yet, but we'll be building within Savi Finance's existing monorepo and architecture.
 
-The Savi mobile application is built in TypeScript using React Native and Expo. Backend services are primarily written in Go and built with Bazel, with `sf1/api` serving as the main JSON-RPC API used by their mobile app. MongoDB is Savi's primary database.
+The Savi Finance mobile application is built in TypeScript using React Native and Expo. Backend services are primarily written in Go and built with Bazel, with `sf1/api` serving as the main JSON-RPC API used by their mobile app. MongoDB is Savi Finance's primary database.
 
-Our current plan is to add the Group Split UI to the existing mobile app and connect it to new or existing backend API functionality for creating groups, splitting expenses, and tracking balances. This feature will also integrate with existing Savi systems like transaction data, receipt-related functionality, and potentially the existing voice-agent service for voice interactions (if time permits).
+Our current plan is to add the Group Split UI to the existing mobile app and connect it to new or existing backend API functionality for creating groups, splitting expenses, and tracking balances. This feature will also integrate with existing Savi Finance systems like transaction data, receipt-related functionality, and potentially the existing voice-agent service for voice interactions (if time permits).
 
 Below is the high level architecture diagram our group agreed upon:
 <p align="center">
   <img src="images/q5-arch-diagram.png" alt="Architecture diagram" width="60%">
 </p>
 
-For deployment, we are expected to push to prod at least 3 times throughout the semester. Our deployments will follow Savi's existing infrastructure and CI/CD process, which uses GitHub Actions and deployment scripts within the monorepo. Mobile builds are managed with Expo/EAS, and backend services are deployed through Savi's existing infrastructure. A lot of these tools and technologies are foreign to us, so we'll make sure to research them thoroughly before pushing/deploying our code.
+For deployment, we are expected to push to prod at least 3 times throughout the semester. Our deployments will follow Savi Finance's existing infrastructure and CI/CD process, which uses GitHub Actions and deployment scripts within the monorepo. Mobile builds are managed with Expo/EAS, and backend services are deployed through Savi Finance's existing infrastructure. A lot of these tools and technologies are foreign to us, so we'll make sure to research them thoroughly before pushing/deploying our code.
 
-As for Savi's third party apps and APIs, we've learned that their existing integrations include Plaid for banking data, OpenAI for AI-powered features, and AWS for services such as S3. The exact APIs and services needed for our feature will be finalized soon during technical design.
+As for Savi Finance's third party apps and APIs, we've learned that their existing integrations include Plaid for banking data, OpenAI for AI-powered features, and AWS for services such as S3. The exact APIs and services needed for our feature will be finalized soon during technical design.
 
 ----
 ## Intellectual Property Confidentiality Agreement 
@@ -171,13 +171,27 @@ Team Fun Facts:
 
 #### Q7: What are the roles & responsibilities on the team?
 
-partner liaison is Sumedh
+Our roles follow Savi Finance's mobile, backend, and voice/AI development areas. Everyone will contribute code and review related work; exact ticket ownership may shift as the technical design is finalized.
 
-mobile is Praneeth, Pranay
+**Mobile Development — React Native/Expo screens and API integration**
 
-backend is David, Shaun
+* **Praneeth Suryadevara:** Work on one-off and group split screens, including transaction and member selection. Praneeth's React Native and full-stack experience fits this work, and Praneeth is looking to gain experience shipping features to real users.
+* **Pranay Chopra:** Work on receipt review and owed/owing screens. Pranay has built React interfaces and fintech software and is interested in the intersection of finance and technology.
 
-AI/LLM Integration is sumedh, Sambhav, Shahmeer
+**Backend Development — Savi Finance's current API, data, and split logic**
+
+* **David Daniliuc:** Work on split calculations, balances, and transaction integration, including tests for financial calculations. David's Go, systems, and infrastructure experience fits the API work.
+* **Shaun Danny:** Work on APIs and data storage for groups and invitations, and coordinate API contracts with mobile and AI contributors. Shaun's REST API, data pipeline, and cloud experience fits this work. Shaun also wants to learn more about system architecture.
+
+**AI/LLM Integration — receipt voice input and voice follow-ups**
+
+* **Sumedh Gadepalli:** Connect voice features to Savi Finance's existing voice infrastructure. Sumedh has built an AI voice-agent prototype and is interested in AI infrastructure.
+* **Sambhav Athreya:** Work on voice-based receipt item assignment and review of AI output. Sambhav's AI engineering internship, LLM agent work, and generative AI research fit this task.
+* **Shahmeer Khan:** Work on voice follow-up behavior, call outcomes, and agent settings. Shahmeer's machine learning and multi-agent AI experience fits this work.
+
+**Partner Liaison — communication and coordination**
+
+* **Sumedh Gadepalli:** Serves as the dedicated contact with Ralph. Responsibilities include collecting questions, preparing meeting topics, relaying decisions and follow-ups to the team. Sumedh has already coordinated the team's introduction and interests with Ralph by email.
 
 Describe the different roles on the team and the responsibilities associated with each role (e.g., frontend, database). 
  * Roles should reflect the structure of your team and be appropriate for your project. One person may have multiple roles.  
@@ -230,13 +244,13 @@ Our partner works in Jira, Confluence and Slack directly, and can see our code a
 * Examples include product development that includes developing new features, or quality assurance that includes developing features that test the product reliability, or software maintenance that includes fixing crucial bugs in the product.
 * Provide examples of why you think you fit this role.
 
-Our team will primarily act as a small product development team within Savi Finance’s broader product and engineering organization. Savi already has employees working across different areas of software engineering (like product, design, mobile, web dev, security), while our CSC301 team has been given focused ownership for a new feature area.
+Our team will primarily act as a small product development team within Savi Finance’s broader product and engineering organization. Savi Finance already has employees working across different areas of software engineering (like product, design, mobile, web dev, security), while our CSC301 team has been given focused ownership for a new feature area.
 
-Therefore, our role is mainly new feature development. We are responsible for designing and implementing the group split and follow-up features within Savi’s existing app and codebase, while working relatively independently on daily development. Ralph Maamari (CEO/founder) is our main partner contact, and has communicated that he will provide product direction, technical guidance, and support when we encounter larger design/engineering blockers.
+Therefore, our role is mainly new feature development. We are responsible for designing and implementing the group split and follow-up features within Savi Finance’s existing app and codebase, while working relatively independently on daily development. Ralph Maamari (CEO/founder) is our main partner contact, and has communicated that he will provide product direction, technical guidance, and support when we encounter larger design/engineering blockers.
 
-We will also work within Savi’s existing processes. Slack will be used for most communication, and also as a way to communicate with other Savi team members (for example, we’ve been told to contact CTO Jun for complex technical questions). We’ve been added to Savi’s Jira and Confluence, and those will be used for project tracking and communication. Finally, GitHub is for code implementation and PR review. Our changes are intended to be merged into the production codebase rather than delivered only as a separate prototype (see answer to next question). 
+We will also work within Savi Finance’s existing processes. Slack will be used for most communication, and also as a way to communicate with other Savi Finance team members (for example, we’ve been told to contact CTO Jun for complex technical questions). We’ve been added to Savi Finance’s Jira and Confluence, and those will be used for project tracking and communication. Finally, GitHub is for code implementation and PR review. Our changes are intended to be merged into the production codebase rather than delivered only as a separate prototype (see answer to next question).
 
-Overall, we fit into Savi as a temporary engineering squad focused on one feature. We will develop our assigned functionality, while their existing feature continues to develop the surrounding product.
+Overall, we fit into Savi Finance as a temporary engineering squad focused on one feature. We will develop our assigned functionality, while their existing feature continues to develop the surrounding product.
 
 #### Q12. How does your project fit within the overall product from the partner?
 * Look at the big picture of the product and think about how your project fits into this product.
@@ -251,7 +265,7 @@ There is also some starter code in the repository from previous sprints. Our tea
 
 Our feature will support one-off splits, group splits from receipts or existing transactions, tracking who owes/is owed money, and later voice/MCP interactions around these workflows.
 
-Savi’s goal for us is for the product to result in usable production functionality. At least three production pushes are expected during the term, with the first focused on one-off splitting and later releases expanding into the broader group-splitting experience.
+Savi Finance’s goal for us is for the product to result in usable production functionality. At least three production pushes are expected during the term, with the first focused on one-off splitting and later releases expanding into the broader group-splitting experience.
 
 ## Potential Risks
 
@@ -259,18 +273,18 @@ Savi’s goal for us is for the product to result in usable production functiona
 
 1. **Tight timeline while still onboarding.**
 
-Savi expects one-off splits in production within about two weeks, at least three production pushes this term, and an approved technical design in Confluence before any major feature is built. We are still setting up the repo and learning the codebase, so the first push leaves little room for error, and a late first push would delay every later release.
+Savi Finance expects one-off splits in production within about two weeks, at least three production pushes this term, and an approved technical design in Confluence before any major feature is built. We are still setting up the repo and learning the codebase, so the first push leaves little room for error, and a late first push would delay every later release.
 
 2. **Some parts of the project are not clearly defined yet.**
 
-The split and group features are well defined by Savi's existing Jira tickets and Confluence specs. Other parts are less clear: what MCP control should do and who it is for, which voice agent settings users should be able to change, and whether non-Savi users can be split with directly. Stories written before these are settled may be too abstract or may not match what Savi exactly wants.
+The split and group features are well defined by Savi Finance's existing Jira tickets and Confluence specs. Other parts are less clear: what MCP control should do and who it is for, which voice agent settings users should be able to change, and whether people without Savi Finance accounts can be split with directly. Stories written before these are settled may be too abstract or may not match what Savi Finance exactly wants.
 
 3. **Mistakes reach real users.**
 
-Our code merges into Savi's production app. A bug in the budget math or in balances would show real users wrong information about their finances.
+Our code merges into Savi Finance's production app. A bug in the budget math or in balances would show real users wrong information about their finances.
 
 #### Q14. What are some potential mitigation strategies for the risks you identified?
 
-1. Keep the first push limited to one-off splits. Write its technical design first and get Ralph's sign-off early. Break work into small PRs (under 300 lines, per Savi's guidelines).
+1. Keep the first push limited to one-off splits. Write its technical design first and get Ralph's sign-off early. Break work into small PRs (under 300 lines, per Savi Finance's guidelines).
 2. Keep a running list of open questions and bring the most important ones to each meeting. Write stories for the first two pushes in full now, and add or refine later stories as they get clarified.
-3. Write unit tests for split amounts and budget math. Test only with test accounts in Savi's developer environment. Walk through the full user journey before each push.
+3. Write unit tests for split amounts and budget math. Test only with test accounts in Savi Finance's developer environment. Walk through the full user journey before each push.
