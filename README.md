@@ -6,6 +6,31 @@
 
 This project is a proposed application for recording and splitting shared group expenses, with voice input as a possible feature.
 
+## Key Use Cases
+
+### Splitting a receipt by item (Praneeth, Shahmeer)
+
+**Why:** after a group meal, people order different things, so an even split is unfair. Savi users can split a receipt line by line inside the app instead of using a spreadsheet or another app.
+
+**What it does:**
+- Starts from the existing **Add transaction → Split → Line Items** flow, as requested by our partner.
+- Reads a photographed receipt (or lets you type the items), and lets you correct items, quantities, discounts, tax and tip.
+- You choose which group members shared the meal, then tap who had each item, or say or type it: *"Sam had the burger, Alex and I shared the nachos."*
+- Shared items are split evenly; tax and tip are split by what each person ordered; amounts always add up exactly to the receipt.
+- A review screen shows your share and what each person owes you, and the split is added to the transaction.
+- Group invitations can now be accepted from the Notifications screen, so friends can join a group before splitting.
+
+**How to try it** (signed in to the Savi app, with Groups enabled):
+1. Create a group from the **Groups** section and invite a friend; they accept it from the bell icon (**Notifications → Join**).
+2. Tap **Add transaction**, enter the amount, then tap **Split → Line Items → Split receipt items with people**.
+3. Choose the group, then take or upload a photo of the receipt, or type the items, tax and tip.
+4. Tap **Choose people**, then **Assign items**: tap names on each item, or type a sentence like the one above and tap **Apply**.
+5. Tap **Review** to see what everyone owes, then **Use split in transaction** to return to the transaction.
+
+Saving the split as debts between group members is in progress with the transaction-split sub-team.
+
+**Demo video and screenshots:** [Savi pull request #6759](https://github.com/cheapreats/ce/pull/6759) (Savi's private repository).
+
 ## Deliverable 1
 
 - [Planning document](deliverables/D1/planning.md)
