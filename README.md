@@ -31,6 +31,26 @@ Saving the split as debts between group members is in progress with the transact
 
 **Demo video and screenshots:** [Savi pull request #6759](https://github.com/cheapreats/ce/pull/6759) (Savi's private repository).
 
+### Owes / Owed Widget (Sambhav)
+
+**Why:** Savi users can see where they stand on the home screen, without checking each group or transaction.
+
+**What it does:**
+- Adds a **Splits** card to the Overview with two totals: **Owed to you** and **You owe**.
+- Combines one-off splits from your own transactions with group splits.
+- Tap a total to see the breakdown **by person** and **by group**; group balances name the person you owe.
+- Mark a person's balance as **resolved** once you've settled up, and **undo** it if you made a mistake.
+- Resolved balances drop out of the totals but stay in a **Resolved** history list.
+
+**How to try it** (signed in to the Savi app):
+1. Turn on the card: **Account → Diagnostics → View All Flags**, then switch on `mobile_split_balances`.
+2. Go to **Overview** and scroll to the **Splits** card.
+3. Tap **Owed to you** or **You owe** to see the breakdown by person and by group.
+4. Tap **Resolve** next to a person: the total drops and they move to **Resolved**.
+5. Tap **Undo** in the Resolved list to bring the balance back.
+
+**Screenshots:** [Savi pull request #6770](https://github.com/cheapreats/ce/pull/6770)
+
 ## Deliverable 1
 
 - [Planning document](deliverables/D1/planning.md)
