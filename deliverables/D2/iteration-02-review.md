@@ -20,12 +20,15 @@ List **process-related** (i.e. team organization and how you work) decisions and
 Q1. What worked well
 
 **1. Splitting work based on user stories**
+
 One of the most effective decisions we made was splitting up the work based on user stories and assigning clear ownership to different team members. For example, we divided the splitting functionality into one-off splits, group splitting from receipts, and group splitting from transactions, with separate pairs responsible for each. This allowed us to work on different features in parallel while minimizing overlap and confusion about who was responsible for what. Having clearly defined responsibilities also made it easier to track progress and hold ourselves accountable for our respective tasks. This approach worked particularly well because the different pairs could independently make progress on their features, while still coordinating when their work needed to integrate.
 
 **2. Consulting each other about shared and similar components**
+
 Another process that worked well was discussing overlapping functionality between user stories before implementing it independently. This was especially important for the two group-splitting flows, since splitting from a receipt and splitting from a transaction require many of the same underlying features, such as participant selection, saving allocations, and displaying split summaries. Rather than having both pairs build separate implementations, we discussed which functionality should be shared and assigned ownership accordingly. For example, the receipt-splitting pair developed reusable components for group creation, which could also be used by the transaction-splitting pair. We also agreed on using a shared expense-saving system so that both flows would ultimately produce consistent balances. This coordination helped reduce duplicated effort, encouraged consistency across the application, and made integration between different features more manageable.
 
 **3. Being flexible and willing to help each other**
+
 Although we had assigned responsibilities, we were also willing to collaborate and help each other when necessary rather than strictly limiting ourselves to our own tasks. When someone needed clarification or input on an implementation decision, other team members were available to provide feedback. This flexibility was beneficial because it prevented individual tasks from becoming completely isolated and allowed us to make decisions with the overall project in mind. It also helped us maintain momentum and work more effectively as a team.
 
 
