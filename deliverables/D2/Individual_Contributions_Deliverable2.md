@@ -9,16 +9,17 @@ Precise Description:
 
 ### Name: Shaun
 
-One-Line Description: Implemented the one-off split mobile editor and persistence integration with David's backend, refined the UI, and added payer-share spending attribution.
+One-Line Description: Built the one-off split mobile workflow with David's backend and added own-share spending attribution.
 
 Precise Description:
 
-* Integrated identity-based participant selection and equal, exact-amount, and percentage allocations into Savi's existing transaction Split flow, with validation and calculated share summaries ([PR6 #6624](https://github.com/cheapreats/ce/pull/6624), with David).
-* Connected transaction create/edit to confirmed split persistence: durable retry intent, canonical saved-state readback, and revision-checked changes/removal; added payer-only readback coverage to protect participant identities ([PR7 #6768](https://github.com/cheapreats/ce/pull/6768)).
-* Redesigned Split expense / Manage split using Savi's existing visual style, including participant cards, allocation controls, full-expense versus own-share summaries, and accessible inputs/actions.
-* Added own-share spending and budget-alert attribution, including replacement, removal, delete/restore, zero-share handling, and household source-account limits, while preserving full cash payments in account balances ([PR8 #6769](https://github.com/cheapreats/ce/pull/6769)).
-* Added mobile and backend regression tests, resolved local iOS startup/connectivity issues, and captured simulator evidence of reopened allocations and the $120 payment / $60 spending distinction. PR7's mobile run passed 541 tests; PR7 and PR8 each passed all 17 local pre-push checks.
-* Documented the workflow and limitations for D2. PR7 and PR8 remain development-only draft PRs, not a production release; a separate combined-stack integration run had one unresolved account-icon-recognition failure. David owns the underlying split backend work; this entry describes my mobile/integration and spending-attribution contributions.
+* Added participant selection and equal, amount, and percentage splits ([PR6](https://github.com/cheapreats/ce/pull/6624), with David).
+* Connected saving, reopening, editing, and removing splits to the backend ([PR7](https://github.com/cheapreats/ce/pull/6768)).
+* Redesigned Manage split to match Savi's UI and distinguish the full payment from your share.
+* Added own-share spending and budget alerts while preserving full Wallet payments ([PR8](https://github.com/cheapreats/ce/pull/6769)).
+* Added regression tests, captured iOS screenshots, and documented the D2 workflow and limitations.
+
+Status: PR7/PR8 are development-only drafts; verification details and outstanding issues are linked in the README.
 
 ### Name: Praneeth
 
