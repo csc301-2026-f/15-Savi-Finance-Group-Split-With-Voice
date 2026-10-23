@@ -37,10 +37,12 @@ Precise Description:
 
 ### Name: Pranay
 
-One-Line Description:
+One-Line Description: Built out the save and display group expense splits, with reliable creation and transaction history (with Sumedh). Focused on the group screens with expense splitting and transaction history.
 
 Precise Description:
-* placeholder
+* Rework group expense creation with participant selection, equal splits, input validation, and a preview of who owes what.
+* Add transaction history showing expense totals, payer details, individual debts, and settled shares.
+* Add loading, empty, error, and retry states to group expense flows.
 
 ### Name: Sumedh
 
