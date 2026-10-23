@@ -53,7 +53,9 @@ Precise Description:
 
 ### Name: Sambhav
 
-One-Line Description:
+One-Line Description: Added a Splits card to the Overview showing Total Owed to You and Total You Owe across one-off and group splits.
 
 Precise Description:
-* placeholder
+* New Splits card on Overview showing two totals: Owed to you and You owe.
+* Tapping a total shows a breakdown by person and by group.
+* Balances can be marked resolved and undone; resolved ones drop out of the totals but stay in a Resolved history. For now this is saved only on the device.
