@@ -37,12 +37,17 @@ Precise Description:
 
 ### Name: Pranay
 
-One-Line Description: Built out the save and display group expense splits, with reliable creation and transaction history (with Sumedh). Focused on the group screens with expense splitting and transaction history.
+One-Line Description: Built out the save and display group expense splits, transaction history, and fallback loops (with Sumedh). These contributions connect the mobile interface to the team’s backend work on persisted participant shares and give users a clearer workflow for recording shared expenses and reviewing who owes whom.
 
 Precise Description:
 * Rework group expense creation with participant selection, equal splits, input validation, and a preview of who owes what.
 * Add transaction history showing expense totals, payer details, individual debts, and settled shares.
 * Add loading, empty, error, and retry states to group expense flows.
+* Implemented currency parsing and remainder-cent allocation so shares add up to the exact expense total.
+* Updated group screens to prioritize email addresses when identifying members, making expense participants and debt breakdowns easier to recognize.
+* Developer setup and verification: got the android build working and running through Android studio and tested the flow with Savi's test accounts.
+* PR evidence: documented after screenshots for the group transaction split PR (cheapreats/ce#6760) by working through the E2E flow on android simulator.
+
 
 ### Name: Sumedh
 
