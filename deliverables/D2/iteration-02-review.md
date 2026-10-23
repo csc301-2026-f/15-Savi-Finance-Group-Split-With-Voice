@@ -15,10 +15,6 @@
 
 #### Q1. What worked well
 
-List **process-related** (i.e. team organization and how you work) decisions and actions that worked well.
-
-Q1. What worked well
-
 **1. Splitting work based on user stories**
 
 One of the most effective decisions we made was splitting up the work based on user stories and assigning clear ownership to different team members. For example, we divided the splitting functionality into one-off splits, group splitting from receipts, and group splitting from transactions, with separate pairs responsible for each. This allowed us to work on different features in parallel while minimizing overlap and confusion about who was responsible for what. Having clearly defined responsibilities also made it easier to track progress and hold ourselves accountable for our respective tasks. This approach worked particularly well because the different pairs could independently make progress on their features, while still coordinating when their work needed to integrate.
