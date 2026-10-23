@@ -45,11 +45,14 @@ List any **process-related** (i.e. team organization and/or how you work) change
 
  * Ordered from most to least important, with supporting argument explaining a change.
 
+1 - Most crucially, members will escalate to the team as quickly as possible in the event where they have a substantial change to their schedules. We've allocated work based on members' schedules for D2 while ensuring workload was as equitable as possible, but different members of the group had different commitments emerge that affected how soon they could get to their share of the work. We noticed in this iteration that having members communicate that allowed them to see how other members were using different tools to save time in their workflows, as well as seeing how code (either written by other members or on the Savi repository) could be re-purposed in ways they may not have seen earlier. Simply put, knowledge wasn't siloed when members escalated this week, so we hope to retain that as a standard practice to boost knowledge sharing. 
+
 #### Q3(b). Integration & Next steps
 Briefly explain how you integrated the previously developed individuals components as one product (i.e. How did you split the work across your team) and how was the work integrated together.
 
  * Keep this very short (1-3 lines).
 
+We split the work by user story across pairs (one-off splits, group splits from receipts, group splits from transactions) and integrated through shared pieces, such as the receipt pair's reusable group components, which the transaction pair reused, and a common expense-saving backend so both group flows produce consistent balances. Internal demos before the partner meeting surfaced integration questions early. Next steps: allocation controls, balances and repayment, and protecting simultaneous edits to the same expense from the frontend.
 
 ## Product - Review
 

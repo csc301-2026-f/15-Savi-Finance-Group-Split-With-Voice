@@ -58,10 +58,17 @@ Precise Description:
 
 ### Name: Sumedh
 
-One-Line Description:
+One-Line Description: Built the backend that saves, reads and protects group expense splits under changes. Each participant's share is stored with the expense, kept consistent on edit and delete, and returned when the expense is read. Edits are protected from overwriting each other in edge cases.
 
 Precise Description:
-* placeholder
+* Creating a group expense now saves one record per participant with their share. The payer's own share is whatever remains of the total, and shares can add up to less than the total but never more.
+* Added a retry key (idempotencyKey) so sending the same create request twice returns the existing expense and doesn't create duplicates.
+* Added checks on create: the caller must be allowed to create group expenses, and each participant must be an accepted group member who owns the account listed for them.
+* Deleting an expense now deletes its shares too. Editing the total is blocked from going below what is already assigned to participants.
+* Getting and listing group expenses now return who owes what, so the frontend can show transaction history from stored data.
+* Added concurrency handling: each expense has a version number, and edits and deletes can send the version they last saw. If someone else changed the expense in the meantime, the request is refused with a clear message, and delete checks the version before touching any shares.
+* Tests and verification: unit tests plus smoke tests for create, update, delete, get and list, covering retries, stale edits and deletes, and a delete racing an edit. All 17 repo pre-push checks pass. The work is pushed to save-split-info.
+
 
 ### Name: Sambhav
 
