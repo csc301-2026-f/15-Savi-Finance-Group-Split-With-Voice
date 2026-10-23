@@ -1,12 +1,37 @@
 # Savi Finance — Group Split with Voice
 
-> D1 foundation. Replace `[TODO]` items as the project becomes defined.
+> D2 development progress. Feature availability depends on the supplied app build and backend; development demos are not a production release.
 
 ## Project
 
-This project is a proposed application for recording and splitting shared group expenses, with voice input as a possible feature.
+We are extending Savi Finance so people can split shared expenses, understand their own spending, and review who owes whom without maintaining a separate spreadsheet. Our team's work covers one-off splits, receipt/item splitting with voice or typed assignment, group transaction splits, and a balances overview.
+
+**Implementation repository:** [Savi Finance's private monorepo](https://github.com/cheapreats/ce). Teaching staff need access to this repository to inspect the linked implementation PRs and evidence. The features described below are our team's contributions, not a description of the entire Savi product.
 
 ## Key Use Cases
+
+### Splitting a one-off expense (David, Shaun)
+
+**Why:** split a shared purchase without creating a group, and track your own expense separately from the full payment.
+
+**What it does:**
+
+- Splits a personal expense with existing Savi users or saved guests.
+- Supports equal, amount, and percentage splits, with validation so shares add up correctly.
+- Saves the split with the transaction; **Manage split** lets you edit or remove it later.
+- Shows your share in Spending while Wallet keeps the full payment: a $120 expense split equally between two people contributes $60 to your spending.
+
+**How to try it** (signed in to the configured development build, with split saving enabled):
+
+1. Tap **Add transaction**, choose **Expense**, and enter the name, amount, date, and a test account owned by your personal profile.
+2. Tap **Split → Total with Others**, then select at least one other person under **Add people**.
+3. Choose **Equal**, **Amount**, or **Percentage** and enter the shares if needed.
+4. Tap **Apply split**, then **Create** to save the transaction. Wait for synchronization to finish.
+5. Reopen the saved transaction through **Edit → Manage split** to change or remove the allocation, then save. With own-share spending enabled, compare **Wallet** with **Insights → Spending**.
+
+Development-only: saving requires the mobile write flag and a compatible non-production backend; own-share spending requires PR8. Guest creation, invitations, and money transfers are not included. PR7/PR8 remain drafts, not a released D2 build; developer prerequisites and verification limits are documented in the linked PRs.
+
+**Screenshots and implementation:** [PR6: editor preview](https://github.com/cheapreats/ce/pull/6624), [PR7: saving and Manage split](https://github.com/cheapreats/ce/pull/6768), [PR8: own-share spending](https://github.com/cheapreats/ce/pull/6769) (Savi's private repository).
 
 ### Splitting a receipt by item (Praneeth, Shahmeer)
 
@@ -51,10 +76,16 @@ Saving the split as debts between group members is in progress with the transact
 
 **Screenshots:** [Savi pull request #6770](https://github.com/cheapreats/ce/pull/6770)
 
+## Deliverable 2
+
+- [Iteration review and retrospective](deliverables/D2/iteration-02-review.md)
+- [Individual contributions](deliverables/D2/Individual_Contributions_Deliverable2.md)
+- The final `D2` release must identify the fixed app/backend version, grading access instructions, and known limitations. A release/access link is not yet supplied here.
+
 ## Deliverable 1
 
 - [Planning document](deliverables/D1/planning.md)
-- [Interactive mockup](deliverables/D1/mockup.html)
+- [Mockup instructions](deliverables/D1/mockup.md)
 - Team information: `deliverables/team/`
 
 ## Confirmed Course and Meeting Context
@@ -71,7 +102,7 @@ The team will use **Jira for ticketing and task distribution and Slack for async
 
 ## Access and Use
 
-There is no deployed application yet. Open `deliverables/D1/mockup.html` in a browser to view the D1 prototype.
+The feature sections above describe the available development workflows and their prerequisites. A fixed, independently accessible D2 app build and its access instructions have not yet been supplied in this README. The team must confirm these before submission; private PR links, screenshots, and a developer's local simulator do not by themselves provide grading access. Historical D1 prototype information is in the [mockup instructions](deliverables/D1/mockup.md).
 
 ## Development Requirements
 

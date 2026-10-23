@@ -9,10 +9,17 @@ Precise Description:
 
 ### Name: Shaun
 
-One-Line Description:
+One-Line Description: Built the one-off split mobile workflow with David's backend and added own-share spending attribution.
 
 Precise Description:
-* placeholder
+
+* Added participant selection and equal, amount, and percentage splits ([PR6](https://github.com/cheapreats/ce/pull/6624), with David).
+* Connected saving, reopening, editing, and removing splits to the backend ([PR7](https://github.com/cheapreats/ce/pull/6768)).
+* Redesigned Manage split to match Savi's UI and distinguish the full payment from your share.
+* Added own-share spending and budget alerts while preserving full Wallet payments ([PR8](https://github.com/cheapreats/ce/pull/6769)).
+* Added regression tests, captured iOS screenshots, and documented the D2 workflow and limitations.
+
+Status: PR7/PR8 are development-only drafts; verification details and outstanding issues are linked in the README.
 
 ### Name: Praneeth
 
