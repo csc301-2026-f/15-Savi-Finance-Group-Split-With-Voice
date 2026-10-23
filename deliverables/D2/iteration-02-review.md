@@ -19,6 +19,7 @@
 1. **Building before checking existing flows.** We added receipt splitting under Groups before noticing the existing Create Transaction → Split flow, and our partner asked us to move it, which cost rework.
 2. **Slow development setup.** Getting Savi's large monorepo running locally (simulator builds, code signing, backend build tools) took some of us several days, delaying when we could test changes in the app.
 3. **Sub-teams depending on one shared piece.** Receipt and transaction splits both need the shared save path to create real debts, so they can be demoed but not saved until it lands.
+
 #### Q3(a). Planned changes
 
 1. **Check the existing app before building**, using AI tools to search the codebase as our partner suggested, so new features go where users expect them.
