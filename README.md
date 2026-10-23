@@ -1,12 +1,49 @@
 # Savi Finance — Group Split with Voice
 
-> D1 foundation. Replace `[TODO]` items as the project becomes defined.
+> D2 development progress. Feature availability depends on the supplied app build and backend; development demos are not a production release.
 
 ## Project
 
-This project is a proposed application for recording and splitting shared group expenses, with voice input as a possible feature.
+We are extending Savi Finance so people can split shared expenses, understand their own spending, and review who owes whom without maintaining a separate spreadsheet. Our team's work covers one-off splits, receipt/item splitting with voice or typed assignment, group transaction splits, and a balances overview.
+
+**Implementation repository:** [Savi Finance's private monorepo](https://github.com/cheapreats/ce). Teaching staff need access to this repository to inspect the linked implementation PRs and evidence. The features described below are our team's contributions, not a description of the entire Savi product.
 
 ## Key Use Cases
+
+### Splitting a one-off expense (David, Shaun)
+
+**Why:** when you pay for a shared purchase, the full payment leaves your account, but only part of it is your own expense. A one-off split records the people and shares for that transaction without requiring a standing group.
+
+**What it does:**
+
+- Uses **Add transaction → Split → Total with Others** for an eligible personal expense.
+- Selects existing, authorized Savi users or saved guests and divides the expense equally, by exact amount, or by percentage.
+- Shows the full expense separately from your calculated share. Invalid allocations cannot be applied.
+- Saves the allocation with the transaction and reopens it through **Manage split** for changes or removal.
+- With the own-share backend enabled, Spending uses your share while Wallet retains the full payment. For a $120 expense shared equally by two people, Wallet records the $120 payment and Spending attributes $60 to the payer.
+
+**Current availability:** [PR6 #6624](https://github.com/cheapreats/ce/pull/6624) provides the development preview; [PR7 #6768](https://github.com/cheapreats/ce/pull/6768) adds confirmed persistence and the redesigned editor; [PR8 #6769](https://github.com/cheapreats/ce/pull/6769) adds own-share spending and budget-alert attribution. PR7 and PR8 are open drafts as of October 23, 2026, not merged or released features. Their screenshots show a development build connected to a local test backend.
+
+**How to try it in the configured development build:**
+
+1. Sign in with an authorized test profile. Use a test account owned by your personal profile and an existing authorized participant; do not use real financial data.
+2. Tap **Add transaction**, choose **Expense**, and enter a name, amount, date, and source account. For the example, use $120 USD and the provided test account.
+3. Tap **Split → Total with Others**. An eligible development build opens **Split expense**. If you see the old editor or an API error, check the build/backend prerequisites below rather than assuming the new feature is available.
+4. Under **Add people**, search for and select an existing Savi user or saved guest. Include yourself and at least one other person. Creating guests and sending invitations are not enabled in this flow.
+5. Choose **Equal**, **Amount**, or **Percentage**. For two people sharing $120 equally, each share is $60. Exact amounts must total $120 and percentages must total 100%.
+6. Tap **Apply split** to return to the form, then **Create** to save. Applying alone changes only the form draft. Wait for synchronization to finish; a pending/failed synchronization is not confirmation that the split was saved.
+7. Open the saved transaction, choose **Edit**, then **Manage split**. Check that the saved participants and shares are restored. To change the allocation, apply the change and save the transaction. To remove it, choose **Remove split** and save. Save ordinary transaction-field edits separately from split changes.
+8. With PR8's backend, compare the transaction/account in **Wallet** with the relevant period in **Insights → Spending**. In the isolated $120 equal-split example, the payment remains $120 and the spending contribution is $60. Other transactions can change the period's total.
+9. To leave without changing the allocation, tap **Cancel** and leave the transaction without saving changes.
+
+**Build/backend prerequisites and limits:**
+
+- Confirmed writes are development-only and off by default. The mobile build requires `EXPO_PUBLIC_EXPENSE_SPLIT_WRITES=true`, an approved non-production API origin, successful participant discovery, and a compatible backend with expense splits enabled. A frontend branch alone does not deploy the backend, and production API origins are blocked for this development write path.
+- Use a supported ordinary personal-account expense without legacy splits, receipt line items, pending/refund state, attachments, reminders, or recurrence. This is distinct from the receipt and group-splitting flows below.
+- This workflow does not transfer money, settle debts, create guests, or send invitations. Own-share spending requires PR8; PR7 alone retains the earlier spending behavior.
+- These developer prerequisites are not a substitute for the independently accessible, fixed D2 build required for grading. Distribution and grading access must be confirmed by the team before the D2 release.
+
+**Evidence:** [PR7 screenshots and verification](https://github.com/cheapreats/ce/pull/6768) show the empty state, amount/percentage previews, and an existing saved $60/$60 split reopened. [PR8 screenshots and verification](https://github.com/cheapreats/ce/pull/6769) compare the full $120 Wallet payment with $60 of Spending. Both PRs passed all 17 local pre-push checks; a separate combined-stack integration run had one outstanding account-icon-recognition failure, documented in the PRs. These results do not establish a production deployment or full integration with every group flow.
 
 ### Splitting a receipt by item (Praneeth, Shahmeer)
 
@@ -51,10 +88,16 @@ Saving the split as debts between group members is in progress with the transact
 
 **Screenshots:** [Savi pull request #6770](https://github.com/cheapreats/ce/pull/6770)
 
+## Deliverable 2
+
+- [Iteration review and retrospective](deliverables/D2/iteration-02-review.md)
+- [Individual contributions](deliverables/D2/Individual_Contributions_Deliverable2.md)
+- The final `D2` release must identify the fixed app/backend version, grading access instructions, and known limitations. A release/access link is not yet supplied here.
+
 ## Deliverable 1
 
 - [Planning document](deliverables/D1/planning.md)
-- [Interactive mockup](deliverables/D1/mockup.html)
+- [Mockup instructions](deliverables/D1/mockup.md)
 - Team information: `deliverables/team/`
 
 ## Confirmed Course and Meeting Context
@@ -71,7 +114,7 @@ The team will use **Jira for ticketing and task distribution and Slack for async
 
 ## Access and Use
 
-There is no deployed application yet. Open `deliverables/D1/mockup.html` in a browser to view the D1 prototype.
+The feature sections above describe the available development workflows and their prerequisites. A fixed, independently accessible D2 app build and its access instructions have not yet been supplied in this README. The team must confirm these before submission; private PR links, screenshots, and a developer's local simulator do not by themselves provide grading access. Historical D1 prototype information is in the [mockup instructions](deliverables/D1/mockup.md).
 
 ## Development Requirements
 
