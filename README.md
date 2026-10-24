@@ -14,44 +14,26 @@ We are extending Savi Finance so people can split shared expenses, understand th
 
 ### Splitting a one-off expense (David, Shaun)
 
-**Why:** split a shared purchase without creating a group, and distinguish your own spending from the full payment leaving your account.
+**Why:** split a shared purchase without creating a group, and track your own spending separately from the full payment.
 
-**What it does in the development build:**
+**What it does:**
 
-- Reuses **Add transaction → Split → Total with Others**; no separate tab or development panel is needed.
-- Selects existing authorized Savi users or saved guests and supports equal, amount, and percentage allocations. Shares use exact currency units and deterministic rounding.
-- Saves confirmed allocations with the transaction, then reopens them through **Manage split** for editing or removal. Retrying an uncertain save preserves the request identity to avoid duplicate transactions.
-- Counts only the payer's share in Spending and budget alerts while Wallet retains the full cash payment. For a $120 expense shared equally by two people, Wallet records −$120 and Spending counts $60.
+- Splits a personal expense with existing Savi users or saved guests using equal, amount, or percentage allocations.
+- Validates that shares add up correctly and handles leftover cents consistently.
+- Saves the split with the transaction; **Manage split** lets you edit or remove it later.
+- Counts your share in Spending and budget alerts while Wallet keeps the full payment: a $120 expense split equally between two people contributes $60 to your spending.
 
-**How to try it** (requires the configured development app with PR7 and PR8, a compatible backend, and split saving enabled):
+**How to try it** (signed in to the configured development build, with split saving enabled):
 
-1. Sign in to your personal profile. Tap **Add transaction → Expense**, choose a test account you own, and enter a name, date, and **$120** amount.
-2. Tap **Split → Total with Others → Add people** and select one saved person. With nobody selected, applying the split is disabled.
-3. Choose **Equal** and check that each person has **$60**. Alternatively, preview **Amount** ($80/$40) or **Percentage** (25%/75%). Review any rounding adjustment before confirming it.
-4. Tap **Apply split** to update the form draft, then **Create** to save. Wait for synchronization; applying alone does not save a transaction.
-5. Reopen the transaction through **Edit → Manage split**. Change the allocation and save, or choose **Remove split** and save to clear it.
-6. Compare the same expense in **Wallet** and **Insights → Spending**: the equal split keeps the full $120 payment in Wallet and attributes $60 to your spending.
+1. Tap **Add transaction → Expense**, enter the name, amount and date, and choose an account owned by your personal profile.
+2. Tap **Split → Total with Others → Add people** and select at least one saved person.
+3. Choose **Equal**, **Amount**, or **Percentage** and check the allocation.
+4. Tap **Apply split**, then **Create** to save. Applying alone only updates the draft.
+5. Reopen through **Edit → Manage split** to change or remove it, then save. Compare **Wallet** with **Insights → Spending** to see the full payment versus your share.
 
-**Implementation and verification:**
+**Development limits:** PR6 is a read-only preview; saving requires PR7 and own-share spending requires PR8. PR7/8 remain development-only drafts with one unresolved integration-test failure. Guest creation, invitations, settlement, and money transfers are not included. Verification details and known simulator limitations are in the linked PRs.
 
-| Stage | Implementation | Recorded evidence |
-| --- | --- | --- |
-| Backend foundation | [PR1–5, starting at #6605](https://github.com/cheapreats/ce/pull/6605): allocation validation, retry-safe creation, revision-checked updates/removal, lifecycle protection, and authorized balances. | Combined backend checkpoint: 360/360 integration tests and 17/17 presubmit checks passed. |
-| Editor preview | [PR6 #6624](https://github.com/cheapreats/ce/pull/6624): existing Split flow, search reset, and applied-draft recovery. | Authenticated iOS walkthrough with screenshots/video; 263 focused mobile tests, 377/377 integration tests, and 17/17 presubmit checks passed on that checkpoint. |
-| Confirmed saving | [PR7 #6768](https://github.com/cheapreats/ce/pull/6768): save, reopen, update/remove, and retry recovery. | 541 focused mobile tests passed; screenshots show an existing saved $120 split reopened at $60/$60 and unsaved amount/percentage previews. |
-| Own-share spending | [PR8 #6769](https://github.com/cheapreats/ce/pull/6769): spending and budget attribution while preserving cash balances. | Simulator screenshots show the same existing expense as −$120 in Wallet and $60 in Spending. |
-
-**PR6 BEFORE (NULL) and AFTER:**
-
-| No participant selected | Equal allocation preview |
-| --- | --- |
-| <img src="https://github.com/user-attachments/assets/da5eae44-6343-4a50-89fc-1c77407198d8" alt="Empty one-off split editor" width="250"> | <img src="https://github.com/user-attachments/assets/f9b4083b-a463-4043-86ef-6aae3d28edaa" alt="Equal preview dividing $12.01 into $6.01 and $6.00" width="250"> |
-
-[Watch the PR6 simulator walkthrough](https://github.com/user-attachments/assets/c1324294-e8bb-4fac-bb51-a400f18cba74). Implementation PRs and their evidence are in Savi's private repository; teaching staff need access.
-
-**Boundaries:** PR6 alone is a read-only preview: applying a draft blocks transaction saving until that draft is removed. Steps 4–6 require PR7/PR8; these are development-only drafts, not a released D2 build. Their combined integration run reports **378/379 passing**, with an unresolved account-icon-recognition failure; both report 17/17 presubmit checks passing. Their screenshots use an existing saved expense and do not demonstrate a freshly recorded create-save-reopen sequence. The earlier passing checkpoints above do not establish that the newer combined stack passes every test.
-
-The mobile flow does not create guests, send invitations, settle debts, or transfer money. The PR6 simulator walkthrough required a Home/foreground recovery from an iOS 27 launch-animation freeze; it does not establish that every launch/reload path is fixed. Grading access to a fixed build remains a separate submission requirement.
+**Screenshots, video and implementation:** [PR6: editor preview](https://github.com/cheapreats/ce/pull/6624), [PR7: saving and Manage split](https://github.com/cheapreats/ce/pull/6768), [PR8: own-share spending](https://github.com/cheapreats/ce/pull/6769) (Savi's private repository).
 
 ### Splitting a receipt by item (Praneeth, Shahmeer)
 
