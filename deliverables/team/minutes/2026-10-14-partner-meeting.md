@@ -1,8 +1,8 @@
 # Partner Meeting - October 14, 2026
 
-- Time (Toronto): Not recorded
-- Format: Not recorded
-- Location: Not recorded
+- Time (Toronto): 6:00–6:20 p.m.
+- Format: Online
+- Location: Online
 - Partner: Ralph Maamari, Savi Finance
 
 ## Notes
