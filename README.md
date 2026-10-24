@@ -14,26 +14,26 @@ We are extending Savi Finance so people can split shared expenses, understand th
 
 ### Splitting a one-off expense (David, Shaun)
 
-**Why:** split a shared purchase without creating a group, and track your own expense separately from the full payment.
+**Why:** split a shared purchase without creating a group, and track your own spending separately from the full payment.
 
 **What it does:**
 
-- Splits a personal expense with existing Savi users or saved guests.
-- Supports equal, amount, and percentage splits, with validation so shares add up correctly.
+- Splits a personal expense with existing Savi users or saved guests using equal, amount, or percentage allocations.
+- Validates that shares add up correctly and handles leftover cents consistently.
 - Saves the split with the transaction; **Manage split** lets you edit or remove it later.
-- Shows your share in Spending while Wallet keeps the full payment: a $120 expense split equally between two people contributes $60 to your spending.
+- Counts your share in Spending and budget alerts while Wallet keeps the full payment: a $120 expense split equally between two people contributes $60 to your spending.
 
 **How to try it** (signed in to the configured development build, with split saving enabled):
 
-1. Tap **Add transaction**, choose **Expense**, and enter the name, amount, date, and a test account owned by your personal profile.
-2. Tap **Split → Total with Others**, then select at least one other person under **Add people**.
-3. Choose **Equal**, **Amount**, or **Percentage** and enter the shares if needed.
-4. Tap **Apply split**, then **Create** to save the transaction. Wait for synchronization to finish.
-5. Reopen the saved transaction through **Edit → Manage split** to change or remove the allocation, then save. With own-share spending enabled, compare **Wallet** with **Insights → Spending**.
+1. Tap **Add transaction → Expense**, enter the name, amount and date, and choose an account owned by your personal profile.
+2. Tap **Split → Total with Others → Add people** and select at least one saved person.
+3. Choose **Equal**, **Amount**, or **Percentage** and check the allocation.
+4. Tap **Apply split**, then **Create** to save. Applying alone only updates the draft.
+5. Reopen through **Edit → Manage split** to change or remove it, then save. Compare **Wallet** with **Insights → Spending** to see the full payment versus your share.
 
-Development-only: saving requires the mobile write flag and a compatible non-production backend; own-share spending requires PR8. Guest creation, invitations, and money transfers are not included. PR7/PR8 remain drafts, not a released D2 build; developer prerequisites and verification limits are documented in the linked PRs.
+**Development limits:** PR6 is a read-only preview; saving requires PR7 and own-share spending requires PR8. PR7/8 remain development-only drafts with one unresolved integration-test failure. Guest creation, invitations, settlement, and money transfers are not included. Verification details and known simulator limitations are in the linked PRs.
 
-**Screenshots and implementation:** [PR6: editor preview](https://github.com/cheapreats/ce/pull/6624), [PR7: saving and Manage split](https://github.com/cheapreats/ce/pull/6768), [PR8: own-share spending](https://github.com/cheapreats/ce/pull/6769) (Savi's private repository).
+**Screenshots, video and implementation:** [PR6: editor preview](https://github.com/cheapreats/ce/pull/6624), [PR7: saving and Manage split](https://github.com/cheapreats/ce/pull/6768), [PR8: own-share spending](https://github.com/cheapreats/ce/pull/6769) (Savi's private repository).
 
 ### Splitting a receipt by item (Praneeth, Shahmeer)
 

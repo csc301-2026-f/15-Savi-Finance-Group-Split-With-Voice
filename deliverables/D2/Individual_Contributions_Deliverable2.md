@@ -1,25 +1,29 @@
 ## Team 12 // Savi Finance — Individual Contributions Document
 
-### Name: David
+### Name: David Daniliuc
 
-One-Line Description:
-
-Precise Description:
-* placeholder
-
-### Name: Shaun
-
-One-Line Description: Built the one-off split mobile workflow with David's backend and added own-share spending attribution.
+One-Line Description: Built the one-off split backend and integrated and verified the existing mobile split preview with Shaun.
 
 Precise Description:
 
-* Added participant selection and equal, amount, and percentage splits ([PR6](https://github.com/cheapreats/ce/pull/6624), with David).
-* Connected saving, reopening, editing, and removing splits to the backend ([PR7](https://github.com/cheapreats/ce/pull/6768)).
-* Redesigned Manage split to match Savi's UI and distinguish the full payment from your share.
-* Added own-share spending and budget alerts while preserving full Wallet payments ([PR8](https://github.com/cheapreats/ce/pull/6769)).
-* Added regression tests, captured iOS screenshots, and documented the D2 workflow and limitations.
+* Defined versioned allocations, participant identities, and exact currency-unit validation ([PR1](https://github.com/cheapreats/ce/pull/6605)).
+* Implemented transaction/split creation with durable retry receipts, plus owner-only, revision-checked replacement and removal ([PR2](https://github.com/cheapreats/ce/pull/6606), [PR3](https://github.com/cheapreats/ce/pull/6607)).
+* Protected splits through source updates, deletion/restore, and account/profile lifecycle changes; added authorized per-person balances with separate currencies ([PR4](https://github.com/cheapreats/ce/pull/6608), [PR5](https://github.com/cheapreats/ce/pull/6609)).
+* Integrated the preview into the existing transaction Split sheet, fixed search reset and removal of ineligible drafts, and repaired affected regression fixtures ([PR6](https://github.com/cheapreats/ce/pull/6624), with Shaun).
+* Verified PR6 on the Savi Finance iOS simulator, captured before/after screenshots and a walkthrough video, and ran 263 focused mobile tests, 377/377 integration tests, and 17/17 presubmit checks.
 
-Status: PR7/PR8 are development-only drafts; verification details and outstanding issues are linked in the README.
+### Name: Shaun Danny
+
+One-Line Description: Built the one-off split mobile editor, confirmed-save workflow, and own-share spending attribution with David's backend.
+
+Precise Description:
+
+* Built participant selection and equal, amount, and percentage previews in the existing transaction split flow ([PR6](https://github.com/cheapreats/ce/pull/6624), with David).
+* Connected confirmed saving, reopening, editing, and removal to the backend, including retry identity and canonical readback; refined Manage split to distinguish the full payment from the payer's share ([PR7](https://github.com/cheapreats/ce/pull/6768)).
+* Added payer-share spending and budget-alert attribution while preserving full Wallet payments, with coverage for replacement, removal, and lifecycle changes ([PR8](https://github.com/cheapreats/ce/pull/6769)).
+* Added regression tests, captured saved-split and Wallet/Spending simulator evidence, and documented the one-off workflow and verification limits for D2.
+
+PR7/PR8 remain development-only drafts. Their combined integration run reports 378/379 passing with one unresolved failure; screenshots show existing saved data, not a freshly recorded create-save-reopen sequence. See the [README](../../README.md#splitting-a-one-off-expense-david-shaun) and linked PRs for the evidence boundaries.
 
 ### Name: Praneeth
 
