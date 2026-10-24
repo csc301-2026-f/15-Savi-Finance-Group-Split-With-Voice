@@ -56,6 +56,30 @@ Saving the split as debts between group members is in progress with the transact
 
 **Demo video and screenshots:** [Savi pull request #6759](https://github.com/cheapreats/ce/pull/6759) (Savi's private repository).
 
+# Splitting a transaction with a group (Sumedh, Pranay)
+Why: when one person pays for a shared expense, the app has to remember who owes what, or the split disappears as soon as the screen closes. Saving each person's share on the server is what lets Savi show balances and history, and keeps two people (or two devices) from overwriting each other's edits.
+
+What it does:
+
+* Creating a group expense also saves one record per participant with their share. The payer's own share is what is left of the total (a $12 expense shared by the payer and one member saves a single $6 debt, and no debt to oneself), and shares can add up to less than the total but never more.
+* Sending the same create request twice, such as a retry after an uncertain submission, returns the existing expense instead of creating a duplicate.
+* Only allowed people can create one: the caller must have an editing role in the group, and each participant must be an accepted member whose account is checked for ownership.
+* Deleting an expense also deletes its shares, and editing the total can't go below what is already assigned to people.
+* Getting or listing group expenses returns who owes what, which is what the History and Summary screens read.
+* Each expense has a version number. An edit or delete can send the version it last saw, and if someone changed the expense in the meantime, it is refused with "changed by someone else" and nothing is overwritten.
+
+How to try it (signed in to the Savi app, with Groups enabled, running against a backend that includes the saved-shares work):
+
+1. Create a group from the Groups section and invite a friend. They accept it from the bell icon (Notifications → Join). Your friend needs at least one account in Savi.
+2. Open the group and tap New Transaction.
+3. Enter the description and amount, pick the account that paid, and choose the members who shared the expense.
+4. Choose how to split it (even, by amount, or by percentage) and check the preview of who owes what.
+5. Save the transaction. Open the group's History and Summary to see the expense, who paid, and the amount each person owes. These are saved on the server, so they are still there after you close and reopen the app.
+
+In progress: repayment and settling up, attaching an existing transaction to a split, app screens for editing and deleting a group expense (the backend already supports both), and connecting the app to the edit-conflict check.
+
+**Demo video and screenshots:** [Savi pull request #6760](https://github.com/cheapreats/ce/pull/6760) (Savi's private repository).
+
 ### Owes / Owed Widget (Sambhav)
 
 **Why:** Savi users can see where they stand on the home screen, without checking each group or transaction.
