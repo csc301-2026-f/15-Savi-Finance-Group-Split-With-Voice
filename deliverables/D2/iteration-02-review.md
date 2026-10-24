@@ -27,6 +27,9 @@ Another process that worked well was discussing overlapping functionality betwee
 
 Although we had assigned responsibilities, we were also willing to collaborate and help each other when necessary rather than strictly limiting ourselves to our own tasks. When someone needed clarification or input on an implementation decision, other team members were available to provide feedback. This flexibility was beneficial because it prevented individual tasks from becoming completely isolated and allowed us to make decisions with the overall project in mind. It also helped us maintain momentum and work more effectively as a team.
 
+**4. Maintaining open and responsive communication with our partner**
+
+Regula communication with Ralph and the Savi team helped us clarify requirements and resolve technical questions throughout our development. Our 20 minute weekly meetings gave a consistent oppotunity to demonstrate progress and receive feedback, and we all felt comfortable asking questions and having conversations in our shared Slack channel with the Savi team. We also reached out directly to Jun Zheng (another developer) for technical guidance when needed, including troubleshooting the receipt-scanning configuration. Ralph and the team were approachable and responsive, and timely communication on both sides helped us work through blockers and keep our implementation aligned with their expectations. An example of this was when our logic for group split was initially on the unintended entrypoint on the app, Ralph told us in a friendly manner and gave us tips on how to move it to the right place.
 
 #### Q2. What did not work well
 
@@ -36,7 +39,13 @@ List **process-related** (i.e. team organization and how you work) decisions and
  * Give a supporting argument about what makes you think that way.
  * Feel free to refer/link to process artifact(s).
 
-Possible Ideas -> Time management (starting slightly late gave less time for feedback), add more
+**1. Underestimating time needed for integration and external blockers**
+
+Although we all finished our individual user stories comfortably within the deadline, bringing everything together required more time and coordination than anticipated. This made the final stretch before the deliverable deadline a bit more intensive than planned. For example, on the group split feature, integrating the different pairs' components needed additional testing and resolving shared dependencies, which ran into a few bugs and issues. We also should have left more time to deal with external blockers. Perhaps the best instance of this was for receipt scanning (to split money from a receipt picture), we encountered delays with receiving an OpenRouter API key from the partner, and also issues with API permissions and regional model availability. We worked through these challenges with a few days of coordination from our partner, but thie experience highlighted the importance of accounting for integration and external blockers alongside individual implementation tasks. In future iterations, we should validate external dependencies earlier and build a larger buffer into our integration schedule to reduce last-minute pressure.
+
+**2. Not maintaining a shared knowledge base for navigating the codebase**
+
+We used AI tools to support development, but we did not make the knowledge gained from those tools easily reusable across the team. The codebase is large and changes frequently (1.2M+ lines of code, with 140k+ added in the last week), so repeatedly investigating existing components and tracing relevant workflows took time for both developers and AI agents. Without a shared reference, discoveries made during one person’s investigation were not always available to others. To fix this, we can maintain a task-focused Markdown knowledge hub, or some sort of knowledge graph; this can contain relevant files, existing functionality, architectural decisions, and setup requirements to reduce repeated investigation and help both team members and agents work more effectively.
 
 
 #### Q3(a). Planned changes
