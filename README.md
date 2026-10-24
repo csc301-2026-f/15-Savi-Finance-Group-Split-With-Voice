@@ -56,7 +56,7 @@ Saving the split as debts between group members is in progress with the transact
 
 **Demo video and screenshots:** [Savi pull request #6759](https://github.com/cheapreats/ce/pull/6759) (Savi's private repository).
 
-# Splitting a transaction with a group (Sumedh, Pranay)
+### Splitting a transaction with a group (Sumedh, Pranay)
 Why: when one person pays for a shared expense, the app has to remember who owes what, or the split disappears as soon as the screen closes. Saving each person's share on the server is what lets Savi show balances and history, and keeps two people (or two devices) from overwriting each other's edits.
 
 What it does:
