@@ -23,10 +23,16 @@ Status: PR7/PR8 are development-only drafts; verification details and outstandin
 
 ### Name: Praneeth
 
-One-Line Description:
+One-Line Description: Built the receipt capture/editing half of receipt splitting (with Shahmeer), moved it into Savi’s existing transaction workflow, integrated the receipt and transaction-splitting branches into a working save flow.
 
 Precise Description:
-* placeholder
+* Receipt scanning/OCR: Connected receipt capture and upload to Savi’s existing AI extraction service. Investigated OpenRouter failures, applied Jun’s model/provider configuration, and verified live extraction through the local API using a mock/synthetic receipt.
+* Integration of both group-splitting flows: Created the integration branch while preserving both pairs’ commits and history. Connected receipt allocations to the group transaction team’s shared saving backend, including payment linkage, saved receipt details, retry/recovery behavior, and persisted History/Summary ([Integration PR](https://github.com/cheapreats/ce/pull/6761)).
+* Receipt editor: Built the interface for correcting merchant, items, total, tax and tip, then extended it with quantities and discount rows.
+* Draft state and validation: Implemented receipt draft storage and checks for valid money inputs, quantities and matching totals, preventing incomplete or inconsistent receipts from proceeding (see `receiptSplitSlice.ts`, `receiptSplitDraft.ts`).
+* Transaction workflow: Following feedback from a discussion with Ralph, moved receipt splitting into Create/Edit Transaction → Split → Line Items, removed the separate Groups entry point, and preserved transaction fields and receipt corrections during navigation.
+* Testing and handoff: Added regression tests, prepared simulator demos, verified saving through group History/Summary, and maintained setup instructions and implementation boundaries in RECEIPT_SPLIT_HANDOFF.md. This helped maintain a log of work + current status to share with Shahmeer during development.
+* Iteration review: Contributed to the writing of iteration-02-review.md, covering Q2, Q4, and a small bit of Q1.
 
 ### Name: Shahmeer
 
