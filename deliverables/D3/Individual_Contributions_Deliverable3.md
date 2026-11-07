@@ -31,6 +31,17 @@ The email and Android follow-up PRs were still draft at the last verified status
 
 **Implementation evidence:** [Integration PR #6761](https://github.com/cheapreats/ce/pull/6761). The receipt allocation math, participant picker, item assignment and voice/typed assignment I built for D2 are in [#6759](https://github.com/cheapreats/ce/pull/6759).
 
+**Sumedh**, Group expense save path: backend, integration and CI follow-up
+
+- **Participant shares:** Made group-expense create save one debt row per non-payer participant, with idempotencyKey-derived IDs so retries are safe ([3a808a76f](https://github.com/cheapreats/ce/commit/3a808a76f)).
+- **Share sync:** Update now rejects totals below the assigned shares, delete removes shares first, and get/list return shares ([770881293](https://github.com/cheapreats/ce/commit/770881293)).
+- **Conflict detection:** Added a revision counter with an optional expectedRevision on update and delete. Delete claims the revision before removing shares ([4476cda63](https://github.com/cheapreats/ce/commit/4476cda63), [7fa92c487](https://github.com/cheapreats/ce/commit/7fa92c487)).
+- **Settle and waive:** Guards run before settling, settle tracks revisions, and both operations keep stored shares and debt rows aligned ([20363d303](https://github.com/cheapreats/ce/commit/20363d303), [d4f7a39bf](https://github.com/cheapreats/ce/commit/d4f7a39bf)).
+- **Integration:** Merged main three times, resolving group-transaction conflicts. Fixed mobile expense types and restored the shared Switch's press handling without editing tests ([6f47b2ccc](https://github.com/cheapreats/ce/commit/6f47b2ccc), [1000732d4](https://github.com/cheapreats/ce/commit/1000732d4), [8396ef5da](https://github.com/cheapreats/ce/commit/8396ef5da), [7ecdaae98](https://github.com/cheapreats/ce/commit/7ecdaae98), [1c101bd87](https://github.com/cheapreats/ce/commit/1c101bd87)).
+- **Docs, UI and tests:** Rewrote the group expense method docs and regenerated API_DOC.md. Changed the "Total amount" label and added a settle-confirmation test ([7569abeaa](https://github.com/cheapreats/ce/commit/7569abeaa), [b4ea269cf](https://github.com/cheapreats/ce/commit/b4ea269cf), [b66b54ec5](https://github.com/cheapreats/ce/commit/b66b54ec5)).
+
+**Implementation evidence:** [Integration PR #6761](https://github.com/cheapreats/ce/pull/6761), including commits [3a808a76f](https://github.com/cheapreats/ce/commit/3a808a76f) (participant shares and idempotent create), [4476cda63](https://github.com/cheapreats/ce/commit/4476cda63) (revision-based conflict detection), [20363d303](https://github.com/cheapreats/ce/commit/20363d303) (settle and waive) and [1c101bd87](https://github.com/cheapreats/ce/commit/1c101bd87) (shared Switch press fix).
+
 **David Daniliuc**, One-off split: review fixes, integration and verification
 
 - Made retries repair pending budget alerts after a failed create ([85c7a66d3](https://github.com/cheapreats/ce/commit/85c7a66d3)) and finish pending deletion effects, with restore waiting until they complete. Also protected same-currency account updates against concurrent changes and made purge retries succeed if the account is already gone ([fddf9b131](https://github.com/cheapreats/ce/commit/fddf9b131)).

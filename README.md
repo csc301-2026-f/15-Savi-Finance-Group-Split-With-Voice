@@ -16,11 +16,11 @@ We are extending Savi Finance so people can split shared expenses, understand th
 
 **Walkthrough video (3:30):** [Receipt split, end to end](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing). Recorded on the iOS Simulator against a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)), with two test accounts. Alex scans a receipt (Burger $20, Nachos $12, tax $4, tip $4), assigns items by typing *"Sarah had the burger, we shared the nachos"*, and saves; Sarah then sees that she owes $32.50. The scan step waits about 15 seconds for the AI response.
 
-| Before | After |
-|---|---|
-| ![Sarah's group shows Settled up](deliverables/D3/screenshots/before-sarah-settled.jpg) | ![Sarah's group shows she owes $32.50](deliverables/D3/screenshots/after-sarah-owes.jpg) |
-| ![Receipt items not assigned yet](deliverables/D3/screenshots/before-items-unassigned.jpg) | ![Items assigned from a typed sentence, with each person's total](deliverables/D3/screenshots/after-items-assigned.jpg) |
-| ![Receipt read by Savi's AI](deliverables/D3/screenshots/receipt-scanned.jpg) | ![Sarah's group history with receipt items and her debt](deliverables/D3/screenshots/after-sarah-history.jpg) |
+**Screenshots (D3):** D2 "before" screenshots are in the description of [#6759](https://github.com/cheapreats/ce/pull/6759).
+
+| Receipt read by Savi's AI | Items assigned from a typed sentence | Sarah sees she owes $32.50 | Sarah's group history |
+|---|---|---|---|
+| ![Receipt read by Savi's AI](deliverables/D3/screenshots/receipt-scanned.jpg) | ![Items assigned, with each person's total](deliverables/D3/screenshots/after-items-assigned.jpg) | ![Sarah's group shows she owes $32.50](deliverables/D3/screenshots/after-sarah-owes.jpg) | ![Sarah's group history with receipt items and her debt](deliverables/D3/screenshots/after-sarah-history.jpg) |
 
 ## Key Use Cases
 
