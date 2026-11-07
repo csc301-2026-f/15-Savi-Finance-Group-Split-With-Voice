@@ -13,11 +13,23 @@
 
 **Implementation evidence:** [Integration PR #6761](https://github.com/cheapreats/ce/pull/6761), including commits [47445ab64](https://github.com/cheapreats/ce/commit/47445ab64) (UI refinements and receipt extraction improvements) and [9a5f45692](https://github.com/cheapreats/ce/commit/9a5f45692) (accessibility and non-functional test coverage). The documentation changes are in the [course README](../../README.md#development-process-and-infrastructure-d3).
 
-**[Name]**, [Role]
-> [Specific contributions]
+**Shaun Danny**, One-off split integration, notifications and review follow-up
 
-**[Name]**, [Role]
-> [Specific contributions]
+- Implemented the default-off split email-delivery follow-up, added backend regression coverage, and synchronized it with David's updated split stack ([#7452](https://github.com/cheapreats/ce/pull/7452)).
+- Separated the Android API compatibility guard into its own PR and documented verification limits; full Android privacy-blur parity remains follow-up work ([#7453](https://github.com/cheapreats/ce/pull/7453)).
+- Reviewed David's split PRs, coordinated re-review of the one-off stack, and documented outstanding review and rollout requirements.
+- Added the one-off flow, API/state references, setup flags and test guidance to the shared splitting knowledge base; prepared D3 slides, demo screenshots and report material.
+
+The email and Android follow-up PRs were still draft at the last verified status. David's lifecycle fixes and final cross-platform verification are not claimed as my individual work.
+
+**Shahmeer**, Receipt splitting: integration fixes, verification and code review
+
+- **Integration fixes:** Fixed the 15 new TypeScript errors on the receipt-split integration PR (0 new in the full type check). Two were real bugs: unreadable receipt prices were copied into the form without an amount, and a receipt-save test never actually ran ([1493e0c93](https://github.com/cheapreats/ce/commit/1493e0c93)).
+- **Backend tests:** Added Go tests for the receipt changes to Savi's OpenRouter client (verification fake, decimal amounts, JSON-schema responses, image detail), clearing the CI test-coupling gate ([5b48a95c4](https://github.com/cheapreats/ce/commit/5b48a95c4)).
+- **Code review:** Reviewed teammates' PRs before partner review: [#6770](https://github.com/cheapreats/ce/pull/6770), [#6605](https://github.com/cheapreats/ce/pull/6605) and [#6624](https://github.com/cheapreats/ce/pull/6624). Authors fixed every posted finding, including an unenforced feature flag, missing database indexes and mixed-currency totals.
+- **End-to-end verification and walkthrough:** Ran the integration branch against a local Savi backend and recorded the two-person [walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing) linked in the README: one user scans a real receipt, assigns items with a typed sentence and saves; the other sees what they owe. Added the video and before/after screenshots to the README, and found two existing bugs (email invites from group creation never reach the invitee; Feature Flags toggles don't respond to taps).
+
+**Implementation evidence:** [Integration PR #6761](https://github.com/cheapreats/ce/pull/6761). The receipt allocation math, participant picker, item assignment and voice/typed assignment I built for D2 are in [#6759](https://github.com/cheapreats/ce/pull/6759).
 
 **[Name]**, [Role]
 > [Specific contributions]
