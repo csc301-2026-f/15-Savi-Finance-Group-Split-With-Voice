@@ -18,16 +18,16 @@ Maybe talk about how we approached things differently
 
 ## 3. Before vs. After
 
-**Before (D2):** the receipt flow ended at a review screen that said, in the app, *"Saving group shares is not available yet; no expense or debt has been created."* The split never reached the other person. The D2 screenshots are in the description of [#6759](https://github.com/cheapreats/ce/pull/6759).
+The [walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing) shows the D3 flow end to end. It was recorded with two test accounts on a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)). D2 screenshots are in the description of [#6759](https://github.com/cheapreats/ce/pull/6759).
 
-**After (D3):** the same flow saves through the shared group-expense path, and the debt appears for the other person. We verified this end to end with two test accounts on a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)) and recorded it ([walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing)):
+**Receipt splits now become saved, shared expenses.**
+- **Before (D2):** the receipt flow ended at a review screen that said, in the app, *"Saving group shares is not available yet; no expense or debt has been created."* The split never reached the other person.
+- **After (D3):** the same flow saves through the shared group-expense path. In the video, Alex scans a $40 receipt (Burger $20, Nachos $12, tax $4, tip $4) and Savi's AI fills in the merchant, items, tax and tip. He assigns items with the typed-sentence feature from D2 (*"Sarah had the burger, we shared the nachos"*); tax and tip are split by what each person ordered, so the shares are $32.50 and $7.50 and add up exactly to $40.00. Tapping **Create** saves it, and Sarah then sees "Owe $32.50 USD" on her own Overview and the expense, with its receipt items, in the group's history, without Alex sending her anything.
 
-| Alex assigns items | Sarah's Overview | Sarah's group history |
-|---|---|---|
-| ![Items assigned, with each person's total](screenshots/after-items-assigned.jpg) | ![Sarah owes $32.50](screenshots/after-sarah-owes.jpg) | ![Sarah Test owes Alex Test US$32.50](screenshots/after-sarah-history.jpg) |
-
-- **Workflow:** Alex scans a $40 receipt (Burger $20, Nachos $12, tax $4, tip $4) and Savi's AI fills in the merchant, items, tax and tip. He assigns items with the typed-sentence feature from D2 (*"Sarah had the burger, we shared the nachos"*). Tax and tip are split by what each person ordered, so the shares are $32.50 and $7.50 and add up exactly to $40.00. In D3, tapping **Create** saves this as a group expense instead of stopping at the review screen.
-- **Visible to the other person:** The expense appears in the group's history with its receipt items, and on Sarah's own Overview as "Owe $32.50 USD", without Alex sending her anything.
+**Less clutter and wording.** Following our partner's feedback that the UI was too wordy, the receipt screens were simplified ([47445ab64](https://github.com/cheapreats/ce/commit/47445ab64)):
+- The receipt is shown for checking and correcting before splitting, with Savi's existing AI controls on the preview, instead of jumping straight into item entry.
+- On the review screen, the long "saving is not available yet" note is gone, and the three stacked **Edit receipt / Edit people / Edit items** links moved into one row at the bottom next to the main action.
+- A **Split everything equally** button assigns every item to everyone in one tap, for the common case where nobody needs an itemized split.
 
 **Fewer errors reach the partner.** We reviewed each other's PRs before Savi's review, and the authors fixed every issue we posted:
 - the Owed/Owing widget counted expenses whose save hadn't finished, and added different currencies into one total ([#6770](https://github.com/cheapreats/ce/pull/6770));
