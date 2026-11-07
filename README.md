@@ -62,7 +62,7 @@ We are extending Savi Finance so people can split shared expenses, understand th
 
 **How to try it** (signed in to the development app, with Groups enabled; use the integration branch and local backend for saving):
 
-1. Enable `group_card` under **Diagnostics → Feature Flags** if Groups is hidden. Create a group from **Overview → Groups** and invite a friend; they accept from **Notifications → Join**.
+1. Enable `group_card` under **Diagnostics → Feature Flags** if Groups is hidden. Create a group from **Overview → Groups**, then open the group's settings (gear icon) → **Invite member** and enter your friend's email; they accept from **Notifications → Join**. (Leave the email field on the Create a Group screen empty: invites entered there do not reach the friend's Notifications yet.)
 2. Tap **Add transaction**, choose **Expense**, enter the name and amount, and select a test account owned by the payer. Tap **Split → Line Items → Split receipt items with people**.
 3. Choose the group, then take or upload a photo of the receipt, or type the items, tax and tip.
 4. Tap **Choose people**, then **Assign items**: tap names on each item, or type a sentence like the one above and tap **Apply**.
