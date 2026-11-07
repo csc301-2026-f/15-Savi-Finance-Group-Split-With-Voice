@@ -10,6 +10,18 @@ We are extending Savi Finance so people can split shared expenses, understand th
 
 **A note on deployability:** We know that a component of the deliverables (such as D2 currently) is having a deployable version of the application for public access. Since we're working on a feature for Savi, an app with an existing userbase, this isn't always possible. We have our features for user stories mostly completed, but the process of merging them into the real codebase will take a little more time/coordination with the Savi team. In order to account for this, we have linked the branches/PRs that we worked on, with screenshots and demo videos attached to showcase our work. We discussed this approach with our tutorial TA, Rayan, who approved of this approach. Thanks!
 
+## D3 Improvement and Walkthrough Video
+
+**What changed since D2:** After D2, a receipt split could be built but not saved, so it never became a real group expense. In D3, receipt splitting saves through the shared group-expense flow: one person scans a receipt, assigns items to group members (by tapping, or by typing a sentence), and saves it; the other person then sees what they owe on their own account and in the group's history.
+
+**Walkthrough video (3:30):** [Receipt split, end to end](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing). Recorded on the iOS Simulator against a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)), with two test accounts. Alex scans a receipt (Burger $20, Nachos $12, tax $4, tip $4), assigns items by typing *"Sarah had the burger, we shared the nachos"*, and saves; Sarah then sees that she owes $32.50. The scan step waits about 15 seconds for the AI response.
+
+| Before | After |
+|---|---|
+| ![Sarah's group shows Settled up](deliverables/D3/screenshots/before-sarah-settled.jpg) | ![Sarah's group shows she owes $32.50](deliverables/D3/screenshots/after-sarah-owes.jpg) |
+| ![Receipt items not assigned yet](deliverables/D3/screenshots/before-items-unassigned.jpg) | ![Items assigned from a typed sentence, with each person's total](deliverables/D3/screenshots/after-items-assigned.jpg) |
+| ![Receipt read by Savi's AI](deliverables/D3/screenshots/receipt-scanned.jpg) | ![Sarah's group history with receipt items and her debt](deliverables/D3/screenshots/after-sarah-history.jpg) |
+
 ## Key Use Cases
 
 ### Splitting a one-off expense (David, Shaun)
@@ -59,7 +71,7 @@ We are extending Savi Finance so people can split shared expenses, understand th
 
 Live extraction uses `openai/gpt-6-luna` through OpenRouter, pinned to `azure/us`. A generated receipt was successfully read through the authenticated local API ($35 total, with a $28 soup line). Photo-library upload and live extraction were verified in the iOS simulator using a generated receipt. Real-photo accuracy, camera capture and real-device microphone behavior still need verification. Typed assignment and manual receipt entry are available without live AI inference. Saved receipt item/assignment editing, group budget-share adjustments and post-save notifications remain unfinished.
 
-**Demo video and screenshots:** [Savi pull request #6759](https://github.com/cheapreats/ce/pull/6759) (Savi's private repository).
+**Demo video and screenshots:** [D3 walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing) on the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)); earlier D2 demo on [Savi pull request #6759](https://github.com/cheapreats/ce/pull/6759) (Savi's private repository).
 
 ### Splitting a transaction with a group (Sumedh, Pranay)
 
