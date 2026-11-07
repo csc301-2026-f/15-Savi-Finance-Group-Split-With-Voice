@@ -1,8 +1,8 @@
 # Team Meeting - October 27, 2026
 
-- Time (Toronto): Not recorded
-- Format: Not recorded
-- Location: Not recorded
+- Time (Toronto): 2:00–3:00 p.m.
+- Format: Online
+- Location: Online
 - Participants: Project team
 
 ## Notes
