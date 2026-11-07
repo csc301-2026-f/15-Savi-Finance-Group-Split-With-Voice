@@ -1,4 +1,4 @@
-# Savi Finance — Individual Contributions (D3)
+m# Savi Finance — Individual Contributions (D3)
 
 > For each team member: name, role, and specific contributions. Be precise about what you did, not how much you wrote.
 
@@ -56,5 +56,5 @@ As of November 6, none are merged: [#6607](https://github.com/cheapreats/ce/pull
 
 Contributed to the receipt-split integration branch by hiding the receipt-split action for transactions with an exact amount, helping prepare the feature for merging into main. Reviewed PR #6609’s balance calculations, authorization checks, and tests, and posted actionable feedback requesting regression coverage for cases where two people owe each other money, including expected balances and obligation counts. Also assisted Sumedh throughout the week. Encountered WSL and VS Code issues, particularly high memory usage, which slowed progress this week. Resolved those issues and am ready to move forward with the upcoming deliverables.
 
-**[Name]**, [Role]
-> [Specific contributions]
+**Sambhav Athreya**, Owed/Owes Widget
+- Built the Splits widget on the Overview screen, showing Total Owed to you and Total You Owe across one-off and group splits. Tapping a total opens a breakdown by person and by group, and balances can be marked as resolved or undone. Resolved balances drop out of the totals but stay in the history. Followed Ralph's review on my PR to let users tap a person and see the transactions that add up to that person's balance, and added a label under each name showing what the money is for (e.g. a subscription or movie tickets). 
