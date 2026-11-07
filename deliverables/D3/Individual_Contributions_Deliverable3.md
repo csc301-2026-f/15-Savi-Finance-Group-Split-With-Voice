@@ -22,8 +22,14 @@
 
 The email and Android follow-up PRs were still draft at the last verified status. David's lifecycle fixes and final cross-platform verification are not claimed as my individual work.
 
-**[Name]**, [Role]
-> [Specific contributions]
+**Shahmeer**, Receipt splitting: integration fixes, verification and code review
+
+- **Integration fixes:** Fixed the 15 new TypeScript errors on the receipt-split integration PR (0 new in the full type check). Two were real bugs: unreadable receipt prices were copied into the form without an amount, and a receipt-save test never actually ran ([1493e0c93](https://github.com/cheapreats/ce/commit/1493e0c93)).
+- **Backend tests:** Added Go tests for the receipt changes to Savi's OpenRouter client (verification fake, decimal amounts, JSON-schema responses, image detail), clearing the CI test-coupling gate ([5b48a95c4](https://github.com/cheapreats/ce/commit/5b48a95c4)).
+- **Code review:** Reviewed teammates' PRs before partner review: [#6770](https://github.com/cheapreats/ce/pull/6770), [#6605](https://github.com/cheapreats/ce/pull/6605) and [#6624](https://github.com/cheapreats/ce/pull/6624). Authors fixed every posted finding, including an unenforced feature flag, missing database indexes and mixed-currency totals.
+- **End-to-end verification and walkthrough:** Ran the integration branch against a local Savi backend and recorded the two-person [walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing) linked in the README: one user scans a real receipt, assigns items with a typed sentence and saves; the other sees what they owe. Added the video and before/after screenshots to the README, and found two existing bugs (email invites from group creation never reach the invitee; Feature Flags toggles don't respond to taps).
+
+**Implementation evidence:** [Integration PR #6761](https://github.com/cheapreats/ce/pull/6761). The receipt allocation math, participant picker, item assignment and voice/typed assignment I built for D2 are in [#6759](https://github.com/cheapreats/ce/pull/6759).
 
 **[Name]**, [Role]
 > [Specific contributions]
