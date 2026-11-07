@@ -3,7 +3,7 @@
 - Time (Toronto): Not recorded
 - Format: Not recorded
 - Location: Not recorded
-- Partner: Ralph Maamari
+- Partner: Ralph Maamari, Savi Finance
 
 ## Notes
 
