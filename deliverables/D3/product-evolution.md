@@ -1,4 +1,4 @@
-# YOUR PRODUCT/TEAM NAME
+# Team 15 — Savi Finance: Group Split with Voice
 
 > Aim for 1000-2000 words. Be concise and analytical. We care about reasoning, impact, and integration quality, not length.
 
