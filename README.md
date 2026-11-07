@@ -22,13 +22,6 @@ We are extending Savi Finance so people can split shared expenses, understand th
 |---|---|---|---|
 | ![Receipt read by Savi's AI](deliverables/D3/screenshots/receipt-scanned.jpg) | ![Items assigned, with each person's total](deliverables/D3/screenshots/after-items-assigned.jpg) | ![Sarah's group shows she owes $32.50](deliverables/D3/screenshots/after-sarah-owes.jpg) | ![Sarah's group history with receipt items and her debt](deliverables/D3/screenshots/after-sarah-history.jpg) |
 
-### Response to earlier README feedback
-
-- **"Reads like an early outline", "several sections remain unfinished":** each workstream now has a complete section under [Key Use Cases](#key-use-cases) with what it does, how to try it step by step, its limits and its PRs.
-- **"Does not clearly present the confirmed five workstreams":** the five workstreams are one-off splits, receipt splits, transaction splits, the integration that connects them, and the Owes/Owed widget, each with its own section and owners.
-- **"Feature-specific instructions and development setup":** see each feature's "How to try" steps and [Development Requirements](#development-requirements), which covers the local backend, mobile build, test accounts and live receipt extraction.
-- **"Relationship between the core splitting functionality and optional voice features":** splitting works fully without voice. Today, voice means saying or typing who had which receipt item, which fills in the same assignments you could tap by hand. The voice-call agent comes after the core splitting flows are merged into Savi.
-
 ## Key Use Cases
 
 ### Splitting a one-off expense (David, Shaun)
