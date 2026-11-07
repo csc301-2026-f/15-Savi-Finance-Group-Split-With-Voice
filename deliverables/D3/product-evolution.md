@@ -18,22 +18,23 @@ Maybe talk about how we approached things differently
 
 ## 3. Before vs. After
 
-**Receipt splitting now ends in a saved, shared expense.** After D2, a receipt split could be built and reviewed but not saved, so the other person never saw it. In D3 the same flow saves through the shared group-expense path. We verified this end to end with two test accounts on a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)) and recorded it ([walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing)):
+The [walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing) shows the D3 flow end to end. It was recorded with two test accounts on a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)). D2 screenshots are in the description of [#6759](https://github.com/cheapreats/ce/pull/6759).
 
-| | Before | After |
-|---|---|---|
-| Other person's view | ![Settled up](screenshots/before-sarah-settled.jpg) Group shows "Settled up" | ![Owes $32.50](screenshots/after-sarah-owes.jpg) Group shows "Owe $32.50 USD" |
-| Assigning items | ![Unassigned](screenshots/before-items-unassigned.jpg) Every item "Not assigned yet" | ![Assigned](screenshots/after-items-assigned.jpg) One typed sentence assigns both items |
+**Receipt splits now become saved, shared expenses.**
+- **Before (D2):** the receipt flow ended at a review screen that said, in the app, *"Saving group shares is not available yet; no expense or debt has been created."* The split never reached the other person.
+- **After (D3):** the same flow saves through the shared group-expense path. In the video, Alex scans a $40 receipt (Burger $20, Nachos $12, tax $4, tip $4) and Savi's AI fills in the merchant, items, tax and tip. He assigns items with the typed-sentence feature from D2 (*"Sarah had the burger, we shared the nachos"*); tax and tip are split by what each person ordered, so the shares are $32.50 and $7.50 and add up exactly to $40.00. Tapping **Create** saves it, and Sarah then sees "Owe $32.50 USD" on her own Overview and the expense, with its receipt items, in the group's history, without Alex sending her anything.
 
-- **Workflow:** One user scans a $40 receipt (Burger $20, Nachos $12, tax $4, tip $4); Savi's AI fills in the merchant, items, tax and tip. Typing *"Sarah had the burger, we shared the nachos"* assigns both items in one step instead of tapping each one. Tax and tip are split by what each person ordered, so the shares are $32.50 and $7.50 and add up exactly to $40.00.
-- **Visible to the other person:** The saved expense appears in the group's history with its receipt items and the line "Sarah Test owes Alex Test US$32.50", and on Sarah's own Overview.
+**Less clutter and wording.** Following our partner's feedback that the UI was too wordy, the receipt screens were simplified ([47445ab64](https://github.com/cheapreats/ce/commit/47445ab64)):
+- The receipt is shown for checking and correcting before splitting, with Savi's existing AI controls on the preview.
+- On the review screen, the long "saving is not available yet" note is gone, and the three stacked **Edit receipt / Edit people / Edit items** links moved into one row at the bottom next to the main action.
+- A **Split everything equally** button assigns every item to everyone in one tap, for the common case where nobody needs an itemized split.
 
 **Fewer errors reach the partner.** We reviewed each other's PRs before Savi's review, and the authors fixed every issue we posted:
 - the Owed/Owing widget counted expenses whose save hadn't finished, and added different currencies into one total ([#6770](https://github.com/cheapreats/ce/pull/6770));
 - guest creation and invitations ignored the `EXPENSE_SPLITS_ENABLED` rollout flag, and the guest collection had no database indexes ([#6605](https://github.com/cheapreats/ce/pull/6605));
 - participant names could show raw `u_…` user IDs instead of names (#6770, #6605).
 
-**More checks pass.** The integration PR went from failing type checks (15 new errors) and Savi's test-coupling gate to passing both, after fixing two real bugs (unreadable receipt prices were copied into the form without an amount; a receipt-save test never ran) and adding Go tests for the receipt AI client.
+**More checks pass.** On the integration PR, Savi's type check went from 15 new errors to none and its test-coupling gate now passes, after fixing two real bugs (unreadable receipt prices were copied into the form without an amount; a receipt-save test never ran) and adding Go tests for the receipt AI client. One mobile test job still fails on filter-menu tests that broke on Savi's `main` and are fixed there; merging `main` into the PR clears it.
 
 ## 4. Reflection
 
