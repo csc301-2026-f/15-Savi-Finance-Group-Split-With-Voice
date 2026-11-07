@@ -22,7 +22,7 @@ Maybe talk about how we approached things differently
 
 | D2 (#6759) | D3 (#6761) |
 |---|---|
-| ![D2 review screen: saving group shares is not available yet](screenshots/d2-review-not-saved.jpg) Review ends with "no expense or debt has been created"; the other person is shown by email | ![D3 group history: Sarah Test owes Alex Test US$32.50](screenshots/after-sarah-history.jpg) The saved expense in Sarah's group history, with receipt items and "Sarah Test owes Alex Test US$32.50" |
+| ![D2 review screen: saving group shares is not available yet](screenshots/d2-review-not-saved.jpg) Review ends with "no expense or debt has been created" | ![D3 group history: Sarah Test owes Alex Test US$32.50](screenshots/after-sarah-history.jpg) The saved expense in Sarah's group history, with receipt items and "Sarah Test owes Alex Test US$32.50" |
 
 We verified the D3 flow end to end with two test accounts on a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)) and recorded it ([walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing)). These screenshots are from that run, before and after Alex saves the split:
 
@@ -33,7 +33,6 @@ We verified the D3 flow end to end with two test accounts on a local Savi backen
 
 - **Workflow:** Alex scans a $40 receipt (Burger $20, Nachos $12, tax $4, tip $4) and Savi's AI fills in the merchant, items, tax and tip. He assigns items with the typed-sentence feature from D2 (*"Sarah had the burger, we shared the nachos"*). Tax and tip are split by what each person ordered, so the shares are $32.50 and $7.50 and add up exactly to $40.00. In D3, tapping **Create** saves this as a group expense instead of stopping at the review screen.
 - **Visible to the other person:** The expense appears in the group's history with its receipt items, and on Sarah's own Overview, without Alex sending her anything.
-- **Names instead of emails:** the D2 review showed the other person by email; D3 shows their name ("Sarah Test owes you").
 
 **Fewer errors reach the partner.** We reviewed each other's PRs before Savi's review, and the authors fixed every issue we posted:
 - the Owed/Owing widget counted expenses whose save hadn't finished, and added different currencies into one total ([#6770](https://github.com/cheapreats/ce/pull/6770));
