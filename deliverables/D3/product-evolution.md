@@ -30,8 +30,6 @@ The [walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU
 - **Before (D2):** the editor in [#6624](https://github.com/cheapreats/ce/pull/6624) was a read-only preview. Saving ([#6768](https://github.com/cheapreats/ce/pull/6768)) and own-share spending ([#6769](https://github.com/cheapreats/ce/pull/6769)) were drafts with an unresolved integration-test failure.
 - **After (D3):** the full flow works on iOS and Android against a local Savi backend. A $42 expense is split $21 / $21, saved and reopened, then changed to $12 / $30 and reopened at the new revision. Changing the source amount is rejected with *"Split source cannot be changed"*. Wallet still shows the full −$42 payment, while Spending shows the payer's $12 share. Recordings and screenshots are in [#6769](https://github.com/cheapreats/ce/pull/6769).
 
-**One-off retries and deletes are safer.** Following review from Savi's engineers, a retried create now repairs pending budget alerts, and a retried delete finishes its remaining updates, so a failure partway through can't leave a split half-applied ([#6606](https://github.com/cheapreats/ce/pull/6606), [#6608](https://github.com/cheapreats/ce/pull/6608)). A $0 own share is also no longer grouped as income ([#6769](https://github.com/cheapreats/ce/pull/6769)).
-
 **Less clutter and wording.** Following our partner's feedback that the UI was too wordy, the receipt screens were simplified ([47445ab64](https://github.com/cheapreats/ce/commit/47445ab64)):
 - The receipt is shown for checking and correcting before splitting, with Savi's existing AI controls on the preview.
 - On the review screen, the long "saving is not available yet" note is gone, and the three stacked **Edit receipt / Edit people / Edit items** links moved into one row at the bottom next to the main action.
@@ -41,6 +39,8 @@ The [walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU
 - the Owed/Owing widget counted expenses whose save hadn't finished, and added different currencies into one total ([#6770](https://github.com/cheapreats/ce/pull/6770));
 - guest creation and invitations ignored the `EXPENSE_SPLITS_ENABLED` rollout flag, and the guest collection had no database indexes ([#6605](https://github.com/cheapreats/ce/pull/6605));
 - participant names could show raw `u_…` user IDs instead of names (#6770, #6605).
+
+Savi's review of the one-off stack also caught that a failed create or delete could leave a split half-applied, and that a $0 own share was grouped as income. Both are fixed ([#6606](https://github.com/cheapreats/ce/pull/6606), [#6608](https://github.com/cheapreats/ce/pull/6608), [#6769](https://github.com/cheapreats/ce/pull/6769)).
 
 **More checks pass.** On the integration PR, Savi's type check went from 15 new errors to none and its test-coupling gate now passes, after fixing two real bugs (unreadable receipt prices were copied into the form without an amount; a receipt-save test never ran) and adding Go tests for the receipt AI client. One mobile test job still fails on filter-menu tests that broke on Savi's `main` and are fixed there; merging `main` into the PR clears it.
 
