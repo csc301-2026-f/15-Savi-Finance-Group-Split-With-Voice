@@ -14,7 +14,11 @@ We are extending Savi Finance so people can split shared expenses, understand th
 
 **What changed since D2:** After D2, a receipt split could be built but not saved, so it never became a real group expense. In D3, receipt splitting saves through the shared group-expense flow: one person scans a receipt, assigns items to group members (by tapping, or by typing a sentence), and saves it; the other person then sees what they owe on their own account and in the group's history.
 
+**One-off splits:** After D2, the one-off editor was a read-only preview, and saving and own-share spending were still drafts. In D3, a one-off split can be saved, reopened, edited and removed. Spending counts only your share while Wallet keeps the full payment, and failed creates and deletes can now be retried safely. The work is still in review across the 8-PR stack ([#6605](https://github.com/cheapreats/ce/pull/6605)–[#6609](https://github.com/cheapreats/ce/pull/6609), [#6624](https://github.com/cheapreats/ce/pull/6624), [#6768](https://github.com/cheapreats/ce/pull/6768) and [#6769](https://github.com/cheapreats/ce/pull/6769)).
+
 **Walkthrough video (3:30):** [Receipt split, end to end](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing). Recorded on the iOS Simulator against a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)), with two test accounts. Alex scans a receipt (Burger $20, Nachos $12, tax $4, tip $4), assigns items by typing *"Sarah had the burger, we shared the nachos"*, and saves; Sarah then sees that she owes $32.50. The scan step waits about 15 seconds for the AI response.
+
+**One-off walkthrough:** iOS and Android recordings and screenshots are in [#6769](https://github.com/cheapreats/ce/pull/6769). A $42 expense is split $12 / $30 and saved: Wallet shows the full −$42 payment, and Spending shows the payer's $12 share.
 
 **Screenshots (D3):** D2 "before" screenshots are in the description of [#6759](https://github.com/cheapreats/ce/pull/6759).
 
