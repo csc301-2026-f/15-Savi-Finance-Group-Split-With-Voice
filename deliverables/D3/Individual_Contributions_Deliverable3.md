@@ -52,5 +52,9 @@ The email and Android follow-up PRs were still draft at the last verified status
 
 As of November 6, none are merged: [#6607](https://github.com/cheapreats/ce/pull/6607) and [#6768](https://github.com/cheapreats/ce/pull/6768) are approved, and [#6605](https://github.com/cheapreats/ce/pull/6605) is back in draft with new conflicts against main. The other person's debt is only available through the API; no screen shows it yet.
 
+**Pranay**, Group expense save path: backend, integration and CI follow-up
+
+Contributed to the receipt-split integration branch by hiding the receipt-split action for transactions with an exact amount, helping prepare the feature for merging into main. Reviewed PR #6609’s balance calculations, authorization checks, and tests, and posted actionable feedback requesting regression coverage for cases where two people owe each other money, including expected balances and obligation counts. Also assisted Sumedh throughout the week. Encountered WSL and VS Code issues, particularly high memory usage, which slowed progress this week. Resolved those issues and am ready to move forward with the upcoming deliverables.
+
 **[Name]**, [Role]
 > [Specific contributions]
