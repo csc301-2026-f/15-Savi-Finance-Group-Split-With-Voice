@@ -1,7 +1,5 @@
 # Team 15 — Savi Finance: Group Split with Voice
 
-> Aim for 1000-2000 words. Be concise and analytical. We care about reasoning, impact, and integration quality, not length.
-
 ## 1. What Needed to Improve
 
 After D2, our features worked mostly in isolation rather than as one product. Each sub-team had built its flow on its own branch: receipt splits could be built and reviewed but not saved, the one-off split editor was a read-only preview whose saving lived in a later PR, and receipt and transaction splitting each needed groups, participants, saved shares and balances. A split that isn't saved never reaches the other person, so the core promise of the product (both people can see who owes whom) did not hold end to end. The most important gap was turning these separate prototypes into a connected, reliable flow: one shared way to save group expenses, reviewed code that Savi could merge, and screens clear enough for real users.
