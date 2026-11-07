@@ -25,7 +25,7 @@ The [walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU
 - **After (D3):** the same flow saves through the shared group-expense path. In the video, Alex scans a $40 receipt (Burger $20, Nachos $12, tax $4, tip $4) and Savi's AI fills in the merchant, items, tax and tip. He assigns items with the typed-sentence feature from D2 (*"Sarah had the burger, we shared the nachos"*); tax and tip are split by what each person ordered, so the shares are $32.50 and $7.50 and add up exactly to $40.00. Tapping **Create** saves it, and Sarah then sees "Owe $32.50 USD" on her own Overview and the expense, with its receipt items, in the group's history, without Alex sending her anything.
 
 **Less clutter and wording.** Following our partner's feedback that the UI was too wordy, the receipt screens were simplified ([47445ab64](https://github.com/cheapreats/ce/commit/47445ab64)):
-- The receipt is shown for checking and correcting before splitting, with Savi's existing AI controls on the preview, instead of jumping straight into item entry.
+- The receipt is shown for checking and correcting before splitting, with Savi's existing AI controls on the preview.
 - On the review screen, the long "saving is not available yet" note is gone, and the three stacked **Edit receipt / Edit people / Edit items** links moved into one row at the bottom next to the main action.
 - A **Split everything equally** button assigns every item to everyone in one tap, for the common case where nobody needs an itemized split.
 
