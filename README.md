@@ -201,29 +201,41 @@ The group/receipt flow can be run locally from `main` with the mobile app and ba
 
 ## Development Requirements
 
-This course repo is not a standalone application. For all who wish to set this repo up locally, they must follow **Savi Finance's existing setup instructions**.
+The implementation runs from Savi's private monorepo, not this documentation repository. Start with [Savi's backend setup](https://github.com/cheapreats/ce/blob/main/dev/README.md) and [mobile setup](https://github.com/cheapreats/ce/blob/main/sba-mobile/README.md). They remain the source of truth for supported tool versions and native build configuration.
 
-- [Savi local backend setup](https://github.com/cheapreats/ce/blob/main/dev/README.md)
-- [Savi mobile development setup](https://github.com/cheapreats/ce/blob/main/sba-mobile/README.md)
-- [Historical receipt split handoff (removed from current source)](https://github.com/cheapreats/ce/blob/a12f185180bfb184d44a41fea79c1eb595d069a6/sba-mobile/screens/groups/RECEIPT_SPLIT_HANDOFF.md)
+**Prerequisites:** repository access, Node.js/npm, Go/Bazel, Docker and the platform's native tools. iOS simulation requires macOS/Xcode; Android requires the Android development tools. Use an Expo **development build**, since Expo Go does not contain Savi's native modules.
 
-Developers need access to the private monorepo, Node.js/npm, Go/Bazel and Docker for local services. The mobile app uses an Expo development build; iOS requires macOS/Xcode and Android requires the Android development tools. Expo Go does not include all of Savi's native modules.
+### Start the group/receipt development flow
 
-For the two group split flows:
+1. Clone `cheapreats/ce` and check out `main` containing merged PR #6761. Keep the mobile app and backend on the same revision. For an open feature, use its branch from [Implementation Status](#implementation-status-d4) instead.
+2. Start Docker. From the implementation repository root, run `make dev-up` in a dedicated terminal; it starts local services, prepares missing environment files and seeds the database. In another terminal, run `make dev-status`. The default API health endpoint is `http://localhost:8080/healthz`.
+3. Follow the mobile guide to configure local HTTPS/OAuth and trust the development certificate on the simulator or test device. Run `make dev-mobile` from the root to write the mobile app's local API configuration. The app normally targets Savi's hosted API, so this step matters even when the local server is running.
+4. In `sba-mobile/`, run `npm ci`. Install a matching development client using Savi's internal build or build locally with `npm run ios` / `npm run android`. Start Metro with `npx expo start --dev-client --clear`; use `--port 8082` if the default port is occupied. Run one Metro instance for the checkout and connect the client to it.
+5. Sign in using Savi-approved local test accounts. The local seed includes `alextest1@financesavi.com` and `sarahtest2@financesavi.com`; use the local authentication setup, not production credentials. Enable `group_card` if needed, create/join a group and choose a payer-owned account. Another developer's prepared demo group is not automatically present on your machine.
+6. Follow the [receipt workflow](#splitting-a-receipt-by-item-praneeth-shahmeer) or [group transaction workflow](#splitting-a-transaction-with-a-group-sumedh-pranay). Save a synthetic expense and confirm it appears in group History before using the setup for a demo.
 
-1. Check out `main` in Savi's monorepo, including merged PR #6761. Run both the mobile app and backend from the same revision.
-2. Follow the backend guide and start `make dev-up` from the monorepo root in a dedicated terminal.
-3. Follow the mobile guide to build/install a development client, configure the simulator's local HTTPS trust, and run `make dev-mobile`. In `sba-mobile/`, install dependencies with `npm ci` and start Metro with `npx expo start --dev-client --clear`.
-4. Sign in with an approved development/test account and use the feature steps above. Enable `group_card` if Groups is hidden. Create a test group and a payer-owned test account as needed; the prepared demo group on one developer's laptop is not automatically present on another machine.
+### Live receipt extraction and local test mode
 
-For **live receipt extraction**, set these in the backend's ignored `sf1/api/.env`, then restart the backend:
+Local services default to fake-provider settings. For **live OCR**, configure the backend's ignored `sf1/api/.env`:
 
 ```dotenv
 OPEN_ROUTER_API_KEY=<approved development key>
 OPEN_ROUTER_FAKE_MODE=
 ```
 
-The model (`openai/gpt-6-luna`) and provider (`azure/us`) are configured in code. The mobile client must point to the local backend; a local key does not change Savi's hosted API. Manual receipt entry, assignment and saving do not require an OpenRouter key. Use fake-provider mode for the hermetic test suite, as described in Savi's setup documentation.
+Restart your checkout's API with `make dev-restart-api` after changing these settings. The model (`openai/gpt-6-luna`) and provider (`azure/us`) are configured in code. Confirm the app targets your local HTTPS API: changing a local key has no effect on Savi's hosted backend. Manual entry and typed assignment do not require an OpenRouter key. Voice transcription has its own provider configuration; an OCR key alone does not enable live speech recognition.
+
+For automated receipt/API tests, use `OPEN_ROUTER_FAKE_MODE=hermetic` and restart the API. Keep live-provider and hermetic test sessions separate so tests remain repeatable and avoid paid inference.
+
+### Troubleshooting and continuing development
+
+- **Blank app, stale screens or connection warning:** check `make dev-status`, the Metro terminal and the configured API origin. Restart Metro after changing its environment. A native dependency change requires a matching development client rebuild; clearing the JavaScript cache alone does not rebuild native modules.
+- **Receipt upload works but extraction fails:** inspect `dev/.logs/sf1-api.log` for the provider error, check the key and fake-mode setting, then retry or enter items manually. Do not paste credentials into issues, PRs or screenshots.
+- **No selectable groups:** the receipt picker requires the signed-in user and another accepted member. Accept the invitation and refresh the group list.
+- **Preserve local data:** `make dev-down` stops the stack while retaining data. `make dev-reset` and `make dev-teardown` remove local data; they are not routine restart commands. Check which checkout owns the services before stopping them.
+- **Where to maintain the feature:** receipt screens/calculations are in `sba-mobile/screens/groups/`, shared controls in `sba-mobile/components/groups/`, draft state in `sba-mobile/redux/slices/receiptSplitSlice.ts`, and save/validation logic in `sf1/api/rpc/handlers/create_group_transaction/`. Add regression coverage alongside the affected component and follow Savi's PR review process.
+
+The [historical receipt handoff](https://github.com/cheapreats/ce/blob/a12f185180bfb184d44a41fea79c1eb595d069a6/sba-mobile/screens/groups/RECEIPT_SPLIT_HANDOFF.md) records earlier development decisions; the current workflow and setup are documented here and in Savi's maintained guides.
 
 ## External Dependencies
 
@@ -255,7 +267,7 @@ Live service credentials and environment configuration follow Savi's setup instr
 
 Implementation work stays on feature branches in Savi's monorepo and is submitted through PRs following the company's review and merge practices. The original receipt and group transaction PRs remain as individual contribution evidence; their combined integration (#6761) has merged into `main`. Savi controls review and merging into its production codebase. Course documentation is maintained separately in this repository through team branches and PRs.
 
-## Development Process and Infrastructure (D3)
+## Development Process and Infrastructure
 
 Since we are adding features to Savi's existing app, we use the company's development and testing setup. Our work includes adding tests for our split features, checking that the two group split flows work together, and testing the app in the simulator. The links below point to the implementation repository, which teaching staff have been given access to.
 
@@ -265,9 +277,11 @@ When we open or update a pull request, GitHub Actions runs checks on the affecte
 
 The [Required Checks workflow](https://github.com/cheapreats/ce/blob/main/.github/workflows/required-checks.yaml) chooses which checks to run, and the [CI PR workflow](https://github.com/cheapreats/ce/blob/main/.github/workflows/ci_pr.yaml) defines the mobile and server checks. Results can be viewed in the [Actions tab](https://github.com/cheapreats/ce/actions) or directly under [Checks on our integration PR](https://github.com/cheapreats/ce/pull/6761/checks). The [CI Main workflow](https://github.com/cheapreats/ce/blob/main/.github/workflows/ci_main.yaml) also runs when relevant changes reach `main`.
 
-Savi controls when changes are merged and released to users. Its [iOS app build](https://github.com/cheapreats/ce/blob/main/.github/workflows/expo_build_ios.yaml) and [development app build](https://github.com/cheapreats/ce/blob/main/.github/workflows/expo_build_mobile_dev.yaml) are started manually through GitHub Actions. They then use Expo's EAS service to build the app, with build settings in [eas.json](https://github.com/cheapreats/ce/blob/main/sba-mobile/eas.json). Our branch therefore does not automatically become a TestFlight release when code is merged.
+Savi controls when changes are merged and released to users. Its [iOS app build](https://github.com/cheapreats/ce/blob/main/.github/workflows/expo_build_ios.yaml) and [development app build](https://github.com/cheapreats/ce/blob/main/.github/workflows/expo_build_mobile_dev.yaml) are started manually through GitHub Actions. They then use Expo's EAS service to build the app, with build settings in [eas.json](https://github.com/cheapreats/ce/blob/main/sba-mobile/eas.json). The EAS configuration includes development/internal and production profiles, but these manually triggered build workflows do not establish automatic deployment to two environments. Savi controls backend deployment and app distribution; no separate team-operated production deployment is claimed.
 
-These workflows run on Savi's own Azure machines. They reuse downloaded dependencies, run checks based on the files changed, and cancel older runs when a PR is updated. Some jobs have 30–60 minute limits, which are longer than the course's suggested five minutes. Savi manages these settings, so we are documenting this setup under the brief's guidance for partner-controlled projects.
+The linked workflows use Savi's self-hosted Azure runners, dependency caches, changed-file filters, concurrency cancellation and explicit job timeouts. Job limits vary by workload, including longer native/backend builds. Savi owns these resource settings; this course repository adds no duplicate application CI or scheduled build jobs.
+
+**Recorded CI evidence:** The merged integration PR's final head [`44a741294c`](https://github.com/cheapreats/ce/commit/44a741294c276766c14b2add0bd0467021a1d5f7) has 10 successful, 7 skipped and 2 failed check runs as inspected on November 27. The failures are the [static-gates job](https://github.com/cheapreats/ce/actions/runs/45752249854/job/139682635833) and its Required Checks aggregate. The PR is merged, but that is not described here as an all-green CI run. Results are specific to their recorded revision.
 
 ### Testing Infrastructure: Tools, examples and commands
 
@@ -275,8 +289,8 @@ We use a few types of tests because checking the split calculations alone would 
 
 - **Unit tests** check individual calculations and validation rules. The mobile app uses [Jest with `jest-expo`](https://github.com/cheapreats/ce/blob/main/sba-mobile/package.json), while the server uses Go's built-in `testing` package through Bazel.
 - **Screen tests** use React Native Testing Library to simulate actions such as tapping a person's name or entering an assignment. They check the displayed result, updated selections and navigation between screens. An example is [ReceiptSplitAssignmentScreen.spec.tsx](https://github.com/cheapreats/ce/blob/main/sba-mobile/screens/groups/ReceiptSplitAssignmentScreen.spec.tsx).
-- **API tests** send requests to a local server and check what is saved in the database. Savi calls these [hermetic tests](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/README.md). They use Jest, temporary test users and local services started with Docker. External services return test responses, so ordinary tests do not need real banking connections or paid AI calls.
-- **Manual tests** let us check the complete app flow in the simulator: upload a receipt, correct its fields, choose people, assign items, review the split and save it. Screenshots and videos are included in our feature PRs. Real-device microphone testing is still needed; feeding a sample transcript into a screen test only checks how the app handles the words it receives.
+- **API tests** send requests to a local server and check what is saved in the database. Savi calls these [hermetic tests](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/README.md). They use Jest, temporary test users and local services started with Docker. The selected receipt tests use fake-provider responses; check the configured providers before running broader definitions. Live OCR verification is separate from these deterministic tests.
+- **Manual tests** let us check the complete app flow in the simulator: upload a receipt, correct its fields, choose people, assign items, review the split and save it. Screenshots and videos are included in our feature PRs. These checks exercise the user workflow separately from tests that supply a transcript or mock API response.
 
 Some examples of tests we added are:
 
@@ -287,18 +301,21 @@ Some examples of tests we added are:
 5. Saving a split creates the correct amounts owed by each person, without creating a debt to the payer themselves ([saved-share tests](https://github.com/cheapreats/ce/blob/main/sf1/api/rpc/handlers/create_group_transaction/debt_rows_test.go)).
 6. Retrying a receipt save does not create another payment or duplicate what people owe ([save-flow API test](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/createGroupTransaction-rpc.hermetic.ts)).
 
-**To try the tests:** start in Savi's implementation repository, on `main` with merged PR #6761. The following selection can run without starting the server or providing an OpenRouter key:
+**D4 focused verification (November 27): 159 tests passed across eight suites** in the local checkout based on [`cf82059587`](https://github.com/cheapreats/ce/commit/cf820595874c484475ddd8f95f51ed5af08cf2e3). This selection covers receipt allocation/validation, typed assignment, receipt screens, split options, native keychain settings and attachment-link refresh. Run it from `sba-mobile/` after `npm ci`; it does not need a running API or a live OpenRouter key:
 
 ```sh
-cd sba-mobile
-npm ci
-npm test -- --runInBand --runTestsByPath \
+node --max-old-space-size=2048 node_modules/jest/bin/jest.js --runInBand --runTestsByPath \
   screens/groups/receiptSplitAllocation.spec.ts \
   screens/groups/receiptSplitDraft.spec.ts \
-  components/groups/voiceAssignment.spec.ts
+  components/groups/voiceAssignment.spec.ts \
+  screens/groups/ReceiptSplitAssignmentScreen.spec.tsx \
+  screens/groups/CreateReceiptSplitScreen.spec.tsx \
+  components/groups/SplitOptionsSheet.spec.tsx \
+  shared/utils/keychainOptions.spec.ts \
+  shared/utils/files/displayUtils.spec.ts
 ```
 
-We ran this selection on commit [8396ef5da](https://github.com/cheapreats/ce/commit/8396ef5dab647766648fefe924c5974d90615c32), and **all 66 tests across the three files passed**.
+The earlier D3 selection passed 66 tests at [`8396ef5da`](https://github.com/cheapreats/ce/commit/8396ef5dab647766648fefe924c5974d90615c32). Test counts refer to those specific selections and revisions, not the full monorepo suite.
 
 To run the server tests, follow Savi's Go/Bazel setup, then run these commands from the implementation repository root:
 
@@ -329,27 +346,31 @@ Savi provides configuration templates for the [mobile app](https://github.com/ch
 
 We keep development keys in local environment files that Git ignores. The OpenRouter key stays on the server, since settings prefixed with `EXPO_PUBLIC_*` are included in the app and are visible to users. Savi's build workflows read release credentials from GitHub Actions secrets, including the Expo token used to build the app.
 
-## Non-Functional Requirements (D3)
+## Non-Functional Requirements
 
-For receipt splitting, we made focused accessibility and secure-data improvements:
+Our receipt/group split work addresses accessibility, readability, secure data handling and reliable saving through the following concrete changes.
 
-- **Labels and selection states:** Receipt fields and icon-only actions have descriptive accessibility labels. Each item-selection chip identifies both the item and person, such as "Burger: Sam", and exposes whether it is selected. **Assign People** is marked as a heading. A screen test checks that the selection state changes after a tap ([assignment screen test](https://github.com/cheapreats/ce/blob/main/sba-mobile/screens/groups/ReceiptSplitAssignmentScreen.spec.tsx)).
-- **Understandable errors:** Invalid receipt totals, tax and tip produce specific messages. For example, entering `-1` for tax shows "Enter a non-negative amount with up to two decimal places." We also expose the error as an accessibility hint on the field and remove it when corrected. Validation errors and unmatched typed/voice assignments are marked as accessibility alerts, with polite live updates configured for Android ([receipt editor](https://github.com/cheapreats/ce/blob/main/sba-mobile/screens/groups/ReceiptSplitEditor.tsx), [historical assignment panel](https://github.com/cheapreats/ce/blob/b4974b7534504cba70186c563487f660b8883f11/sba-mobile/components/groups/VoiceAssignmentPanel.tsx)).
-- **Secure data handling:** Our feature reuses Savi's existing native session storage / Expo SecureStore and device-bound keychain settings. The OpenRouter credential remains on the backend, and the attachment viewer requires HTTPS. Local receipt viewing uses a development HTTPS proxy rather than allowing insecure preview URLs ([keychain configuration](https://github.com/cheapreats/ce/blob/main/sba-mobile/shared/utils/keychainOptions.ts), [attachment viewer](https://github.com/cheapreats/ce/blob/main/sba-mobile/components/transactions/attachments/TransactionAttachmentPreview.tsx)). We reused these security foundations; we did not build a separate authentication system.
+### Accessibility and readability
 
-**Focused evidence (November 4): 43 tests across four suites passed**, covering accessible selection state, receipt-field errors and correction, existing keychain configuration, and refreshing stale/insecure attachment links. The implementation repository's `make secret-scan` also completed with no findings. Run this selection from `sba-mobile/` in the implementation repository:
+- **Descriptive controls and state:** Receipt fields, remove-item actions and split options have accessibility labels. Item chips identify both the item and person, such as "Burger: Sam", and expose their selected state. Section titles use heading roles; decorative icons are hidden from assistive technology to avoid duplicate announcements. [Assignment screen tests](https://github.com/cheapreats/ce/blob/main/sba-mobile/screens/groups/ReceiptSplitAssignmentScreen.spec.tsx) check the labelled controls and selection changes, while [split-options tests](https://github.com/cheapreats/ce/blob/main/sba-mobile/components/groups/SplitOptionsSheet.spec.tsx) cover the available actions.
+- **Larger text layouts:** The [receipt editor](https://github.com/cheapreats/ce/blob/main/sba-mobile/screens/groups/ReceiptSplitEditor.tsx) and [split summary](https://github.com/cheapreats/ce/blob/main/sba-mobile/components/groups/SplitSummary.tsx) read the system font scale and switch to stacked layouts at the shared large-text threshold. This gives fields and share amounts more space rather than forcing them into the normal horizontal rows.
+- **Clear visual hierarchy:** The review separates the receipt total, participant names and owed amounts from the item/tax/tip breakdown. Shared theme colors support light and dark presentation, and text such as "Your share" and "owes you" communicates meaning without relying on color alone. Split methods use left-side icons and plain labels; advanced controls are grouped into sheets or the receipt menu.
+- **Actionable feedback:** Invalid amounts have field-specific messages and accessibility hints. For example, negative tax prompts "Enter a non-negative amount with up to two decimal places." Errors clear after correction and use alert roles/polite live updates where configured. The empty editor shows a neutral "No items yet" state; an unsuccessful scan offers retry or manual entry. [Receipt screen tests](https://github.com/cheapreats/ce/blob/main/sba-mobile/screens/groups/CreateReceiptSplitScreen.spec.tsx) cover error hints, correction and empty-state behavior.
 
-```sh
-node --max-old-space-size=2048 node_modules/jest/bin/jest.js --runInBand \
-  screens/groups/ReceiptSplitAssignmentScreen.spec.tsx \
-  screens/groups/CreateReceiptSplitScreen.spec.tsx \
-  shared/utils/keychainOptions.spec.ts \
-  shared/utils/files/displayUtils.spec.ts
-```
+### Secure data handling and authorization
 
-**Quick demonstration:** In the receipt editor, enter a negative tax and then correct it to show the specific error appearing and clearing. On **Split items**, select a person to show the labelled controls and selected state.
+- **Server-side secrets and protected sessions:** OpenRouter credentials remain in the backend's ignored environment configuration, never in `EXPO_PUBLIC_*` client settings. We reuse Savi's native session storage and [Expo SecureStore keychain options](https://github.com/cheapreats/ce/blob/main/sba-mobile/shared/utils/keychainOptions.ts), including device-only accessibility settings. Existing keychain behavior is covered by the focused test selection below.
+- **Private receipt attachments:** Group-visible receipt snapshots retain an attachment ID rather than copying the payer's full File object or signed download URL. [GroupReceiptSnapshot and response serialization](https://github.com/cheapreats/ce/blob/main/sf1/api/models/group_transaction.go) apply this rule to responses, including older snapshots; [regression tests](https://github.com/cheapreats/ce/blob/main/sf1/api/models/group_transaction_test.go) check that private URL/metadata and internal retry payloads are excluded. The [attachment viewer](https://github.com/cheapreats/ce/blob/main/sba-mobile/components/transactions/attachments/TransactionAttachmentPreview.tsx) reuses Savi's HTTPS preview flow and refreshes stale file links.
+- **Authorization and input validation:** Group saving checks the caller's access, accepted membership and payer-account ownership. The backend independently [validates receipt totals, item identities, quantities and participant allocations](https://github.com/cheapreats/ce/blob/main/sf1/api/rpc/handlers/create_group_transaction/receipt_validation.go), so client-side checks are not the sole protection. User-facing validation messages explain the correction required.
 
-**Limits:** These are code-level and automated-test examples of NFR effort. We have not completed VoiceOver/TalkBack navigation or a large-text layout pass, so we do not claim full screen-reader or dynamic-text compliance. Further details and broader verification limits are in the [historical NFR handoff notes](https://github.com/cheapreats/ce/blob/a12f185180bfb184d44a41fea79c1eb595d069a6/sba-mobile/screens/groups/RECEIPT_SPLIT_HANDOFF.md#nfr-examples-for-receipt-splitting).
+### Reliability and recoverability
+
+- **Exact money calculations:** Allocation uses integer cents and deterministic rounding, with tests for shared items, proportional tax/tip, discounts and tax-inclusive receipts. The review must reconcile before a split can be confirmed.
+- **Retry-safe writes:** A stable request identity prevents repeated receipt submissions from creating duplicate payments or debts. The [receipt save handler](https://github.com/cheapreats/ce/blob/main/sf1/api/rpc/handlers/create_group_transaction/receipt.go) tracks save progress, while revision checks protect supported group mutations from conflicting updates. The [hermetic save tests](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/createGroupTransaction-rpc.hermetic.ts) exercise persistence and retries.
+
+**Evidence:** The [D4 focused test selection](#testing-infrastructure-tools-examples-and-commands) passed **159 tests across eight suites on November 27**, including accessible selection state, receipt-field error correction, split-option controls, keychain configuration and stale attachment handling. The implementation PRs retain simulator screenshots and recordings; the four-item live OCR/save example above supplies end-to-end evidence. The earlier D3 secret scan reported no findings at that development checkpoint.
+
+**Quick demonstration:** Enter a negative tax and correct it to show the specific error appearing and clearing. On **Split items**, select a person to show the labelled control's selected state, then review the clearly separated total and individual shares.
 
 ## Coding Standards and Verification
 
