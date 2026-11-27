@@ -21,21 +21,32 @@ These are implementation/review statuses, not confirmation that a feature is ava
 
 **Partner-controlled deployment:** Our project extends Savi Finance's existing mobile app rather than introducing a separate application to host. Savi controls its private repository, hosted backend, app builds and public releases. For course review, we provide implementation PRs, local setup instructions, screenshots and demo recordings. We discussed this approach with our tutorial TA, Rayan, who approved using the linked development work and demo evidence to account for the partner-controlled release process.
 
-## D3 Improvement and Walkthrough Video
+## D4 Review Guide and Evidence
 
-**What changed since D2:** After D2, a receipt split could be built but not saved, so it never became a real group expense. In D3, receipt splitting saves through the shared group-expense flow: one person scans a receipt, assigns items to group members (by tapping, or by typing a sentence), and saves it; the other person then sees what they owe on their own account and in the group's history.
+Start with the [current user workflows](#key-use-cases), [local setup](#development-requirements), [automated verification](#testing-infrastructure-tools-examples-and-commands) and [NFR evidence](#non-functional-requirements). Savi repository access is required for the implementation and PR evidence.
 
-**What changed since D2 (one-off splits):** After D2, the one-off editor was a read-only preview, and saving and own-share spending were still drafts. In D3, a one-off split can be saved, reopened, edited and removed. Spending counts only your share while Wallet keeps the full payment, and failed creates and deletes can now be retried safely. For current merge status, see [Implementation Status](#implementation-status-d4); the recordings below show the D3 development state.
+**Changes since the earlier demos:** The receipt flow now starts with capture and an editable preview. Split methods are grouped in a bottom sheet; group selection is searchable and excludes groups without another accepted member. Participant/item assignment and review use clearer labels, spacing and total/share hierarchy. The integrated save records the payment and debts, and group Summary offers full-share settlement marking. These changes incorporate partner feedback on placement, reuse and mobile readability.
 
-**Walkthrough video (3:30):** [Receipt split, end to end](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing). Recorded on the iOS Simulator against a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)), with two test accounts. Alex scans a receipt (Burger $20, Nachos $12, tax $4, tip $4), assigns items by typing *"Sarah had the burger, we shared the nachos"*, and saves; Sarah then sees that she owes $32.50. The scan step waits about 15 seconds for the AI response.
+**Receipt/group demo (approximately two minutes):** From Overview, add an expense, upload a receipt, check or correct the extracted values, choose a split method and group, assign individual/shared items, review and create the transaction, then show its group History. The [four-item example](#splitting-a-receipt-by-item-praneeth-shahmeer) was exercised with live OCR and a saved $33.28 debt. Test groups and accounts are local fixtures, not prerequisites tied to one developer's laptop.
 
-**Walkthrough video (2:17):** [One-off split, Wallet and Spending](https://drive.google.com/file/d/1KaMqoWcxLLfajq9Pm_DCc2pHlZnHNevy/view?usp=sharing). Recorded on the iOS Simulator against a local Savi backend running the one-off stack. A $42 expense is split $12 / $30 and saved: Wallet shows the full −$42 payment, and Spending shows the payer's $12 share. A short [Android recording (0:08)](https://drive.google.com/file/d/145_8mzCBMKQLj8w-mCyeg4eo_Anwdo8s/view?usp=sharing) shows the same result, and screenshots are in [#6769](https://github.com/cheapreats/ce/pull/6769).
+### Screenshots and recording
 
-**Screenshots (D3):** D2 "before" screenshots are in the description of [#6759](https://github.com/cheapreats/ce/pull/6759).
+The [merged integration PR #6761](https://github.com/cheapreats/ce/pull/6761) contains screenshots of the receipt flow, participant selection and light/dark saved results, plus the demo recording. Visual evidence stays in Savi's private repository and requires repository access.
 
-| Receipt read by Savi's AI | Items assigned from a typed sentence | Sarah sees she owes $32.50 | Sarah's group history |
-|---|---|---|---|
-| ![Receipt read by Savi's AI](deliverables/D3/screenshots/receipt-scanned.jpg) | ![Items assigned, with each person's total](deliverables/D3/screenshots/after-items-assigned.jpg) | ![Sarah's group shows she owes $32.50](deliverables/D3/screenshots/after-sarah-owes.jpg) | ![Sarah's group history with receipt items and her debt](deliverables/D3/screenshots/after-sarah-history.jpg) |
+**Receipt/group recording — manual entry and saving, 90 seconds (in [#6761](https://github.com/cheapreats/ce/pull/6761)):** Recorded November 25 against the local API. It shows a $35 receipt, two participants and $17.50 each. The recording ends while History loads; the saved-result screenshot shows the completed load. It predates the live four-item OCR verification and is not presented as a recording of that scan.
+
+The current [one-off editor/save PR #6768](https://github.com/cheapreats/ce/pull/6768), [invitation PR #7452](https://github.com/cheapreats/ce/pull/7452) and [widget PR #6770](https://github.com/cheapreats/ce/pull/6770) retain their own feature screenshots and verification. Earlier D2/D3 videos are retained under [Previous deliverables](#previous-deliverables).
+
+### Source checkpoints for review
+
+These immutable references identify the reviewed source independently of later branch updates:
+
+- **Merged group/receipt integration:** [`b7f4d45aed`](https://github.com/cheapreats/ce/commit/b7f4d45aed91d4b218377b6f6fe645bd7f0dae07), via #6761. The local D4 verification used a later `main` base, [`cf82059587`](https://github.com/cheapreats/ce/commit/cf820595874c484475ddd8f95f51ed5af08cf2e3).
+- **One-off mobile flow, including own-share spending:** [`0bb2242179`](https://github.com/cheapreats/ce/commit/0bb22421799fc8be08ab5eb0a1a2b948d8382bec), the fetched #6768 head on November 27.
+- **Guest invitations and participant emails:** [`c0757ad323`](https://github.com/cheapreats/ce/commit/c0757ad323cd545e2620946eace66b0234d8920a), the fetched #7452 head on November 27.
+- **Owed/owing widget:** [`d0966b3d61`](https://github.com/cheapreats/ce/commit/d0966b3d61a8d210acdb36c9354d3d705a1b5e28), the fetched #6770 head on November 27.
+
+The open PR checkpoints are separate review branches, not a claim that all features are in one released build. The local demo also used layout and connection-retry adjustments awaiting a separate implementation commit. The course repository versions the handoff documentation; Savi's repository retains the implementation history.
 
 ## Key Use Cases
 
@@ -161,26 +172,6 @@ The four-person group split team combined the receipt and transaction-splitting 
 **Limits:** Resolve/Undo does not transfer money or synchronize settlement across devices. The widget shows the selected currency's total and lists other currencies separately rather than adding unlike currencies together.
 
 **Implementation and screenshots:** [Savi pull request #6770](https://github.com/cheapreats/ce/pull/6770) (open; this widget requires the PR branch and feature flag).
-
-## Deliverable 2
-
-- [Iteration review and retrospective](deliverables/D2/iteration-02-review.md)
-- [Individual contributions](deliverables/D2/Individual_Contributions_Deliverable2.md)
-- Group split integration checkpoint: [`3f5caef7b`](https://github.com/cheapreats/ce/commit/3f5caef7b2d047ecd64b25c4c9849c700fd67c10), linked through [integration PR #6761](https://github.com/cheapreats/ce/pull/6761). The other feature PRs provide their own implementation and verification details.
-
-## Deliverable 1
-
-- [Planning document](deliverables/D1/planning.md)
-- [Mockup instructions](deliverables/D1/mockup.md)
-- Team information: `deliverables/team/`
-
-## Confirmed Course and Meeting Context
-
-- Official CSC301 group number: **15**. Team name in the tutorial schedule: **Team 12**.
-- Deliverable 1 is due **Friday, October 2, 2026 at 11:59pm Toronto time**. [Quercus assignment](https://q.utoronto.ca/courses/441425/assignments/1794225).
-- Tutorial: **Thursdays, 7:00-7:30pm Toronto time**, with mentor TA **Rayan El Ghazzi**. D1 Demo Day is **Thursday, October 1, 2026**. [Tutorial schedule](https://q.utoronto.ca/courses/441425/pages/tutorial-schedule).
-- Recurring partner meeting: **Wednesdays, 6:00-6:20pm Toronto time**, on [Google Meet](https://meet.google.com/ogv-qkay-sxa), organized by **ralphpalxyz@gmail.com**.
-- Mentor TA contact: **rayan.el.ghazzi@mail.utoronto.ca**. [Course syllabus](https://q.utoronto.ca/courses/441425/assignments/syllabus).
 
 ## Task Management
 
@@ -375,6 +366,55 @@ Our receipt/group split work addresses accessibility, readability, secure data h
 ## Coding Standards and Verification
 
 We follow Savi's existing component, API, validation and formatting conventions. Changes include relevant mobile/backend regression tests, local demo verification and the monorepo's `make presubmit` checks; verification details and outstanding failures are documented in the implementation PRs.
+
+## Previous Deliverables
+
+Earlier submissions and recordings are retained for contribution and product-evolution evidence. The current workflows above take precedence over historical screen layouts.
+
+<details>
+<summary>D1–D3 documents, walkthroughs and team context</summary>
+
+### Deliverable 3
+
+- [Product evolution and retrospective](deliverables/D3/product-evolution.md)
+- [Individual contributions](deliverables/D3/Individual_Contributions_Deliverable3.md)
+
+### D3 improvement and walkthroughs
+
+**What changed since D2:** After D2, a receipt split could be built but not saved, so it never became a real group expense. In D3, receipt splitting saves through the shared group-expense flow: one person scans a receipt, assigns items to group members (by tapping, or by typing a sentence), and saves it; the other person then sees what they owe on their own account and in the group's history.
+
+**What changed since D2 (one-off splits):** After D2, the one-off editor was a read-only preview, and saving and own-share spending were still drafts. In D3, a one-off split can be saved, reopened, edited and removed. Spending counts only your share while Wallet keeps the full payment, and failed creates and deletes can now be retried safely. For current merge status, see [Implementation Status](#implementation-status-d4); the recordings below show the D3 development state.
+
+**Walkthrough video (3:30):** [Receipt split, end to end](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing). Recorded on the iOS Simulator against a local Savi backend running the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)), with two test accounts. Alex scans a receipt (Burger $20, Nachos $12, tax $4, tip $4), assigns items by typing *"Sarah had the burger, we shared the nachos"*, and saves; Sarah then sees that she owes $32.50. The scan step waits about 15 seconds for the AI response.
+
+**Walkthrough video (2:17):** [One-off split, Wallet and Spending](https://drive.google.com/file/d/1KaMqoWcxLLfajq9Pm_DCc2pHlZnHNevy/view?usp=sharing). Recorded on the iOS Simulator against a local Savi backend running the one-off stack. A $42 expense is split $12 / $30 and saved: Wallet shows the full −$42 payment, and Spending shows the payer's $12 share. A short [Android recording (0:08)](https://drive.google.com/file/d/145_8mzCBMKQLj8w-mCyeg4eo_Anwdo8s/view?usp=sharing) shows the same result, and screenshots are in [#6769](https://github.com/cheapreats/ce/pull/6769).
+
+**Screenshots (D3):** D2 "before" screenshots are in the description of [#6759](https://github.com/cheapreats/ce/pull/6759).
+
+| Receipt read by Savi's AI | Items assigned from a typed sentence | Sarah sees she owes $32.50 | Sarah's group history |
+|---|---|---|---|
+| ![Receipt read by Savi's AI](deliverables/D3/screenshots/receipt-scanned.jpg) | ![Items assigned, with each person's total](deliverables/D3/screenshots/after-items-assigned.jpg) | ![Sarah's group shows she owes $32.50](deliverables/D3/screenshots/after-sarah-owes.jpg) | ![Sarah's group history with receipt items and her debt](deliverables/D3/screenshots/after-sarah-history.jpg) |
+
+### Deliverable 2
+
+- [Iteration review and retrospective](deliverables/D2/iteration-02-review.md)
+- [Individual contributions](deliverables/D2/Individual_Contributions_Deliverable2.md)
+- Group split integration checkpoint: [`3f5caef7b`](https://github.com/cheapreats/ce/commit/3f5caef7b2d047ecd64b25c4c9849c700fd67c10), linked through [integration PR #6761](https://github.com/cheapreats/ce/pull/6761). The other feature PRs provide their own implementation and verification details.
+
+### Deliverable 1
+
+- [Planning document](deliverables/D1/planning.md)
+- [Mockup instructions](deliverables/D1/mockup.md)
+- Team information: `deliverables/team/`
+
+### Course and meeting context
+
+- Official CSC301 group number: **15**. Team name in the tutorial schedule: **Team 12**.
+- Tutorial: **Thursdays, 7:00-7:30pm Toronto time**, with mentor TA **Rayan El Ghazzi**. [Tutorial schedule](https://q.utoronto.ca/courses/441425/pages/tutorial-schedule).
+- Recurring partner meeting: **Wednesdays, 6:00-6:20pm Toronto time**, on [Google Meet](https://meet.google.com/ogv-qkay-sxa), organized by **ralphpalxyz@gmail.com**.
+- Mentor TA contact: **rayan.el.ghazzi@mail.utoronto.ca**. [Course syllabus](https://q.utoronto.ca/courses/441425/assignments/syllabus).
+
+</details>
 
 ## License
 
