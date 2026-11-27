@@ -1,6 +1,6 @@
 # Savi Finance — Group Split with Voice
 
-> Development progress. Feature availability depends on the supplied app build and backend; development demos are not a production release.
+> D4 project handoff. Implementation status is listed below; feature availability depends on the app build, backend and feature flags.
 
 ## Project
 
@@ -19,7 +19,7 @@ PR status checked on **November 27, 2026** in Savi's implementation repository:
 
 These are implementation/review statuses, not confirmation that a feature is available in Savi's released app. Current source links below use `main`; removed documents/components are explicitly linked as historical references.
 
-**A note on deployability:** We know that a component of the deliverables (such as D2 currently) is having a deployable version of the application for public access. Since we're working on a feature for Savi, an app with an existing userbase, this isn't always possible. The group/receipt integration and one-off backend have merged into Savi's `main`; the remaining mobile one-off, invitation and widget PRs have the review status listed above. In order to account for this, we have linked the branches/PRs that we worked on, with screenshots and demo videos attached to showcase our work. We discussed this approach with our tutorial TA, Rayan, who approved of this approach. Thanks!
+**Partner-controlled deployment:** Our project extends Savi Finance's existing mobile app rather than introducing a separate application to host. Savi controls its private repository, hosted backend, app builds and public releases. For course review, we provide implementation PRs, local setup instructions, screenshots and demo recordings. We discussed this approach with our tutorial TA, Rayan, who approved using the linked development work and demo evidence to account for the partner-controlled release process.
 
 ## D3 Improvement and Walkthrough Video
 
@@ -43,20 +43,23 @@ These are implementation/review statuses, not confirmation that a feature is ava
 
 **Why:** split a shared purchase without creating a group, and track your own spending separately from the full payment.
 
-**What it does:**
+**What it does** (development flow in #6768, with own-share spending from #6769):
 
-- Splits a personal expense with existing Savi users or saved guests using equal, amount, or percentage allocations.
-- Validates that shares add up correctly and handles leftover cents consistently.
-- Saves the split with the transaction; **Manage split** lets you edit or remove it later.
-- Counts your share in Spending and budget alerts while Wallet keeps the full payment: a $120 expense split equally between two people contributes $60 to your spending.
+- Splits a personal expense with eligible Savi users or saved guests using equal shares, amounts or percentages. People search is limited to people connected through a shared household, group or organization.
+- Validates allocations in exact cents. Amount mode offers an explicit adjustment to your share for differences of up to $1; larger differences must be corrected.
+- Saves the split with the transaction; **Manage split** lets the payer change or remove it later.
+- Counts the payer's share in Spending and budget alerts while Wallet keeps the full payment: a $120 expense split equally between two people contributes $60 to the payer's spending.
 
-**How to try it** (signed in to the configured development build, with split saving enabled):
+**How to try it** (use the #6768 development branch and compatible backend, with identity-based split saving enabled):
 
 1. Tap **Add transaction → Expense**, enter the name, amount and date, and choose an account owned by your personal profile.
-2. Tap **Split → Total with Others → Add people** and select at least one saved person.
-3. Choose **Equal**, **Amount**, or **Percentage** and check the allocation.
-4. Tap **Apply split**, then **Create** to save. Applying alone only updates the draft.
-5. Reopen through **Edit → Manage split** to change or remove it, then save. Compare **Wallet** with **Insights → Spending** to see the full payment versus your share.
+2. Tap **Split → Total with Others**. Under **Add people**, search for and select another eligible person or saved guest.
+3. Choose **Equal**, **Amount** or **Percentage**. In amount/percentage mode, tap a person's share to edit it; review the resulting allocations.
+4. Tap **Apply**, then **Create** to save the transaction. Applying alone only updates the draft.
+5. Reopen the transaction through **Edit → Manage split** to change the split. Removing the other participants exposes **Remove split**; save the transaction to confirm the removal.
+6. Compare **Wallet** with **Insights → Spending** to see the full payment versus your share. This requires the own-share spending changes included in the #6768 branch through #6769.
+
+**Guest invitation extension (#7452):** On that PR's branch, the payer can create a guest and use **Share invite** with an email address. The recipient opens the link, signs in with the matching verified email and claims their shares. Sharing uses the native share sheet; it does not itself send an invitation email. Separate participant notification emails are default-off. This extension is still under review and is not part of the merged backend alone.
 
 **Development status:** The mobile editor and saving work are combined in open PR [#6768](https://github.com/cheapreats/ce/pull/6768); own-share spending [#6769](https://github.com/cheapreats/ce/pull/6769) has merged into that branch. The flow remains development-gated. Guest invitations and participant emails are separate work in open PR [#7452](https://github.com/cheapreats/ce/pull/7452). See those PRs for current checks and verification limits; these changes do not transfer money.
 
@@ -64,29 +67,37 @@ These are implementation/review statuses, not confirmation that a feature is ava
 
 ### Splitting a receipt by item (Praneeth, Shahmeer)
 
-**Why:** After a group purchase, people buy different things and may want a more nuanced way of splitting. With this change, Savi users can split a receipt line by line inside the app, by either taking a photo or manually entering items, instead of using a spreadsheet or more complex solution.
+**Why:** People order different things and share some items. Receipt splitting lets the payer capture the bill, correct the extracted details and assign each item without re-entering the expense in a separate app.
 
 **What it does:**
 
-- Starts from the existing **Add transaction → Split → Line Items** flow, as requested by our partner.
-- Extracts merchant, total and item information from a receipt photo using Savi's existing AI service, or lets you enter the receipt manually. You can correct items, quantities and discounts, and enter tax and tip.
-- You choose which group members shared the meal, then tap who had each item, or say or type it: *"Sam had the burger, Alex and I shared the nachos."*
-- Shared items are split evenly; tax and tip are split by what each person ordered; amounts always add up exactly to the receipt.
-- A review screen shows your share and what each person owes you. The merged integration in `main` records the payment, receipt details and group debts.
-- Group invitations can now be accepted from the Notifications screen, so friends can join a group before splitting.
+- Starts from **Add transaction → receipt/camera button**. Capture or upload a receipt, then review its image and extracted details; manual entry is also available.
+- Lets the user correct the receipt title, item names, unit prices, quantities, tax and tip before saving. Discounts and tax-inclusive prices are available through the receipt options menu. The editor calculates the total from the corrected values and retains the scanned total for comparison.
+- Offers **Ask Savi**, **Assign by voice** when enabled, **Split equally**, and **Assign items manually** from the receipt's split-options sheet. Ask Savi opens Savi's existing chat with receipt context; it does not confirm or save the split. **Don't split** returns the full amount to the transaction draft.
+- Shows joined groups with at least two accepted members, then lets the payer choose who participated in this expense. Pending invitees cannot participate.
+- Assigns items by tapping people, typing instructions or supplying a voice transcript. Shared items divide evenly; tax and tip follow each person's item subtotal. Integer-cent allocation keeps the shares equal to the confirmed total.
+- Reviews each person's share before returning it to the transaction. **Create** saves the payment, receipt details and group debts, which appear in group History and Summary.
 
-**How to try it** (signed in to the development app, with Groups enabled; use a mobile app and backend that include merged PR #6761):
+**How to try it** (use a development app and local backend containing merged PR #6761):
 
-1. Enable `group_card` under **Diagnostics → Feature Flags** if Groups is hidden. Create a group from **Overview → Groups**, then open the group's settings (gear icon) → **Invite member** and enter your friend's email; they accept from **Notifications → Join**. (Leave the email field on the Create a Group screen empty: invites entered there do not reach the friend's Notifications yet.)
-2. Tap **Add transaction**, choose **Expense**, enter the name and amount, and select a test account owned by the payer. Tap **Split → Line Items → Split receipt items with people**.
-3. Choose the group, then take or upload a photo of the receipt, or type the items, tax and tip.
-4. Tap **Choose people**, then **Assign items**: tap names on each item, or type a sentence like the one above and tap **Apply**.
-5. Tap **Review split**, then **Use split in transaction** to return to the transaction draft. This step alone does not save an expense.
-6. Tap **Create** (or **Save** for an existing expense), then open the group's **History** and **Summary** to see the saved receipt and balances.
+1. Have a group with the payer and at least one accepted member. If necessary, enable `group_card` under **Diagnostics → Feature Flags**, create a group from **Overview → Groups**, and invite the other user through group settings → **Invite member**. They accept through **Notifications → Join**.
+2. From **Overview**, tap **Add transaction → Expense**, then the receipt/camera button. Take a photo or select one from Photos. Alternatively, use **Enter manually** in the receipt flow.
+3. Review the receipt. Use **Edit receipt** to correct line items, quantities, tax or tip; use **Preview** to return to the receipt summary. Tap the receipt title to rename it if needed.
+4. Tap **Split receipt → Assign items manually**, choose the group, select the participants on **Who's splitting?**, then tap **Continue**.
+5. On **Split items**, tap the people who share each item. **Everyone** shares that item with all selected people; **Split equally** assigns every item to everyone. Alternatively, open **Assign by text**, enter a sentence such as "I had the burger, Alex had the pasta, we shared the nachos and drinks", and tap **Apply**. Check the assignments before continuing.
+6. Tap **Review split**, check the total and individual shares, then **Use split in transaction**. This returns to the transaction draft; it has not saved yet.
+7. Confirm the transaction name, currency and payer-owned funding account, then tap **Create**. Open the group's **History** for the saved receipt and individual debts, or **Summary** for outstanding balances.
 
-Live extraction uses `openai/gpt-6-luna` through OpenRouter, pinned to `azure/us`. A generated receipt was successfully read through the authenticated local API ($35 total, with a $28 soup line). Photo-library upload and live extraction were verified in the iOS simulator using a generated receipt. Real-photo accuracy, camera capture and real-device microphone behavior still need verification. Typed assignment and manual receipt entry are available without live AI inference. Saved receipt item/assignment editing, group budget-share adjustments and post-save notifications remain unfinished.
+**Verified D4 example:** Live photo-library upload and OpenRouter extraction were exercised in the iOS simulator with a synthetic four-item receipt: Burger $18, Pasta $16, Nachos $12 and Drinks $8, plus $7.02 tax and $8.10 tip, totaling **$69.12**. Assigning the burger to the payer, pasta to the other person and sharing nachos/drinks produces **$35.84** for the payer and **$33.28** owed by the other person. The saved receipt and debt were verified in group History. This is local test data, not a real purchase or a production-release verification.
 
-**Demo video and screenshots:** [D3 walkthrough video](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing) on the integration branch ([#6761](https://github.com/cheapreats/ce/pull/6761)); earlier D2 demo on [Savi pull request #6759](https://github.com/cheapreats/ce/pull/6759) (Savi's private repository).
+**Limits and recovery:**
+
+- Live extraction requires a valid backend OpenRouter key and provider access. The configured route is `openai/gpt-6-luna` through `azure/us`. A failed scan can be retried or continued through manual entry; OCR output must still be checked. The synthetic demo does not establish accuracy across all real receipt photos or verify physical camera capture.
+- Voice assignment requires the mobile voice feature to be enabled and microphone/speech access. Real-device microphone behavior remains unverified. Typed assignment uses the on-device parser and needs no live model call; unmatched instructions require correction. Ask Savi is a separate online service.
+- Empty or invalid items and incomplete assignments prevent split confirmation. Uncertain OCR values can be corrected before saving; choosing another group does not save an expense.
+- Completed receipt item/assignment editing after save, automatic group budget-share attribution and post-save receipt notifications are not claimed as complete. The steps above cover creating a receipt expense, not every existing-transaction attachment/edit path. Recording debts does not transfer money.
+
+**Implementation and evidence:** [Merged group/receipt integration #6761](https://github.com/cheapreats/ce/pull/6761). The [D3 walkthrough](https://drive.google.com/file/d/1_RcoIVwYVeFO3oh8SeUBXMU0YUKbhP6R/view?usp=sharing) and [original receipt PR #6759](https://github.com/cheapreats/ce/pull/6759) retain earlier development evidence; their screen layouts predate the current flow.
 
 ### Splitting a transaction with a group (Sumedh, Pranay)
 
@@ -101,17 +112,18 @@ Live extraction uses `openai/gpt-6-luna` through OpenRouter, pinned to `azure/us
 * Getting or listing group expenses returns who owes what, which is what the History and Summary screens read.
 * Each expense has a version number. An edit or delete can send the version it last saw, and if someone changed the expense in the meantime, it is refused with "changed by someone else" and nothing is overwritten.
 
-**How to try it** (signed in to the development app, with Groups enabled and a backend that includes the saved-shares work):
+**How to try it** (development app and backend containing merged PR #6761, with `group_card` enabled):
 
 1. Create a group from the Groups section and invite a friend. They accept it from the bell icon (Notifications → Join). Only the payer needs a funding account; the friend can participate without linking a bank account.
 2. Open the group and tap New Transaction.
-3. Enter the description and amount, pick the account that paid, and choose the members who shared the expense.
-4. Choose how to split it (even, by amount, or by percentage) and check the preview of who owes what.
-5. Save the transaction. Open the group's History and Summary to see the expense, who paid, and the amount each person owes. These are saved on the server, so they are still there after you close and reopen the app.
+3. Enter the description and total, choose your payer-owned funding account, and select the accepted members who shared the expense. The account determines the currency.
+4. Choose **Even**, **Amounts** or **Percentages**, enter any custom shares, and check the expense preview.
+5. Tap **Create**. Open **History** to see the saved expense and individual debts, or **Summary** for outstanding balances. These are saved on the server and remain after reopening the app.
+6. Once a person has repaid you outside Savi, the payer can use **Mark [person] settled** in Summary and confirm it. This records settlement of that person's full share; it does not send money.
 
-In progress: repayment and settling up, attaching an existing transaction to a split, app screens for editing and deleting a group expense (the backend already supports both), and connecting the app to the edit-conflict check.
+**Limits:** Full-share settlement marking is available to the payer. Partial-repayment entry and settlement reversal are not exposed in this group screen. General mobile editing/deletion of group expenses and attaching existing transactions are not demonstrated as complete; backend update/delete and revision checks do not by themselves provide those user workflows. Automatic personal-budget attribution for group debts and post-save notifications also remain outside the verified flow.
 
-**Demo video and screenshots:** [Savi pull request #6760](https://github.com/cheapreats/ce/pull/6760) (Savi's private repository).
+**Implementation and evidence:** [Merged integration #6761](https://github.com/cheapreats/ce/pull/6761); [original group transaction PR #6760](https://github.com/cheapreats/ce/pull/6760) retains earlier screenshots and verification.
 
 ### Group split integration (Praneeth, Shahmeer, Sumedh, Pranay)
 
@@ -121,7 +133,7 @@ The four-person group split team combined the receipt and transaction-splitting 
 
 - Both flows use the same group members, shared expense storage, debt records and History/Summary screens. Transaction splitting produces shares from a total; receipt splitting produces shares from item assignments and proportional tax/tip.
 - Receipt review passes the confirmed allocation back to Create/Edit Transaction. Create/Save then calls the shared group-saving API, creates or links one full personal payment, and records debts for the other participants. Receipt items, quantities, discounts and assignments are retained with the group expense.
-- Repeating an unchanged receipt save returns the same payment and expense instead of creating duplicates or resetting partial repayments. Interrupted receipt saves can be resumed from group History.
+- Repeating an unchanged receipt save reuses its request identity to avoid duplicate payments and debts. Backend retry recovery is separate from the user-facing History screen; a general History action for reopening or editing a saved receipt is not claimed.
 - The verified local example is a $35 receipt split between two people: one $35 personal payment, a $17.50 payer share and a $17.50 debt shown in group History/Summary. This records obligations; it does not transfer money.
 
 **Integration PR and verification:** [Savi PR #6761](https://github.com/cheapreats/ce/pull/6761). Merged into `main` on November 25, 2026 (Toronto time), at [`b7f4d45aed`](https://github.com/cheapreats/ce/commit/b7f4d45aed91d4b218377b6f6fe645bd7f0dae07). The earlier D2 checkpoint remains linked below as historical evidence; further changes can be reviewed in separate PRs.
@@ -135,16 +147,18 @@ The four-person group split team combined the receipt and transaction-splitting 
 - Adds a **Splits** card to the Overview with two totals: **Owed to you** and **You owe**.
 - Combines one-off splits from your own transactions with group splits.
 - Tap a total to see the breakdown **by person** and **by group**; group balances name the person you owe.
-- Mark a person's balance as **resolved** once you've settled up, and **undo** it if you made a mistake.
-- Resolved balances drop out of the totals but stay in a **Resolved** history list.
+- Mark a person's balance as **resolved** on this device and **undo** it if you made a mistake.
+- Resolved balances drop out of the widget totals but stay in its **Resolved** history list. These selections are stored locally per signed-in user; they do not update the group's server-side settlement state.
 
-**How to try it** (signed in to the Savi app):
+**How to try it** (use the #6770 development branch and compatible backend):
 
 1. Turn on the card: **Account → Diagnostics → View All Flags**, then switch on `mobile_split_balances`.
 2. Go to **Overview** and scroll to the **Splits** card.
 3. Tap **Owed to you** or **You owe** to see the breakdown by person and by group.
 4. Tap **Resolve** next to a person: the total drops and they move to **Resolved**.
 5. Tap **Undo** in the Resolved list to bring the balance back.
+
+**Limits:** Resolve/Undo does not transfer money or synchronize settlement across devices. The widget shows the selected currency's total and lists other currencies separately rather than adding unlike currencies together.
 
 **Implementation and screenshots:** [Savi pull request #6770](https://github.com/cheapreats/ce/pull/6770) (open; this widget requires the PR branch and feature flag).
 
@@ -174,7 +188,16 @@ The team uses **Jira for ticketing and task distribution and Slack for asynchron
 
 ## Access and Use
 
-This course repository contains the project documentation; the implementation lives in Savi's private monorepo. Teaching staff need repository access to open the linked PRs and demo evidence. Each feature section describes the relevant development workflow and limitations. The group split integration runs locally using the setup below; merged source code does not by itself establish availability in Savi's released app. See [Implementation Status](#implementation-status-d4) for the separate PR states. Historical D1 prototype information is in the [mockup instructions](deliverables/D1/mockup.md).
+This course repository contains the project documentation; the implementation lives in [Savi's private monorepo](https://github.com/cheapreats/ce). Teaching staff have been given access to inspect the implementation PRs and evidence. New contributors need access from Savi before following the [development setup](#development-requirements).
+
+The group/receipt flow can be run locally from `main` with the mobile app and backend on the same revision. Features whose PRs remain open require their corresponding development branches; see [Implementation Status](#implementation-status-d4). Installing the public Savi app alone is not a reliable way to reproduce all submitted features. Historical D1 prototype information is in the [mockup instructions](deliverables/D1/mockup.md).
+
+### Partner handoff and release responsibility
+
+- **Code:** Contributions already live in Savi's repository, so there is no separate application repository to transfer. Merged work stays in `main`; open PRs retain the remaining code, review discussion and verification evidence.
+- **Documentation:** This README provides feature workflows, dependencies, setup and test instructions, with links to Savi's own developer documentation. The linked PRs retain screenshots, recordings and implementation-specific review notes for future maintainers.
+- **Builds and release:** Savi's maintainers control the existing Expo/EAS build and distribution process and the corresponding backend deployment. Development and production build profiles are defined in [eas.json](https://github.com/cheapreats/ce/blob/main/sba-mobile/eas.json); the [CI/CD section](#cicd-pipeline) links the build workflows. Our handoff uses that existing process rather than transferring a separately hosted product.
+- **Verification:** A merged PR or passing CI is evidence about the code revision. Availability to users also requires the appropriate app build, compatible deployed backend and enabled feature flags. We do not claim a particular public release contains all of our work without verifying that build.
 
 ## Development Requirements
 
