@@ -50,7 +50,7 @@ These immutable references identify the reviewed source independently of later b
 
 - **Merged group/receipt integration:** [`b7f4d45aed`](https://github.com/cheapreats/ce/commit/b7f4d45aed91d4b218377b6f6fe645bd7f0dae07), via #6761. The local D4 verification used a later `main` base, [`cf82059587`](https://github.com/cheapreats/ce/commit/cf820595874c484475ddd8f95f51ed5af08cf2e3).
 - **Merged one-off split flow:** [`e663f4ebbc`](https://github.com/cheapreats/ce/commit/e663f4ebbc6eec9ffa488d8c2a1cc10017edcbd0), via #6768, which includes own-share spending #6769 and guest invitations and participant emails #7452. The one-off backend merged earlier through #6605–#6609.
-- **Owed/owing widget:** [`d0966b3d61`](https://github.com/cheapreats/ce/commit/d0966b3d61a8d210acdb36c9354d3d705a1b5e28), the fetched #6770 head on November 27.
+- **Owed/owing widget:** [`722a164411`](https://github.com/cheapreats/ce/commit/722a164411), the fetched #6770 head on November 27.
 
 The open PR checkpoints are separate review branches, not a claim that all features are in one released build. The local demo also used layout and connection-retry adjustments awaiting a separate implementation commit. The course repository versions the handoff documentation; Savi's repository retains the implementation history.
 
@@ -102,7 +102,7 @@ The open PR checkpoints are separate review branches, not a claim that all featu
 - Assigns items by tapping people, typing instructions or supplying a voice transcript. Shared items divide evenly; tax and tip follow each person's item subtotal. Integer-cent allocation keeps the shares equal to the confirmed total.
 - Reviews each person's share before returning it to the transaction. **Create** saves the payment, receipt details and group debts, which appear in group History and Summary.
 
-**How to try it** (use a development app and local backend containing merged PR #6761):
+**How to try it** (development app and backend on `main`, with `group_card` enabled):
 
 1. Have a group with the payer and at least one accepted member. If necessary, enable `group_card` under **Diagnostics → Feature Flags**, create a group from **Overview → Groups**, and invite the other user through group settings → **Invite member**. They accept through **Notifications → Join**.
 2. From **Overview**, tap **Add transaction → Expense**, then the receipt/camera button. Take a photo or select one from Photos. Alternatively, use **Enter manually** in the receipt flow.
@@ -136,7 +136,7 @@ The open PR checkpoints are separate review branches, not a claim that all featu
 * Getting or listing group expenses returns who owes what, which is what the History and Summary screens read.
 * Each expense has a version number. An edit or delete can send the version it last saw, and if someone changed the expense in the meantime, it is refused with "changed by someone else" and nothing is overwritten.
 
-**How to try it** (development app and backend containing merged PR #6761, with `group_card` enabled):
+**How to try it** (development app and backend on `main`, with `group_card` enabled):
 
 1. Create a group from the Groups section and invite a friend. They accept it from the bell icon (Notifications → Join). Only the payer needs a funding account; the friend can participate without linking a bank account.
 2. Open the group and tap New Transaction.
@@ -219,7 +219,7 @@ The implementation runs from Savi's private monorepo, not this documentation rep
 
 ### Start the group/receipt development flow
 
-1. Clone `cheapreats/ce` and check out `main` containing merged PR #6761. Keep the mobile app and backend on the same revision. For an open feature, use its branch from [Implementation Status](#implementation-status-d4) instead.
+1. Clone `cheapreats/ce` and check out `main`, which includes #6761 and #6768. Keep the mobile app and backend on the same revision. For an open feature, use its branch from [Implementation Status](#implementation-status-d4) instead.
 2. Start Docker. From the implementation repository root, run `make dev-up` in a dedicated terminal; it starts local services, prepares missing environment files and seeds the database. In another terminal, run `make dev-status`. The default API health endpoint is `http://localhost:8080/healthz`.
 3. Follow the mobile guide to configure local HTTPS/OAuth and trust the development certificate on the simulator or test device. Run `make dev-mobile` from the root to write the mobile app's local API configuration. The app normally targets Savi's hosted API, so this step matters even when the local server is running.
 4. In `sba-mobile/`, run `npm ci`. Install a matching development client using Savi's internal build or build locally with `npm run ios` / `npm run android`. Start Metro with `npx expo start --dev-client --clear`; use `--port 8082` if the default port is occupied. Run one Metro instance for the checkout and connect the client to it.
