@@ -197,19 +197,6 @@ The group/receipt flow can be run locally from `main` with the mobile app and ba
 - **Group transaction splitting:** Sumedh, Pranay.
 - **Owed/owing widget:** Sambhav.
 
-### Known issues and next steps
-
-| Area | Known issue | Suggested next step |
-|---|---|---|
-| Receipt splitting | Accuracy on real receipt photos and physical camera capture are unverified | Test with real receipts and add them as extraction test fixtures |
-| Receipt splitting | Real-device microphone behavior for voice assignment is unverified | Test voice assignment on physical iOS and Android devices |
-| Receipt splitting | Saved receipt items and assignments cannot be edited after saving | Add an edit flow that reuses the existing review screens |
-| Group transactions | The app has no screens for editing or deleting a group expense | Build them on the existing `updateGroupTransaction` / `deleteGroupTransaction` RPCs, which already check revisions |
-| Group transactions | Partial repayments and settlement reversal are not exposed | Extend the Summary screen's settlement action |
-| Group transactions | Group debts are not attributed to personal budgets, and no notification is sent after saving | Reuse Savi's existing budget and notification pipelines |
-| Owed/owing widget | [#6770](https://github.com/cheapreats/ce/pull/6770) is not merged; Resolve/Undo is stored only on the device | Merge #6770, then connect Resolve to server-side settlement |
-| CI | The final head of #6761 recorded a failing static-gates check | Fix the static-gates failure in a follow-up PR |
-
 ## Development Requirements
 
 The implementation runs from Savi's private monorepo, not this documentation repository. Start with [Savi's backend setup](https://github.com/cheapreats/ce/blob/main/dev/README.md) and [mobile setup](https://github.com/cheapreats/ce/blob/main/sba-mobile/README.md). They remain the source of truth for supported tool versions and native build configuration.
