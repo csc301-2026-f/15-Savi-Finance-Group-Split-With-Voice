@@ -42,7 +42,7 @@ The current [one-off editor/save PR #6768](https://github.com/cheapreats/ce/pull
 These immutable references identify the reviewed source independently of later branch updates:
 
 - **Merged group/receipt integration:** [`b7f4d45aed`](https://github.com/cheapreats/ce/commit/b7f4d45aed91d4b218377b6f6fe645bd7f0dae07), via #6761. The local D4 verification used a later `main` base, [`cf82059587`](https://github.com/cheapreats/ce/commit/cf820595874c484475ddd8f95f51ed5af08cf2e3).
-- **One-off mobile flow, including own-share spending, guest invitations and participant emails:** [`544a41be85`](https://github.com/cheapreats/ce/commit/544a41be859bb087c2b5b8047b852a43385c0510), the fetched #6768 head on November 27.
+- **One-off mobile flow, including own-share spending, guest invitations and participant emails:** [`ad7a2402d2`](https://github.com/cheapreats/ce/commit/ad7a2402d22ae047e8391800da6912417d33ba1e), the fetched #6768 head on November 27.
 - **Guest invitations and participant emails:** [`c0757ad323`](https://github.com/cheapreats/ce/commit/c0757ad323cd545e2620946eace66b0234d8920a), the final #7452 head, merged into the #6768 branch on November 27.
 - **Owed/owing widget:** [`d0966b3d61`](https://github.com/cheapreats/ce/commit/d0966b3d61a8d210acdb36c9354d3d705a1b5e28), the fetched #6770 head on November 27.
 
