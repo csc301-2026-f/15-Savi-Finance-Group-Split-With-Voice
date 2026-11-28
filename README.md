@@ -13,8 +13,7 @@ We are extending Savi Finance so people can split shared expenses, understand th
 PR status checked on **November 27, 2026** in Savi's implementation repository:
 
 - **Group and receipt splitting:** [#6761](https://github.com/cheapreats/ce/pull/6761) merged into `main` at commit [`b7f4d45aed`](https://github.com/cheapreats/ce/commit/b7f4d45aed91d4b218377b6f6fe645bd7f0dae07). The original receipt [#6759](https://github.com/cheapreats/ce/pull/6759) and group-transaction [#6760](https://github.com/cheapreats/ce/pull/6760) PRs are closed; their work was combined in #6761.
-- **One-off split backend:** [#6605](https://github.com/cheapreats/ce/pull/6605), [#6606](https://github.com/cheapreats/ce/pull/6606), [#6607](https://github.com/cheapreats/ce/pull/6607), [#6608](https://github.com/cheapreats/ce/pull/6608) and [#6609](https://github.com/cheapreats/ce/pull/6609) merged into `main`.
-- **One-off split mobile flow:** [#6768](https://github.com/cheapreats/ce/pull/6768) remains open against `main` and includes the former editor PR [#6624](https://github.com/cheapreats/ce/pull/6624), which is closed. Own-share spending [#6769](https://github.com/cheapreats/ce/pull/6769) merged into the #6768 branch, not `main`. Guest invitations and participant emails [#7452](https://github.com/cheapreats/ce/pull/7452) remain open against that same branch.
+- **One-off splits:** the backend ([#6605](https://github.com/cheapreats/ce/pull/6605)–[#6609](https://github.com/cheapreats/ce/pull/6609)) and the mobile flow [#6768](https://github.com/cheapreats/ce/pull/6768) merged into `main`; #6768 merged at commit [`e663f4ebbc`](https://github.com/cheapreats/ce/commit/e663f4ebbc6eec9ffa488d8c2a1cc10017edcbd0). #6768 contains the former editor PR [#6624](https://github.com/cheapreats/ce/pull/6624), own-share spending [#6769](https://github.com/cheapreats/ce/pull/6769), and guest invitations and participant emails [#7452](https://github.com/cheapreats/ce/pull/7452).
 - **Owed/owing widget:** [#6770](https://github.com/cheapreats/ce/pull/6770) remains open against `main` and is gated by `mobile_split_balances`.
 
 These are implementation/review statuses, not confirmation that a feature is available in Savi's released app. Current source links below use `main`; removed documents/components are explicitly linked as historical references.
@@ -35,21 +34,22 @@ Start with the [current user workflows](#key-use-cases), [local setup](#developm
 
 **Receipt/group demo (approximately two minutes):** From Overview, add an expense, upload a receipt, check or correct the extracted values, choose a split method and group, assign individual/shared items, review and create the transaction, then show its group History. The [four-item example](#splitting-a-receipt-by-item-praneeth-shahmeer) was exercised with live OCR and a saved $33.28 debt. Test groups and accounts are local fixtures, not prerequisites tied to one developer's laptop.
 
+**One-off demo (approximately two minutes):** From Overview, add a $42 expense, open **Split → Total with Others**, add a participant, enter $12 for the payer and $30 for the participant, then apply and create the transaction. Compare **Wallet** (−$42.00) with **Insights → Spending** ($12.00), then reopen **Edit → Manage split** to change the shares. The [one-off example](#splitting-a-one-off-expense-david-shaun) uses local test accounts.
+
 ### Screenshots and recording
 
 The [merged integration PR #6761](https://github.com/cheapreats/ce/pull/6761) contains screenshots of the receipt flow, participant selection and light/dark saved results, plus the demo recording. Visual evidence stays in Savi's private repository and requires repository access.
 
 **Receipt/group recording — manual entry and saving, 90 seconds (in [#6761](https://github.com/cheapreats/ce/pull/6761)):** Recorded November 25 against the local API. It shows a $35 receipt, two participants and $17.50 each. The recording ends while History loads; the saved-result screenshot shows the completed load. It predates the live four-item OCR verification and is not presented as a recording of that scan.
 
-The current [one-off editor/save PR #6768](https://github.com/cheapreats/ce/pull/6768), [invitation PR #7452](https://github.com/cheapreats/ce/pull/7452) and [widget PR #6770](https://github.com/cheapreats/ce/pull/6770) retain their own feature screenshots and verification. Earlier D2/D3 videos are retained under [Previous deliverables](#previous-deliverables).
+The merged [one-off PR #6768](https://github.com/cheapreats/ce/pull/6768) and [invitation PR #7452](https://github.com/cheapreats/ce/pull/7452), and the open [widget PR #6770](https://github.com/cheapreats/ce/pull/6770), retain their own feature screenshots and verification. Earlier D2/D3 videos are retained under [Previous deliverables](#previous-deliverables).
 
 ### Source checkpoints for review
 
 These immutable references identify the reviewed source independently of later branch updates:
 
 - **Merged group/receipt integration:** [`b7f4d45aed`](https://github.com/cheapreats/ce/commit/b7f4d45aed91d4b218377b6f6fe645bd7f0dae07), via #6761. The local D4 verification used a later `main` base, [`cf82059587`](https://github.com/cheapreats/ce/commit/cf820595874c484475ddd8f95f51ed5af08cf2e3).
-- **One-off mobile flow, including own-share spending:** [`0bb2242179`](https://github.com/cheapreats/ce/commit/0bb22421799fc8be08ab5eb0a1a2b948d8382bec), the fetched #6768 head on November 27.
-- **Guest invitations and participant emails:** [`c0757ad323`](https://github.com/cheapreats/ce/commit/c0757ad323cd545e2620946eace66b0234d8920a), the fetched #7452 head on November 27.
+- **Merged one-off split flow:** [`e663f4ebbc`](https://github.com/cheapreats/ce/commit/e663f4ebbc6eec9ffa488d8c2a1cc10017edcbd0), via #6768, which includes own-share spending #6769 and guest invitations and participant emails #7452. The one-off backend merged earlier through #6605–#6609.
 - **Owed/owing widget:** [`d0966b3d61`](https://github.com/cheapreats/ce/commit/d0966b3d61a8d210acdb36c9354d3d705a1b5e28), the fetched #6770 head on November 27.
 
 The open PR checkpoints are separate review branches, not a claim that all features are in one released build. The local demo also used layout and connection-retry adjustments awaiting a separate implementation commit. The course repository versions the handoff documentation; Savi's repository retains the implementation history.
@@ -58,29 +58,36 @@ The open PR checkpoints are separate review branches, not a claim that all featu
 
 ### Splitting a one-off expense (David, Shaun)
 
-**Why:** split a shared purchase without creating a group, and track your own spending separately from the full payment.
+**Why:** a payer often shares a single purchase, such as a dinner or a taxi, with specific people without creating a group. Savi previously counted the full payment as the payer's own spending; a one-off split records who owes what and counts only the payer's share.
 
-**What it does** (development flow in #6768, with own-share spending from #6769):
+**What it does:**
 
-- Splits a personal expense with eligible Savi users or saved guests using equal shares, amounts or percentages. People search is limited to people connected through a shared household, group or organization.
-- Validates allocations in exact cents. Amount mode offers an explicit adjustment to your share for differences of up to $1; larger differences must be corrected.
-- Saves the split with the transaction; **Manage split** lets the payer change or remove it later.
-- Counts the payer's share in Spending and budget alerts while Wallet keeps the full payment: a $120 expense split equally between two people contributes $60 to the payer's spending.
+- Splits a personal expense with other Savi users or saved guests using **Equal**, **Amount** or **Percentage** allocations. People search only returns profiles that share an account, group or household with the payer.
+- Validates allocations in exact cents. Amount mode offers an explicit adjustment to the payer's share for differences of up to $1; larger differences must be corrected before **Apply** is enabled.
+- Saves the split with the transaction; **Manage split** lets the payer change or remove it later. Only the payer can change a split.
+- Counts the payer's share in Spending and budget alerts while Wallet keeps the full payment: a $42 expense split $12 / $30 shows −$42.00 in Wallet and $12.00 in Spending.
+- Lets the payer invite a saved guest with **Share invite**. The guest opens the link, signs in with the matching verified email and sees only their own share. Links expire after 24 hours, and sharing a new link replaces the old one.
+- Emails participants who are existing Savi users when they are added, their share changes or they are removed. Each email contains the payer's display name and only that person's share.
 
-**How to try it** (use the #6768 development branch and compatible backend, with identity-based split saving enabled):
+**How to try it** (development build and local backend on `main`, with one-off split saving enabled; see [one-off setup](#start-the-one-off-split-development-flow)):
 
 1. Tap **Add transaction → Expense**, enter the name, amount and date, and choose an account owned by your personal profile.
-2. Tap **Split → Total with Others**. Under **Add people**, search for and select another eligible person or saved guest.
-3. Choose **Equal**, **Amount** or **Percentage**. In amount/percentage mode, tap a person's share to edit it; review the resulting allocations.
+2. Tap **Split → Total with Others**. Under **Add people**, search for and select another Savi user or saved guest.
+3. Choose **Equal**, **Amount** or **Percentage**. In amount/percentage mode, tap a person's share to edit it and review the resulting allocations.
 4. Tap **Apply**, then **Create** to save the transaction. Applying alone only updates the draft.
-5. Reopen the transaction through **Edit → Manage split** to change the split. Removing the other participants exposes **Remove split**; save the transaction to confirm the removal.
-6. Compare **Wallet** with **Insights → Spending** to see the full payment versus your share. This requires the own-share spending changes included in the #6768 branch through #6769.
+5. Compare **Wallet** with **Insights → Spending** to see the full payment versus your share.
+6. Reopen the transaction through **Edit → Manage split** to change the split. Removing the other participants exposes **Remove split**; save the transaction to confirm the removal.
+7. To invite a guest, add a guest in the split editor, enter their email if missing, and tap **Share invite**. With participant emails enabled, open Mailpit at `http://localhost:8025` to see the notification sent to a participant.
 
-**Guest invitation extension (#7452):** On that PR's branch, the payer can create a guest and use **Share invite** with an email address. The recipient opens the link, signs in with the matching verified email and claims their shares. Sharing uses the native share sheet; it does not itself send an invitation email. Separate participant notification emails are default-off. This extension is still under review and is not part of the merged backend alone.
+**Limits:**
 
-**Development status:** The mobile editor and saving work are combined in open PR [#6768](https://github.com/cheapreats/ce/pull/6768); own-share spending [#6769](https://github.com/cheapreats/ce/pull/6769) has merged into that branch. The flow remains development-gated. Guest invitations and participant emails are separate work in open PR [#7452](https://github.com/cheapreats/ce/pull/7452). See those PRs for current checks and verification limits; these changes do not transfer money.
+- Saving is limited to development builds pointed at a non-production API. The app blocks Savi's production API hosts, and the backend refuses split saving unless `EXPENSE_SPLITS_ENABLED=true`, so the feature is not yet available in the released app.
+- Only outgoing expenses on the payer's personal accounts can be split. Income, transfers, refunds, recurring transactions and expenses with legacy splits or receipt lines keep Savi's existing flow.
+- Creates with attachments, reminders or recurrence are not supported in this path.
+- Settling up is not built: debts are recorded, but no repayment is recorded or money transferred. Participant emails are off unless `EXPENSE_SPLIT_EMAIL_NOTIFICATIONS_ENABLED=true`, and sharing an invite does not send an email itself.
+- The final head of #6768 recorded a failing `sba-mobile-pr` check; see [CI/CD Pipeline](#cicd-pipeline).
 
-**Screenshots, video and implementation:** [Editor and saving #6768](https://github.com/cheapreats/ce/pull/6768), [own-share spending #6769](https://github.com/cheapreats/ce/pull/6769), [guest invitations and participant emails #7452](https://github.com/cheapreats/ce/pull/7452). The closed [editor preview #6624](https://github.com/cheapreats/ce/pull/6624) is historical evidence.
+**Implementation and evidence:** [Merged mobile flow #6768](https://github.com/cheapreats/ce/pull/6768), including [own-share spending #6769](https://github.com/cheapreats/ce/pull/6769) and [guest invitations and participant emails #7452](https://github.com/cheapreats/ce/pull/7452); merged backend [#6605](https://github.com/cheapreats/ce/pull/6605)–[#6609](https://github.com/cheapreats/ce/pull/6609). These PRs contain the screenshots and recordings. The closed [editor preview #6624](https://github.com/cheapreats/ce/pull/6624) is historical evidence. Backend design notes are in [`sf1/api/expensesplit/DESIGN.md`](https://github.com/cheapreats/ce/blob/main/sf1/api/expensesplit/DESIGN.md).
 
 ### Splitting a receipt by item (Praneeth, Shahmeer)
 
@@ -187,7 +194,7 @@ The team uses **Jira for ticketing and task distribution and Slack for asynchron
 
 This course repository contains the project documentation; the implementation lives in [Savi's private monorepo](https://github.com/cheapreats/ce). Teaching staff have been given access to inspect the implementation PRs and evidence. New contributors need access from Savi before following the [development setup](#development-requirements).
 
-The group/receipt flow can be run locally from `main` with the mobile app and backend on the same revision. Features whose PRs remain open require their corresponding development branches; see [Implementation Status](#implementation-status-d4). Installing the public Savi app alone is not a reliable way to reproduce all submitted features. Historical D1 prototype information is in the [mockup instructions](deliverables/D1/mockup.md).
+The group/receipt and one-off flows can be run locally from `main` with the mobile app and backend on the same revision. Features whose PRs remain open require their corresponding development branches; see [Implementation Status](#implementation-status-d4). Installing the public Savi app alone is not a reliable way to reproduce all submitted features. Historical D1 prototype information is in the [mockup instructions](deliverables/D1/mockup.md).
 
 ### Partner handoff and release responsibility
 
@@ -195,6 +202,14 @@ The group/receipt flow can be run locally from `main` with the mobile app and ba
 - **Documentation:** This README provides feature workflows, dependencies, setup and test instructions, with links to Savi's own developer documentation. The linked PRs retain screenshots, recordings and implementation-specific review notes for future maintainers.
 - **Builds and release:** Savi's maintainers control the existing Expo/EAS build and distribution process and the corresponding backend deployment. Development and production build profiles are defined in [eas.json](https://github.com/cheapreats/ce/blob/main/sba-mobile/eas.json); the [CI/CD section](#cicd-pipeline) links the build workflows. Our handoff uses that existing process rather than transferring a separately hosted product.
 - **Verification:** A merged PR or passing CI is evidence about the code revision. Availability to users also requires the appropriate app build, compatible deployed backend and enabled feature flags. We do not claim a particular public release contains all of our work without verifying that build.
+
+### Points of contact
+
+- **Product and merging:** Savi Finance, partner representative Ralph Maamari. Savi's engineers review and merge all implementation PRs.
+- **One-off splitting:** David, Shaun.
+- **Receipt splitting:** Praneeth, Shahmeer.
+- **Group transaction splitting:** Sumedh, Pranay.
+- **Owed/owing widget:** Sambhav.
 
 ## Development Requirements
 
@@ -210,6 +225,15 @@ The implementation runs from Savi's private monorepo, not this documentation rep
 4. In `sba-mobile/`, run `npm ci`. Install a matching development client using Savi's internal build or build locally with `npm run ios` / `npm run android`. Start Metro with `npx expo start --dev-client --clear`; use `--port 8082` if the default port is occupied. Run one Metro instance for the checkout and connect the client to it.
 5. Sign in using Savi-approved local test accounts. The local seed includes `alextest1@financesavi.com` and `sarahtest2@financesavi.com`; use the local authentication setup, not production credentials. Enable `group_card` if needed, create/join a group and choose a payer-owned account. Another developer's prepared demo group is not automatically present on your machine.
 6. Follow the [receipt workflow](#splitting-a-receipt-by-item-praneeth-shahmeer) or [group transaction workflow](#splitting-a-transaction-with-a-group-sumedh-pranay). Save a synthetic expense and confirm it appears in group History before using the setup for a demo.
+
+### Start the one-off split development flow
+
+Follow steps 1–4 of the group/receipt flow above, then:
+
+1. In the backend's ignored `sf1/api/.env`, set `EXPENSE_SPLITS_ENABLED=true`. To send participant emails, also set `EXPENSE_SPLIT_EMAIL_NOTIFICATIONS_ENABLED=true`; locally these go to Mailpit at `http://localhost:8025`. Restart the API with `make dev-restart-api`.
+2. In `sba-mobile/.env.local`, set `EXPO_PUBLIC_EXPENSE_SPLIT_WRITES=true`, then restart Metro with `npx expo start --dev-client --clear`. Saving works only in a development build pointed at your local API; `make dev-mobile` writes that API configuration.
+3. Sign in with a seeded local test account, such as `alextest1@financesavi.com`, and choose a payer-owned personal account. Use a second test account, such as `sarahtest2@financesavi.com`, as the participant.
+4. Follow the [one-off workflow](#splitting-a-one-off-expense-david-shaun). Create a $42 expense split $12 / $30 and confirm that Wallet shows −$42.00 and Spending shows $12.00 before using the setup for a demo.
 
 ### Live receipt extraction and local test mode
 
@@ -231,6 +255,9 @@ For automated receipt/API tests, use `OPEN_ROUTER_FAKE_MODE=hermetic` and restar
 - **No selectable groups:** the receipt picker requires the signed-in user and another accepted member. Accept the invitation and refresh the group list.
 - **Preserve local data:** `make dev-down` stops the stack while retaining data. `make dev-reset` and `make dev-teardown` remove local data; they are not routine restart commands. Check which checkout owns the services before stopping them.
 - **Where to maintain the feature:** receipt screens/calculations are in `sba-mobile/screens/groups/`, shared controls in `sba-mobile/components/groups/`, draft state in `sba-mobile/redux/slices/receiptSplitSlice.ts`, and save/validation logic in `sf1/api/rpc/handlers/create_group_transaction/`. Add regression coverage alongside the affected component and follow Savi's PR review process.
+- **One-off split will not save** ("Splits can’t be saved here yet"): check that the app is a development build pointed at the local API, `EXPO_PUBLIC_EXPENSE_SPLIT_WRITES=true` is set for Metro, and the API runs with `EXPENSE_SPLITS_ENABLED=true`.
+- **No people in the one-off split editor:** search only returns profiles that share an account, group or household with the payer, plus the payer's saved guests. Join a group with the other test account first.
+- **Where to maintain one-off splits:** the editor, form integration and invitation controls are in `sba-mobile/components/transactions/` (for example `ExpenseSplitEditorSheet.tsx`, `expenseSplitEditor.ts` and `confirmedExpenseSplit.ts`); backend allocation, saving, revisions and emails are in `sf1/api/expensesplit/`, documented in its [README](https://github.com/cheapreats/ce/blob/main/sf1/api/expensesplit/README.md). Guest invitations are described in [`split-guest-invitations.md`](https://github.com/cheapreats/ce/blob/main/sba-mobile/docs/split-guest-invitations.md).
 
 The [historical receipt handoff](https://github.com/cheapreats/ce/blob/a12f185180bfb184d44a41fea79c1eb595d069a6/sba-mobile/screens/groups/RECEIPT_SPLIT_HANDOFF.md) records earlier development decisions; the current workflow and setup are documented here and in Savi's maintained guides.
 
@@ -274,11 +301,15 @@ When we open or update a pull request, GitHub Actions runs checks on the affecte
 
 The [Required Checks workflow](https://github.com/cheapreats/ce/blob/main/.github/workflows/required-checks.yaml) chooses which checks to run, and the [CI PR workflow](https://github.com/cheapreats/ce/blob/main/.github/workflows/ci_pr.yaml) defines the mobile and server checks. Results can be viewed in the [Actions tab](https://github.com/cheapreats/ce/actions) or directly under [Checks on our integration PR](https://github.com/cheapreats/ce/pull/6761/checks). The [CI Main workflow](https://github.com/cheapreats/ce/blob/main/.github/workflows/ci_main.yaml) also runs when relevant changes reach `main`.
 
-Savi controls when changes are merged and released to users. Its [iOS app build](https://github.com/cheapreats/ce/blob/main/.github/workflows/expo_build_ios.yaml) and [development app build](https://github.com/cheapreats/ce/blob/main/.github/workflows/expo_build_mobile_dev.yaml) are started manually through GitHub Actions. They then use Expo's EAS service to build the app, with build settings in [eas.json](https://github.com/cheapreats/ce/blob/main/sba-mobile/eas.json). The EAS configuration includes development/internal and production profiles, but these manually triggered build workflows do not establish automatic deployment to two environments. Savi controls backend deployment and app distribution; no separate team-operated production deployment is claimed.
+Savi controls when changes are merged and released to users. Its [iOS app build](https://github.com/cheapreats/ce/blob/main/.github/workflows/expo_build_ios.yaml) and [development app build](https://github.com/cheapreats/ce/blob/main/.github/workflows/expo_build_mobile_dev.yaml) are started manually through GitHub Actions. They then use Expo's EAS service to build the app, with build settings in [eas.json](https://github.com/cheapreats/ce/blob/main/sba-mobile/eas.json). The EAS configuration includes development/internal and production profiles; mobile builds are started manually by Savi, so app releases are not automatic.
+
+**Deployment:** Savi's production backend (`sf1/api` on Railway) is configured to build and deploy from `main` ([Railway configuration](https://github.com/cheapreats/ce/blob/main/.railway/README.md)), so a merged backend change such as #6761 is deployed without a manual step. Development runs locally through Docker (`make dev-up`); Railway's development environment hosts only databases, so there is no second automatically deployed application environment. Savi controls both deployment and app distribution.
 
 The linked workflows use Savi's self-hosted Azure runners, dependency caches, changed-file filters, concurrency cancellation and explicit job timeouts. Job limits vary by workload, including longer native/backend builds. Savi owns these resource settings; this course repository adds no duplicate application CI or scheduled build jobs.
 
 **Recorded CI evidence:** The merged integration PR's final head [`44a741294c`](https://github.com/cheapreats/ce/commit/44a741294c276766c14b2add0bd0467021a1d5f7) has 10 successful, 7 skipped and 2 failed check runs as inspected on November 27. The failures are the [static-gates job](https://github.com/cheapreats/ce/actions/runs/45752249854/job/139682635833) and its Required Checks aggregate. The PR is merged, but that is not described here as an all-green CI run. Results are specific to their recorded revision.
+
+The merged one-off PR #6768's final head [`ad7a2402d2`](https://github.com/cheapreats/ce/commit/ad7a2402d22ae047e8391800da6912417d33ba1e) has 13 successful, 9 skipped and 2 failed check runs as inspected on November 27. The mobile test job ([sba-mobile-test-pr](https://github.com/cheapreats/ce/actions/runs/46091756207/job/140819105850)), static gates, secret scan, Semgrep and RPC authorization checks passed. The failures are the [sba-mobile-pr job](https://github.com/cheapreats/ce/actions/runs/46091756207/job/140819105936) and its Required Checks aggregate.
 
 **CI context:** This is Savi's shared monorepo, and Savi configures and maintains its CI. Some checks are skipped by design (changed-file filters). Some checks also fail on `main` itself, in code our PRs don't touch; these failures are not caused by our changes, and Savi owns their triage. We report the recorded results as they are and do not claim an all-green run.
 
@@ -299,6 +330,10 @@ Some examples of tests we added are:
 4. Receipt reading keeps the cents in a price and leaves uncertain values for the user to correct ([receipt extraction tests](https://github.com/cheapreats/ce/blob/main/sf1/api/rpc/handlers/get_transaction_info_by_receipt/analysis_test.go)).
 5. Saving a split creates the correct amounts owed by each person, without creating a debt to the payer themselves ([saved-share tests](https://github.com/cheapreats/ce/blob/main/sf1/api/rpc/handlers/create_group_transaction/debt_rows_test.go)).
 6. Retrying a receipt save does not create another payment or duplicate what people owe ([save-flow API test](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/createGroupTransaction-rpc.hermetic.ts)).
+7. One-off allocations in equal, amount and percentage modes add up to the exact total in cents ([allocation tests](https://github.com/cheapreats/ce/blob/main/sf1/api/expensesplit/allocation_test.go), [editor tests](https://github.com/cheapreats/ce/blob/main/sba-mobile/components/transactions/expenseSplitEditor.spec.ts)).
+8. Retrying a one-off split create returns the saved split instead of a duplicate, and an edit made against an older revision is rejected ([create tests](https://github.com/cheapreats/ce/blob/main/sf1/api/expensesplit/create_test.go), [mutation API test](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/expense-split-mutation.hermetic.ts)).
+9. Spending and budget alerts count only the payer's share while the cash payment stays whole ([own-share spending API test](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/expense-split-spending.hermetic.ts)).
+10. Participant emails contain only the recipient's share, and invitations require the matching verified email ([email API test](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/expense-split-email.hermetic.ts), [identity API test](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/expense-split-identity.hermetic.ts)).
 
 **D4 focused verification (November 27): 159 tests passed across eight suites** in the local checkout based on [`cf82059587`](https://github.com/cheapreats/ce/commit/cf820595874c484475ddd8f95f51ed5af08cf2e3). This selection covers receipt allocation/validation, typed assignment, receipt screens, split options, native keychain settings and attachment-link refresh. Run it from `sba-mobile/` after `npm ci`; it does not need a running API or a live OpenRouter key:
 
@@ -333,6 +368,31 @@ npm ci
 npm run test:hermetic:filter -- 'createGroupTransaction|getTransactionInfoByReceipt|uploadFile'
 ```
 
+**One-off split tests.** Mobile, from `sba-mobile/` after `npm ci`:
+
+```sh
+node --max-old-space-size=2048 node_modules/jest/bin/jest.js --runInBand --runTestsByPath \
+  components/transactions/expenseSplitEditor.spec.ts \
+  components/transactions/ExpenseSplitEditorSheet.spec.tsx \
+  components/transactions/confirmedExpenseSplit.spec.ts \
+  components/transactions/GuestSplitInviteControls.spec.tsx \
+  services/confirmedExpenseSplitService.spec.ts \
+  screens/transaction/ClaimSplitInviteScreen.spec.tsx
+```
+
+Backend, from `sf1/` after Savi's Go/Bazel setup:
+
+```sh
+bazel test --jobs=2 //api/expensesplit:expensesplit_test
+```
+
+API tests, with the local services running and the API started with `EXPENSE_SPLITS_ENABLED=true` and `EXPENSE_SPLIT_EMAIL_NOTIFICATIONS_ENABLED=true`. From `smoke-tests/hermetic/`:
+
+```sh
+npm ci
+npm run test:hermetic:filter -- 'expense split'
+```
+
 Savi also provides `make presubmit`, run from the implementation repository root, for its broader set of checks. Our PRs provide current verification details; the [historical handoff document](https://github.com/cheapreats/ce/blob/a12f185180bfb184d44a41fea79c1eb595d069a6/sba-mobile/screens/groups/RECEIPT_SPLIT_HANDOFF.md) records results and limitations from its original development revision.
 
 ### Pull requests and code review
@@ -347,7 +407,7 @@ We keep development keys in local environment files that Git ignores. The OpenRo
 
 ## Non-Functional Requirements
 
-Our receipt/group split work addresses accessibility, readability, secure data handling and reliable saving through the following concrete changes.
+Our receipt/group and one-off split work addresses accessibility, readability, secure data handling and reliable saving through the following concrete changes.
 
 ### Accessibility and readability
 
@@ -355,21 +415,28 @@ Our receipt/group split work addresses accessibility, readability, secure data h
 - **Larger text layouts:** The [receipt editor](https://github.com/cheapreats/ce/blob/main/sba-mobile/screens/groups/ReceiptSplitEditor.tsx) and [split summary](https://github.com/cheapreats/ce/blob/main/sba-mobile/components/groups/SplitSummary.tsx) read the system font scale and switch to stacked layouts at the shared large-text threshold. This gives fields and share amounts more space rather than forcing them into the normal horizontal rows.
 - **Clear visual hierarchy:** The review separates the receipt total, participant names and owed amounts from the item/tax/tip breakdown. Shared theme colors support light and dark presentation, and text such as "Your share" and "owes you" communicates meaning without relying on color alone. Split methods use left-side icons and plain labels; advanced controls are grouped into sheets or the receipt menu.
 - **Actionable feedback:** Invalid amounts have field-specific messages and accessibility hints. For example, negative tax prompts "Enter a non-negative amount with up to two decimal places." Errors clear after correction and use alert roles/polite live updates where configured. The empty editor shows a neutral "No items yet" state; an unsuccessful scan offers retry or manual entry. [Receipt screen tests](https://github.com/cheapreats/ce/blob/main/sba-mobile/screens/groups/CreateReceiptSplitScreen.spec.tsx) cover error hints, correction and empty-state behavior.
+- **One-off split controls:** The split editor labels its search field ("Search people or guests"), each add/remove action with the person's name, and the **Apply split** and **Remove split** actions; sheet titles use header roles. The applied-split control in the amount row is a labelled button that exposes its disabled state, and invitation email errors are announced as alerts. [Editor sheet tests](https://github.com/cheapreats/ce/blob/main/sba-mobile/components/transactions/ExpenseSplitEditorSheet.spec.tsx) cover the editor's controls.
 
 ### Secure data handling and authorization
 
 - **Server-side secrets and protected sessions:** OpenRouter credentials remain in the backend's ignored environment configuration, never in `EXPO_PUBLIC_*` client settings. We reuse Savi's native session storage and [Expo SecureStore keychain options](https://github.com/cheapreats/ce/blob/main/sba-mobile/shared/utils/keychainOptions.ts), including device-only accessibility settings. Existing keychain behavior is covered by the focused test selection below.
 - **Private receipt attachments:** Group-visible receipt snapshots retain an attachment ID rather than copying the payer's full File object or signed download URL. [GroupReceiptSnapshot and response serialization](https://github.com/cheapreats/ce/blob/main/sf1/api/models/group_transaction.go) apply this rule to responses, including older snapshots; [regression tests](https://github.com/cheapreats/ce/blob/main/sf1/api/models/group_transaction_test.go) check that private URL/metadata and internal retry payloads are excluded. The [attachment viewer](https://github.com/cheapreats/ce/blob/main/sba-mobile/components/transactions/attachments/TransactionAttachmentPreview.tsx) reuses Savi's HTTPS preview flow and refreshes stale file links.
 - **Authorization and input validation:** Group saving checks the caller's access, accepted membership and payer-account ownership. The backend independently [validates receipt totals, item identities, quantities and participant allocations](https://github.com/cheapreats/ce/blob/main/sf1/api/rpc/handlers/create_group_transaction/receipt_validation.go), so client-side checks are not the sole protection. User-facing validation messages explain the correction required.
+- **One-off split privacy and authorization:** Only the payer can change a split. People search only returns profiles that share an account, group or household with the payer. Each participant email contains the payer's display name and only that person's share, not the account, total or other participants. Invitation links expire after 24 hours and can be claimed only by the matching verified email; the server never returns a guest's stored address. The app refuses to save splits against Savi's production API hosts ([identity API test](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/expense-split-identity.hermetic.ts), [email API test](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/expense-split-email.hermetic.ts)).
 
 ### Reliability and recoverability
 
 - **Exact money calculations:** Allocation uses integer cents and deterministic rounding, with tests for shared items, proportional tax/tip, discounts and tax-inclusive receipts. The review must reconcile before a split can be confirmed.
 - **Retry-safe writes:** A stable request identity prevents repeated receipt submissions from creating duplicate payments or debts. The [receipt save handler](https://github.com/cheapreats/ce/blob/main/sf1/api/rpc/handlers/create_group_transaction/receipt.go) tracks save progress, while revision checks protect supported group mutations from conflicting updates. The [hermetic save tests](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/createGroupTransaction-rpc.hermetic.ts) exercise persistence and retries.
+- **One-off split reliability:** Amounts are validated in the currency's smallest unit, and currencies are never added together. A create is saved with a stable retry identity and stays queued until the server's readback confirms it, so a retry cannot create a duplicate. Edits carry the split's revision, and saved splits stay protected through delete, restore, refunds and account changes ([create tests](https://github.com/cheapreats/ce/blob/main/sf1/api/expensesplit/create_test.go), [source-guard API test](https://github.com/cheapreats/ce/blob/main/smoke-tests/hermetic/definitions/expense-split-source-guards.hermetic.ts)).
 
 **Evidence:** The [D4 focused test selection](#testing-infrastructure-tools-examples-and-commands) passed **159 tests across eight suites on November 27**, including accessible selection state, receipt-field error correction, split-option controls, keychain configuration and stale attachment handling. The implementation PRs retain simulator screenshots and recordings; the four-item live OCR/save example above supplies end-to-end evidence. The earlier D3 secret scan reported no findings at that development checkpoint.
 
+**One-off evidence:** On #6768's final head, Savi's CI passed the mobile test job, static gates, secret scan, Semgrep and RPC authorization checks (see [CI/CD Pipeline](#cicd-pipeline)). The eight `expense-split-*` API tests cover creation, revisions, source guards, readback, balances, own-share spending, identity claims and emails.
+
 **Quick demonstration:** Enter a negative tax and correct it to show the specific error appearing and clearing. On **Split items**, select a person to show the labelled control's selected state, then review the clearly separated total and individual shares.
+
+**One-off quick demonstration:** In **Amount** mode, enter shares that are $0.50 short of the total to show the "left to assign" message and the disabled **Apply**, then correct them.
 
 ## Coding Standards and Verification
 
