@@ -193,6 +193,7 @@ The group/receipt flow can be run locally from `main` with the mobile app and ba
 ### Points of contact
 
 - **Product and merging:** Savi Finance, partner representative Ralph Maamari. Savi's engineers review and merge all implementation PRs.
+- **One-off splitting:** David, Shaun.
 - **Receipt splitting:** Praneeth, Shahmeer.
 - **Group transaction splitting:** Sumedh, Pranay.
 - **Owed/owing widget:** Sambhav.
