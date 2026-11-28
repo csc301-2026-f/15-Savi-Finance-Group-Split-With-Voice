@@ -21,6 +21,12 @@ These are implementation/review statuses, not confirmation that a feature is ava
 
 **Partner-controlled deployment:** Our project extends Savi Finance's existing mobile app rather than introducing a separate application to host. Savi controls its private repository, hosted backend, app builds and public releases. For course review, we provide implementation PRs, local setup instructions, screenshots and demo recordings. We discussed this approach with our tutorial TA, Rayan, who approved using the linked development work and demo evidence to account for the partner-controlled release process.
 
+### Feature flags and deployment
+
+**Feature flags.** Savi's development policy is that new features ship behind flags that are off by default, so unfinished work can't reach users of the released app. We follow that policy and can't change it. A feature whose flag is off looks missing or won't save; that is expected, not a bug. The flags each feature needs are listed in its "How to try it" steps: `group_card` and `voice_input_mobile` (receipt and group splits), `mobile_split_balances` (widget), and for one-off splits a development build, `EXPO_PUBLIC_EXPENSE_SPLIT_WRITES` and the backend's `EXPENSE_SPLITS_ENABLED`. App flags are turned on under **Account → Diagnostics → Feature Flags**.
+
+**Deployment is controlled by Savi.** We can get changes merged into Savi's repository through the normal PR review, but we don't operate or control deployment. Savi's maintainers run the backend deployment (its configuration tracks `main`, so a merge may deploy automatically), the Expo/EAS app builds, and public releases. We have no separate environments of our own to deploy to. This is why the feature flags above matter: a merged change is not necessarily live for users.
+
 ## D4 Review Guide and Evidence
 
 Start with the [current user workflows](#key-use-cases), [local setup](#development-requirements), [automated verification](#testing-infrastructure-tools-examples-and-commands) and [NFR evidence](#non-functional-requirements). Savi repository access is required for the implementation and PR evidence.
@@ -283,6 +289,8 @@ Savi controls when changes are merged and released to users. Its [iOS app build]
 The linked workflows use Savi's self-hosted Azure runners, dependency caches, changed-file filters, concurrency cancellation and explicit job timeouts. Job limits vary by workload, including longer native/backend builds. Savi owns these resource settings; this course repository adds no duplicate application CI or scheduled build jobs.
 
 **Recorded CI evidence:** The merged integration PR's final head [`44a741294c`](https://github.com/cheapreats/ce/commit/44a741294c276766c14b2add0bd0467021a1d5f7) has 10 successful, 7 skipped and 2 failed check runs as inspected on November 27. The failures are the [static-gates job](https://github.com/cheapreats/ce/actions/runs/45752249854/job/139682635833) and its Required Checks aggregate. The PR is merged, but that is not described here as an all-green CI run. Results are specific to their recorded revision.
+
+**CI context:** This is Savi's shared monorepo, and Savi configures and maintains its CI. Some checks are skipped by design (changed-file filters). Some checks also fail on `main` itself, in code our PRs don't touch; these failures are not caused by our changes, and Savi owns their triage. We report the recorded results as they are and do not claim an all-green run.
 
 ### Testing Infrastructure: Tools, examples and commands
 
