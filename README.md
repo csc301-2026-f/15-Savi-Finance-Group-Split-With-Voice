@@ -69,9 +69,9 @@ The open PR checkpoints are separate review branches, not a claim that all featu
 6. Tap **Review split**, check the total and individual shares, then **Use split in transaction**. This returns to the transaction draft; it has not saved yet.
 7. Confirm the transaction name, currency and payer-owned funding account, then tap **Create**. Open the group's **History** for the saved receipt and individual debts, or **Summary** for outstanding balances.
 
-**Example:** Live photo-library upload and OpenRouter extraction were exercised in the iOS simulator with a synthetic four-item receipt: Burger $18, Pasta $16, Nachos $12 and Drinks $8, plus $7.02 tax and $8.10 tip, totaling **$69.12**. Assigning the burger to the payer, pasta to the other person and sharing nachos/drinks produces **$35.84** for the payer and **$33.28** owed by the other person. The saved receipt and debt were verified in group History. This is local test data, not a real purchase or a production-release verification.
+**Verified D4 example:** Live photo-library upload and OpenRouter extraction were exercised in the iOS simulator with a synthetic four-item receipt: Burger $18, Pasta $16, Nachos $12 and Drinks $8, plus $7.02 tax and $8.10 tip, totaling **$69.12**. Assigning the burger to the payer, pasta to the other person and sharing nachos/drinks produces **$35.84** for the payer and **$33.28** owed by the other person. The saved receipt and debt were verified in group History. This is local test data, not a real purchase or a production-release verification.
 
-**Limits:**
+**Limits and recovery:**
 
 - Live extraction requires a valid backend OpenRouter key and provider access. The configured route is `openai/gpt-6-luna` through `azure/us`. A failed scan can be retried or continued through manual entry; OCR output must still be checked. The synthetic demo does not establish accuracy across all real receipt photos or verify physical camera capture.
 - Voice assignment requires the mobile voice feature to be enabled and microphone/speech access. Real-device microphone behavior remains unverified. Typed assignment uses the on-device parser and needs no live model call; unmatched instructions require correction. Ask Savi is a separate online service.
@@ -86,12 +86,12 @@ The open PR checkpoints are separate review branches, not a claim that all featu
 
 **What it does:**
 
-- Creating a group expense saves a debt record for each non-payer participant with a positive amount owed. The payer's own share is what is left of the total, and shares can add up to less than the total but never more.
-- Sending the same create request twice, such as a retry after an uncertain submission, returns the existing expense instead of creating a duplicate.
-- The caller must have an editing role in the group, and each participant must be an accepted member. Only the payer needs a funding account; if another participant's account is supplied, its ownership is checked.
-- Deleting an expense also deletes its shares, and editing the total can't go below what is already assigned to people.
-- Getting or listing group expenses returns who owes what, which is what the History and Summary screens read.
-- Each expense has a version number. An edit or delete can send the version it last saw, and if someone changed the expense in the meantime, it is refused with "changed by someone else" and nothing is overwritten.
+* Creating a group expense saves a debt record for each non-payer participant with a positive amount owed. The payer's own share is what is left of the total (a $12 expense shared by the payer and one member saves a single $6 debt, and no debt to oneself), and shares can add up to less than the total but never more.
+* Sending the same create request twice, such as a retry after an uncertain submission, returns the existing expense instead of creating a duplicate.
+* The caller must have an editing role in the group, and each participant must be an accepted member. Only the payer needs a funding account; if another participant's account is supplied, its ownership is checked.
+* Deleting an expense also deletes its shares, and editing the total can't go below what is already assigned to people.
+* Getting or listing group expenses returns who owes what, which is what the History and Summary screens read.
+* Each expense has a version number. An edit or delete can send the version it last saw, and if someone changed the expense in the meantime, it is refused with "changed by someone else" and nothing is overwritten.
 
 **How to try it** (development app and backend containing merged PR #6761, with `group_card` enabled):
 
@@ -102,15 +102,22 @@ The open PR checkpoints are separate review branches, not a claim that all featu
 5. Tap **Create**. Open **History** to see the saved expense and individual debts, or **Summary** for outstanding balances. These are saved on the server and remain after reopening the app.
 6. Once a person has repaid you outside Savi, the payer can use **Mark [person] settled** in Summary and confirm it. This records settlement of that person's full share; it does not send money.
 
-**Example:** A $12 expense shared by the payer and one member saves a single $6 debt owed to the payer. No debt is recorded for the payer's own share.
-
-**Limits:**
-
-- Full-share settlement marking is available to the payer. Partial-repayment entry and settlement reversal are not exposed in this group screen.
-- General mobile editing/deletion of group expenses and attaching existing transactions are not demonstrated as complete; backend update/delete and revision checks do not by themselves provide those user workflows.
-- Automatic personal-budget attribution for group debts and post-save notifications remain outside the verified flow.
+**Limits:** Full-share settlement marking is available to the payer. Partial-repayment entry and settlement reversal are not exposed in this group screen. General mobile editing/deletion of group expenses and attaching existing transactions are not demonstrated as complete; backend update/delete and revision checks do not by themselves provide those user workflows. Automatic personal-budget attribution for group debts and post-save notifications also remain outside the verified flow.
 
 **Implementation and evidence:** [Merged integration #6761](https://github.com/cheapreats/ce/pull/6761); [original group transaction PR #6760](https://github.com/cheapreats/ce/pull/6760) retains earlier screenshots and verification.
+
+### Group split integration (Praneeth, Shahmeer, Sumedh, Pranay)
+
+The four-person group split team combined the receipt and transaction-splitting pairs' work in [#6761](https://github.com/cheapreats/ce/pull/6761), which is now merged into **`main`**. The original PRs and commits remain linked as contribution evidence.
+
+**What was integrated and how it works:**
+
+- Both flows use the same group members, shared expense storage, debt records and History/Summary screens. Transaction splitting produces shares from a total; receipt splitting produces shares from item assignments and proportional tax/tip.
+- Receipt review passes the confirmed allocation back to Create/Edit Transaction. Create/Save then calls the shared group-saving API, creates or links one full personal payment, and records debts for the other participants. Receipt items, quantities, discounts and assignments are retained with the group expense.
+- Repeating an unchanged receipt save reuses its request identity to avoid duplicate payments and debts. Backend retry recovery is separate from the user-facing History screen; a general History action for reopening or editing a saved receipt is not claimed.
+- The verified local example is a $35 receipt split between two people: one $35 personal payment, a $17.50 payer share and a $17.50 debt shown in group History/Summary. This records obligations; it does not transfer money.
+
+**Integration PR and verification:** [Savi PR #6761](https://github.com/cheapreats/ce/pull/6761). Merged into `main` on November 25, 2026 (Toronto time), at [`b7f4d45aed`](https://github.com/cheapreats/ce/commit/b7f4d45aed91d4b218377b6f6fe645bd7f0dae07). The earlier D2 checkpoint remains linked below as historical evidence; further changes can be reviewed in separate PRs.
 
 ### Owes / Owed Widget (Sambhav)
 
@@ -132,12 +139,9 @@ The open PR checkpoints are separate review branches, not a claim that all featu
 4. Tap **Resolve** next to a person: the total drops and they move to **Resolved**.
 5. Tap **Undo** in the Resolved list to bring the balance back.
 
-**Limits:**
+**Limits:** Resolve/Undo does not transfer money or synchronize settlement across devices. The widget shows the selected currency's total and lists other currencies separately rather than adding unlike currencies together.
 
-- Resolve/Undo does not transfer money or synchronize settlement across devices.
-- The widget shows the selected currency's total and lists other currencies separately rather than adding unlike currencies together.
-
-**Implementation and evidence:** [Savi pull request #6770](https://github.com/cheapreats/ce/pull/6770) (open; this widget requires the PR branch and feature flag).
+**Implementation and screenshots:** [Savi pull request #6770](https://github.com/cheapreats/ce/pull/6770) (open; this widget requires the PR branch and feature flag).
 
 ## Architecture and Design
 
@@ -441,8 +445,8 @@ Earlier submissions and recordings are retained for contribution and product-evo
 
 - Official CSC301 group number: **15**. Team name in the tutorial schedule: **Team 12**.
 - Tutorial: **Thursdays, 7:00-7:30pm Toronto time**, with mentor TA **Rayan El Ghazzi**. [Tutorial schedule](https://q.utoronto.ca/courses/441425/pages/tutorial-schedule).
-- Recurring partner meeting: **Wednesdays, 6:00-6:20pm Toronto time**, online.
-- [Course syllabus](https://q.utoronto.ca/courses/441425/assignments/syllabus).
+- Recurring partner meeting: **Wednesdays, 6:00-6:20pm Toronto time**, on [Google Meet](https://meet.google.com/ogv-qkay-sxa), organized by **ralphpalxyz@gmail.com**.
+- Mentor TA contact: **rayan.el.ghazzi@mail.utoronto.ca**. [Course syllabus](https://q.utoronto.ca/courses/441425/assignments/syllabus).
 
 </details>
 
