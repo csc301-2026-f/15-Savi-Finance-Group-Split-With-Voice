@@ -13,6 +13,8 @@ We are extending Savi Finance so people can split shared expenses, understand th
 PR status checked on **November 27, 2026** in Savi's implementation repository:
 
 - **Group and receipt splitting:** [#6761](https://github.com/cheapreats/ce/pull/6761) merged into `main` at commit [`b7f4d45aed`](https://github.com/cheapreats/ce/commit/b7f4d45aed91d4b218377b6f6fe645bd7f0dae07). The original receipt [#6759](https://github.com/cheapreats/ce/pull/6759) and group-transaction [#6760](https://github.com/cheapreats/ce/pull/6760) PRs are closed; their work was combined in #6761.
+- **One-off split backend:** [#6605](https://github.com/cheapreats/ce/pull/6605), [#6606](https://github.com/cheapreats/ce/pull/6606), [#6607](https://github.com/cheapreats/ce/pull/6607), [#6608](https://github.com/cheapreats/ce/pull/6608) and [#6609](https://github.com/cheapreats/ce/pull/6609) merged into `main`.
+- **One-off split mobile flow:** [#6768](https://github.com/cheapreats/ce/pull/6768) remains open against `main` and includes the former editor PR [#6624](https://github.com/cheapreats/ce/pull/6624), which is closed. Own-share spending [#6769](https://github.com/cheapreats/ce/pull/6769) merged into the #6768 branch, not `main`. Guest invitations and participant emails [#7452](https://github.com/cheapreats/ce/pull/7452) also merged into the #6768 branch on November 27, so #6768 now carries the full one-off mobile flow.
 - **Owed/owing widget:** [#6770](https://github.com/cheapreats/ce/pull/6770) remains open against `main` and is gated by `mobile_split_balances`.
 
 These are implementation/review statuses, not confirmation that a feature is available in Savi's released app. Current source links below use `main`; removed documents/components are explicitly linked as historical references.
@@ -33,18 +35,46 @@ The [merged integration PR #6761](https://github.com/cheapreats/ce/pull/6761) co
 
 **Receipt/group recording — manual entry and saving, 90 seconds (in [#6761](https://github.com/cheapreats/ce/pull/6761)):** Recorded November 25 against the local API. It shows a $35 receipt, two participants and $17.50 each. The recording ends while History loads; the saved-result screenshot shows the completed load. It predates the live four-item OCR verification and is not presented as a recording of that scan.
 
-The open [widget PR #6770](https://github.com/cheapreats/ce/pull/6770) retains its own feature screenshots and verification. Earlier D2/D3 videos are retained under [Previous deliverables](#previous-deliverables).
+The current [one-off editor/save PR #6768](https://github.com/cheapreats/ce/pull/6768), [invitation PR #7452](https://github.com/cheapreats/ce/pull/7452) and [widget PR #6770](https://github.com/cheapreats/ce/pull/6770) retain their own feature screenshots and verification. Earlier D2/D3 videos are retained under [Previous deliverables](#previous-deliverables).
 
 ### Source checkpoints for review
 
 These immutable references identify the reviewed source independently of later branch updates:
 
 - **Merged group/receipt integration:** [`b7f4d45aed`](https://github.com/cheapreats/ce/commit/b7f4d45aed91d4b218377b6f6fe645bd7f0dae07), via #6761. The local D4 verification used a later `main` base, [`cf82059587`](https://github.com/cheapreats/ce/commit/cf820595874c484475ddd8f95f51ed5af08cf2e3).
+- **One-off mobile flow, including own-share spending, guest invitations and participant emails:** [`544a41be85`](https://github.com/cheapreats/ce/commit/544a41be859bb087c2b5b8047b852a43385c0510), the fetched #6768 head on November 27.
+- **Guest invitations and participant emails:** [`c0757ad323`](https://github.com/cheapreats/ce/commit/c0757ad323cd545e2620946eace66b0234d8920a), the final #7452 head, merged into the #6768 branch on November 27.
 - **Owed/owing widget:** [`d0966b3d61`](https://github.com/cheapreats/ce/commit/d0966b3d61a8d210acdb36c9354d3d705a1b5e28), the fetched #6770 head on November 27.
 
 The open PR checkpoints are separate review branches, not a claim that all features are in one released build. The local demo also used layout and connection-retry adjustments awaiting a separate implementation commit. The course repository versions the handoff documentation; Savi's repository retains the implementation history.
 
 ## Key Use Cases
+
+### Splitting a one-off expense (David, Shaun)
+
+**Why:** split a shared purchase without creating a group, and track your own spending separately from the full payment.
+
+**What it does** (development flow in #6768, with own-share spending from #6769):
+
+- Splits a personal expense with eligible Savi users or saved guests using equal shares, amounts or percentages. People search is limited to people connected through a shared household, group or organization.
+- Validates allocations in exact cents. Amount mode offers an explicit adjustment to your share for differences of up to $1; larger differences must be corrected.
+- Saves the split with the transaction; **Manage split** lets the payer change or remove it later.
+- Counts the payer's share in Spending and budget alerts while Wallet keeps the full payment: a $120 expense split equally between two people contributes $60 to the payer's spending.
+
+**How to try it** (use the #6768 development branch and compatible backend, with identity-based split saving enabled):
+
+1. Tap **Add transaction → Expense**, enter the name, amount and date, and choose an account owned by your personal profile.
+2. Tap **Split → Total with Others**. Under **Add people**, search for and select another eligible person or saved guest.
+3. Choose **Equal**, **Amount** or **Percentage**. In amount/percentage mode, tap a person's share to edit it; review the resulting allocations.
+4. Tap **Apply**, then **Create** to save the transaction. Applying alone only updates the draft.
+5. Reopen the transaction through **Edit → Manage split** to change the split. Removing the other participants exposes **Remove split**; save the transaction to confirm the removal.
+6. Compare **Wallet** with **Insights → Spending** to see the full payment versus your share. This requires the own-share spending changes included in the #6768 branch through #6769.
+
+**Guest invitation extension (#7452):** On the #6768 branch, the payer can create a guest and use **Share invite** with an email address. The recipient opens the link, signs in with the matching verified email and claims their shares. Sharing uses the native share sheet; it does not itself send an invitation email. Separate participant notification emails are default-off. This extension merged into the #6768 branch on November 27 and is not in `main` until #6768 merges.
+
+**Development status:** The mobile editor and saving work are combined in open PR [#6768](https://github.com/cheapreats/ce/pull/6768); own-share spending [#6769](https://github.com/cheapreats/ce/pull/6769) has merged into that branch. The flow remains development-gated. Guest invitations and participant emails [#7452](https://github.com/cheapreats/ce/pull/7452) have also merged into that branch. See those PRs for current checks and verification limits; these changes do not transfer money.
+
+**Screenshots, video and implementation:** [Editor and saving #6768](https://github.com/cheapreats/ce/pull/6768), [own-share spending #6769](https://github.com/cheapreats/ce/pull/6769), [guest invitations and participant emails #7452](https://github.com/cheapreats/ce/pull/7452). The closed [editor preview #6624](https://github.com/cheapreats/ce/pull/6624) is historical evidence.
 
 ### Splitting a receipt by item (Praneeth, Shahmeer)
 
