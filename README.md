@@ -173,48 +173,6 @@ The four-person group split team combined the receipt and transaction-splitting 
 
 **Implementation and screenshots:** [Savi pull request #6770](https://github.com/cheapreats/ce/pull/6770) (open; this widget requires the PR branch and feature flag).
 
-## Architecture and Design
-
-The shipped group and receipt splitting work ([#6761](https://github.com/cheapreats/ce/pull/6761), merged into `main`) extends Savi's existing stack rather than adding a new service: a **React Native/Expo** mobile app (TypeScript, Redux), a **Go** API built with **Bazel**, **MongoDB**, and **S3/MinIO** for receipt images. Receipt reading uses **OpenRouter** from the backend only.
-
-```mermaid
-flowchart LR
-  subgraph App["Mobile app (sba-mobile)"]
-    Capture["Receipt capture and editor"]
-    Options["Split options sheet"]
-    Assign["Participants, item assignment and review"]
-    Form["Create / Edit Transaction"]
-  end
-  subgraph API["sf1/api (Go)"]
-    Extract["getTransactionInfoByReceipt"]
-    Create["createGroupTransaction"]
-    Read["list / getGroupTransaction"]
-    Mutate["update / deleteGroupTransaction"]
-  end
-  AI["OpenRouter receipt extraction"]
-  Files[("S3 / MinIO<br/>receipt images")]
-  DB[("MongoDB<br/>payment, group expense, debts")]
-
-  Capture --> Extract --> AI
-  Capture --> Files
-  Capture --> Options --> Assign --> Form
-  Form -- "save" --> Create --> DB
-  Read -- "History / Summary" --> DB
-  Mutate --> DB
-```
-
-**How a save works:** the receipt and group transaction flows both produce one share per person, so they share a single save path. Receipt review returns the confirmed allocation to Create/Edit Transaction; **Create** calls `createGroupTransaction`, which records one full personal payment for the payer and a debt for each other participant. Receipt items, quantities, discounts and assignments are kept with the group expense, and History and Summary read the result through `listGroupTransactions` and `getGroupTransaction`.
-
-**Design decisions:**
-
-- **One save path for both flows.** Item assignments and total-based splits are converted to the same per-person shares before saving, so History, Summary and debt records use a single data model.
-- **Staged, retry-safe receipt saves.** A receipt save moves through `PAYMENT_PENDING → DEBTS_PENDING → COMPLETE` and reuses its request identity, so a repeated or interrupted save does not create duplicate payments or debts.
-- **The server re-validates everything.** The app calculates shares in integer cents so users see exact amounts, but the backend independently checks receipt totals, item identities, quantities, allocations, group membership and payer-account ownership.
-- **Edits cannot silently overwrite each other.** Each group expense carries a revision; an update or delete sent with an older `expectedRevision` is rejected as changed by someone else.
-- **Receipts stay private.** The group-visible receipt snapshot stores an attachment ID rather than the payer's file object or signed download URL, and the OpenRouter key never leaves the backend.
-
-The full RPC contracts are documented in Savi's generated [API reference](https://github.com/cheapreats/ce/blob/main/sf1/api/API_DOC.md).
-
 ## Task Management
 
 The team uses **Jira for ticketing and task distribution and Slack for asynchronous communication**, through Savi Finance's internal platforms.
